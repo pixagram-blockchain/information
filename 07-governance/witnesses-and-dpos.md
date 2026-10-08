@@ -55,13 +55,13 @@ Your vote counts in proportion to your matured stake. You can change it at any t
 
 ## Becoming a witness
 
-A witness runs a block-producing node, registers it on chain, publishes a price feed every hour, and asks stakeholders for votes. [Become a Witness](../10-node-operators/become-a-witness.md) explains what a witness commits to and how to get the operator's guide.
+A witness runs a block-producing node, registers it on chain with its block-signing key, publishes a price feed every hour, and asks stakeholders for votes. [Become a Witness](../10-node-operators/become-a-witness.md) gives the steps; pixa.org's [node operator guide](https://pixa.org/witness.html) covers the same ground for a witness and an API node together.
 
 ## Inherited → changed
 
 | | Steem / Hive | Pixa |
 |---|---|---|
-| Slots per round | 21 | 21; 9 scheduled on 2026-10-05 |
+| Slots per round | 21: 20 elected and 1 timeshared | same; 9 scheduled on 2026-10-05 |
 | Witness votes per account | 30 | 30 |
 | Witness share of issuance | Hive: 10% | 15% |
 | What the feed states | HIVE per HBD, one US dollar | PIXA per PXS, one Big Mac |

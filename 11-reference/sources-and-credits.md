@@ -34,6 +34,7 @@ Each page cites its sources where it uses them. This page gathers them in one re
 | PXS design notes | Pixagram, June 2026; not published | The design of PXS, cited by section |
 | WebP specifications | [Container](https://developers.google.com/speed/webp/docs/riff_container) and [lossless bitstream](https://developers.google.com/speed/webp/docs/webp_lossless_bitstream_specification), Google | The artwork format |
 | Hive developer portal | [developers.hive.io](https://developers.hive.io/) | The API that Pixa shares with Hive |
+| pixa.org node operator guide | [Run a Pixagram node](https://pixa.org/witness.html), version 1.0, 2026-09-05 | Setting up a witness and an API node |
 | Docker documentation | [Merge Compose files](https://docs.docker.com/reference/compose-file/merge/) | Running an API node |
 
 ## Data

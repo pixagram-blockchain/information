@@ -190,7 +190,7 @@ The Pixagram app is built from these packages, published under the `@pixagram` s
 |---|---|---|
 | `cli_wallet` | Generates keys offline; signs and broadcasts through a node that serves `wallet_bridge_api` | Inside `pixadock/pixagram:1.29.0`; [CLI Wallet](../10-node-operators/cli-wallet.md) |
 | `witness-status` | The [witness status page](https://pixagram.com/witness-status/), and a command-line check: `npx github:pixagram-blockchain/witness-status#a376149 --check` exits 0 (healthy), 1 (warning), 2 (critical) or 3 (could not fetch) | [github.com/pixagram-blockchain/witness-status](https://github.com/pixagram-blockchain/witness-status) |
-| Price feeds | `bigmac-feed` and its successor, the agnostic feed | [Oracle and Price Feed](../05-pixa-supra/oracle-and-price-feed.md#the-agnostic-feed) |
+| Price feeds | `bigmac-feed` and its successor, the agnostic feed | [Become a Witness](../10-node-operators/become-a-witness.md#5-publish-the-price-feed) |
 | Docker images | `pixadock/pixagram`, `pixadock/pixagram-haf`, `pixadock/hivemind`, `pixadock/bigmac-feed`, for `linux/amd64` | [Run a Node](../10-node-operators/run-a-node.md) |
 
 ## Sources

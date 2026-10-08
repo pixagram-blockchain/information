@@ -59,7 +59,7 @@ Expected output (your values differ):
 }
 ```
 
-The private key in WIF form starts with `5`; the public key starts with `PIX`. The 16 words recreate both.
+The private key in WIF form starts with `5`; the public key starts with `PIX`. The 16 words recreate both. A witness uses such a pair as its block-signing key ([Become a Witness](become-a-witness.md#1-create-a-signing-key)).
 
 ## Derive keys from a password
 

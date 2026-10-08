@@ -57,7 +57,7 @@ sudo apt-get update && sudo apt-get install -y chrony
 sudo systemctl enable --now chrony
 ```
 
-For a witness the clock matters more, because each block slot lasts only 3 seconds ([Become a Witness](become-a-witness.md)).
+For a witness the clock matters more; [Become a Witness](become-a-witness.md#check-the-clock-to-the-millisecond) shows how to measure it.
 
 **3. Open port 2001/tcp** for peer-to-peer traffic, in your provider's firewall and in the server's own. The node also connects out to its seed, `api.pixagram.com:2001`.
 
@@ -189,7 +189,7 @@ docker compose up -d pixagram
 
 The one-off container rebuilds the state and exits; the last line starts the node normally. For hardfork 29 the replay took about 20 seconds.
 
-**If `git pull` stops with `Aborting`,** you have changed a file that the update also changes, usually `config.ini`, and nothing was updated. Do not continue with the old tag: reconcile your local change with the update, keeping any secret out of the repository, then run the commands again.
+**If `git pull` stops with `Aborting`,** you have changed a file that the update also changes, usually `config.ini`, and nothing was updated. Do not continue with the old tag: take the change as described in [Become a Witness](become-a-witness.md#2-set-up-the-node), then run the commands again.
 
 **Upgrade before a hardfork activates.** After activation, a node on an older version can no longer follow the chain ([Protocol Upgrades](../07-governance/protocol-upgrades.md#how-a-hardfork-activates)).
 
@@ -202,6 +202,7 @@ The one-off container rebuilds the state and exits; the last line starts the nod
 | `Inconsistency occurs. A new index is created …` | A plugin was added and the old state file kept | Delete `shared_memory.bin`, then replay |
 | `Blockchain config from shared memory file mismatch current version of app.` | The image changed version | The [forced replay](#upgrade-to-a-new-hived-version) |
 | No *Syncing* lines, head block stuck at 0 | The node cannot reach a peer | Check that `p2p-seed-node = api.pixagram.com:2001` is in `config.ini` and that outbound port 2001 is open |
+| `unable to parse private key` | A `private-key =` line is present but empty | Fill it in, or comment it out ([Become a Witness](become-a-witness.md#2-set-up-the-node)) |
 | Disk almost full | The chain or the logs grew | Resize the volume. Never delete the block log. |
 
 ## Sources

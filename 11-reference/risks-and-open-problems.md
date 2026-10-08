@@ -56,7 +56,7 @@ PXS promises no price: nothing defends it, and no one owes its holder anything. 
 | Problem | Why it is open | Where it is discussed |
 |---|---|---|
 | Leaving the placeholder | Whether and when witnesses switch to market prices, and how the network absorbs the jump in every ratio, is not decided | [Oracle and Price Feed](../05-pixa-supra/oracle-and-price-feed.md#the-placeholder) |
-| Independent feeds | The agnostic feed lets each witness report its own local price from its own markets; no witness runs it yet | [Oracle and Price Feed](../05-pixa-supra/oracle-and-price-feed.md#the-agnostic-feed) |
+| Independent feeds | The agnostic feed lets each witness report its own local price from its own markets; no witness runs it yet | [Become a Witness](../10-node-operators/become-a-witness.md#5-publish-the-price-feed) |
 | A basket beyond the Big Mac | The design notes name a coffee as well; nothing reads it, and nothing says who would decide | [Oracle and Price Feed](../05-pixa-supra/oracle-and-price-feed.md#the-agnostic-feed) |
 | Design and chain thresholds | Either a hardfork brings the corridor into the code, or the design adopts the chain's thresholds | [Haircut, Corridor and Settlement](../05-pixa-supra/haircut-corridor-and-settlement.md#corridor-and-thresholds-design-and-chain) |
 | The treasury and the debt ratio | How PXS paid out by the fund should be planned against the print stop and the haircut | [Haircut, Corridor and Settlement](../05-pixa-supra/haircut-corridor-and-settlement.md#where-the-network-stands) |

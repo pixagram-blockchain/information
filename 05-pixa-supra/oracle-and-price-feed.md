@@ -51,7 +51,7 @@ PIXA does not trade on any market. A feed needs a price for PIXA, so every witne
 
 - **On 2026-10-06, all 84 samples were 51.833.** The median, the lowest and the highest sample were equal (`condenser_api.get_feed_history`).
 - **The Oracle carries no market information today.** The collateral ratio, the print rate and the haircut are computed from the placeholder, not from what PIXA would fetch.
-- **Two feed programs exist.** `bigmac-feed` v1.0.3, which the witnesses run today, always divides by the placeholder. The agnostic feed reads a market price for PIXA and uses a placeholder only when its operator sets one. Without a market and without that setting, it publishes nothing, and the chain keeps the witness's previous feed for up to 7 days ([the agnostic feed](#the-agnostic-feed)).
+- **Two feed programs exist.** `bigmac-feed` v1.0.3, which the witnesses run today, always divides by the placeholder. The agnostic feed reads a market price for PIXA and uses a placeholder only when its operator sets one. Without a market and without that setting, it publishes nothing, and the chain keeps the witness's previous feed for up to 7 days ([Become a Witness](../10-node-operators/become-a-witness.md#5-publish-the-price-feed)).
 
 ## What it has read since genesis
 

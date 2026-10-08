@@ -32,7 +32,7 @@ flowchart LR
 | **Hivemind** | The social indexer. It reads HAF's database and answers `bridge.*`, `follow_api.*`, `tags_api.*` and some `condenser_api.*` calls: feeds, follows, communities, notifications. | No |
 | **Jussi** | The gateway in front of both. It sends each call to hived or Hivemind and renames Hive's field names to Pixa's ([Differences from Hive](differences-from-hive.md#the-public-api)). | No |
 | **Caddy** | Terminates TLS, obtains certificates and compresses responses. | No |
-| **Price feed** | A program each witness runs to publish the PIXA price of one Big Mac every hour ([Oracle and Price Feed](../05-pixa-supra/oracle-and-price-feed.md#the-agnostic-feed)). | Its output is input to consensus; the program is not |
+| **Price feed** | A program each witness runs to publish the PIXA price of one Big Mac every hour ([Become a Witness](../10-node-operators/become-a-witness.md#5-publish-the-price-feed)). | Its output is input to consensus; the program is not |
 | **Clients** | The Pixagram app and any other program. They sign transactions locally and send them over HTTPS. | No |
 
 Six public API nodes run this stack on 2026-10-05: `api.pixagram.com`, `pixarex.net`, `merlion.surf`, `blockforge.lol`, `boitata.quest` and `pixa-dubai.xyz`. They serve the same chain and answer identically.

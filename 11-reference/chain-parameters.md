@@ -56,7 +56,7 @@ The Pixa code is cited at commit [`48f75a2`][pixa-commit] of `pixagram-blockchai
 | Parameter | Hive 1.28.7 | Pixa 1.29.0 | Kind | Source |
 |---|---|---|---|---|
 | Block interval | 3 s | 3 s | Consensus | [config.hpp:59][cfg-59] |
-| Witness slots per round | 21 | 21 | Consensus | [config.hpp:65][cfg-65], [230-232][cfg-230] |
+| Witness slots per round | 21 (20 elected + 1 timeshare) | same | Consensus | [config.hpp:65][cfg-65], [230-232][cfg-230] |
 | Witnesses scheduled | 21 | 9 on 2026-10-05 | State | `get_witness_schedule` |
 | Witnesses to run the chain | — | up to 21 elected, 1 required | Consensus | [config.hpp:65][cfg-65] |
 | Irreversibility | a supermajority of scheduled witnesses | same | Consensus | [config.hpp:407][cfg-407] |
@@ -205,7 +205,7 @@ PXS promises no price. It has no peg, cannot be redeemed for money and pays no i
 | Conversion PIXA → PXS | 200% collateral, 5% fee, 3.5 days | same ⁷ | Consensus | [config.hpp:201-202][cfg-201] |
 | Savings withdrawal | 3 days | 3 days | Consensus | [config.hpp:204][cfg-204] |
 
-1. With the agnostic feed, each witness enters the price of a Big Mac where it operates. On 2026-10-05 every witness published 51.833, the value `bigmac-feed` v1.0.3 computes from the US price ([Oracle and Price Feed](../05-pixa-supra/oracle-and-price-feed.md#the-agnostic-feed)). The feed software is not part of consensus.
+1. With the agnostic feed, each witness enters the price of a Big Mac where it operates. On 2026-10-05 every witness published 51.833, the value `bigmac-feed` v1.0.3 computes from the US price ([Become a Witness](../10-node-operators/become-a-witness.md#5-publish-the-price-feed)). The feed software is not part of consensus.
 2. The chain takes no sample in an hour when too few witnesses have a current feed; the median in force then stays as it was. `get_config` still prints `HIVE_MIN_FEEDS: 7`; the runtime check differs.
 3. On 2026-10-05. See the placeholder note below.
 4. Witnesses cannot publish any other value ([hive_operations.hpp:432][opsh-432]).
@@ -213,7 +213,7 @@ PXS promises no price. It has no peg, cannot be redeemed for money and pays no i
 6. Above 30%, one PXS converts to at most **3P ÷ 7S PIXA**, where P is the PIXA supply and S the PXS outside the treasury ([database.cpp:2500-2528][db-2500]).
 7. Refused if PXS would pass 20% ([hive_evaluator_transfer.cpp:579-580][tr-579]).
 
-**The live median is a placeholder, not a market reading.** As of 2026-10-05, every witness publishes 6.22 USD (a US Big Mac) ÷ 0.12 USD, and 0.12 USD is an agreed placeholder price for PIXA. PIXA does not trade on any market yet. The feed in use, `bigmac-feed` v1.0.3, always divides by the placeholder; its successor, the agnostic feed, reads market prices and uses the placeholder only when told to. Once a market exists, a witness's feed reads it only after the witness runs the agnostic feed without that setting ([Oracle and Price Feed](../05-pixa-supra/oracle-and-price-feed.md#the-agnostic-feed)).
+**The live median is a placeholder, not a market reading.** As of 2026-10-05, every witness publishes 6.22 USD (a US Big Mac) ÷ 0.12 USD, and 0.12 USD is an agreed placeholder price for PIXA. PIXA does not trade on any market yet. The feed in use, `bigmac-feed` v1.0.3, always divides by the placeholder; its successor, the agnostic feed, reads market prices and uses the placeholder only when told to with `--token-price`. Once a market exists, a witness's feed reads it only after the witness runs the agnostic feed without that setting ([Become a Witness](../10-node-operators/become-a-witness.md#5-publish-the-price-feed)).
 
 **The same thresholds as collateral ratios.** Let R be the value of all PIXA divided by the value of the PXS outside the treasury, both at the median feed. The debt ratio d and R are linked by R = 1/d − 1. This gives:
 

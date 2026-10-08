@@ -214,10 +214,13 @@ Reward shares: the weight of a vote in the reward calculation. It is the mana th
 Balances that can only be withdrawn after a 3-day delay, which gives you time to react if your active key is stolen. Savings earn no interest on Pixa.
 
 ### Signing key
-The key a witness uses to sign blocks, kept on its server and separate from the account's [keys](#keys). It cannot move funds.
+The key a witness registers on chain and keeps on its server to sign blocks. It is separate from the account's [keys](#keys). Besides blocks, it can only update the witness's own settings, such as its URL, price feed and parameter votes; it cannot move funds ([Become a Witness](../10-node-operators/become-a-witness.md#the-two-keys)).
 
 ### TGE
 Token generation event: the creation of the genesis allocation at block 0, on 2026-09-04. The operator, Pixa Rex S.A., initiated it.
+
+### Timeshare witness
+The 21st slot of a full witness round, which rotates among witnesses that are not in the top 20. It exists only once more than 20 witnesses are active.
 
 ### Transaction
 A signed bundle of operations. It names an expiry up to 24 hours ahead, and a node drops it if it is not included within an hour of reaching that node. It cannot be larger than the current block size limit ([size and expiry](chain-parameters.md#transaction-and-block-size)).
