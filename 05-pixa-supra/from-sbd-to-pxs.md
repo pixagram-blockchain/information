@@ -53,11 +53,11 @@ Hardfork 14 reversed the whitepaper's plan. Where the whitepaper would have give
 
 **Changed:**
 
-- **Interest** is fixed at zero by consensus. Witnesses cannot publish another rate ([Chain Parameters](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)).
+- **Interest** is fixed at zero by consensus. Witnesses cannot publish another rate ([Chain Parameters](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)).
 - **The feed quorum** is a quorum of the scheduled witnesses, rather than Hive's fixed number.
-- **Genesis** set a median of 102 PIXA per PXS and seeded the treasury with 245,098.039 PXS ([System Accounts](../11-reference/system-accounts.md#genesis-allocation)).
+- **Genesis** set a median of 102 PIXA per PXS and seeded the treasury with 245,098.039 PXS ([System Accounts](../21-reference/system-accounts.md#genesis-allocation)).
 - **The reference** is one Big Mac instead of one US dollar. It lives in the witnesses' feed software, not in the chain's code, and while PIXA does not trade on any market, every feed divides by an agreed placeholder price for PIXA ([Oracle and Price Feed](oracle-and-price-feed.md#the-placeholder)).
-- **The words.** The unit is called Pixa Supra, it is described without a peg, and the haircut is presented as the mechanism itself rather than as a failure of it ([Style Guide](../13-about/style-guide.md#writing-about-pxs)).
+- **The words.** The unit is called Pixa Supra, it is described without a peg, and the haircut is presented as the mechanism itself rather than as a failure of it ([Style Guide](../22-about/style-guide.md#writing-about-pxs)).
 
 **The design's account.** The PXS design notes describe two "mutations" of the inherited machinery. The first, "the reference moves from a fiat unit to a purchasing-power ideal", is real, and it lives in the feed software. The second, "peg-defence is replaced by honest signalling — the fixed debt cap becoming a continuous haircut over a corridor", describes Hive's code as it already was. The continuous haircut dates from Steem's hardfork 14, and the corridor of 3× to 10× is not in Pixa's code.
 

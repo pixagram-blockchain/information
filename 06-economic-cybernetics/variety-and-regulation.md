@@ -43,7 +43,7 @@ A designer has three ways to satisfy the law:
 | **Delay** | every conversion | 3.5 days, settled at the median at the end. |
 | **Fee** | every PIXA → PXS conversion | 5%. |
 
-The values are on [Chain Parameters](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed). On chain, then, the regulator has one switch, one continuous lever and two fixed frictions. Its further responses are made by people: witnesses change their software or their feeds, stakeholders change witnesses, and witnesses adopt hardforks that change the thresholds. Those responses take hours to weeks.
+The values are on [Chain Parameters](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed). On chain, then, the regulator has one switch, one continuous lever and two fixed frictions. Its further responses are made by people: witnesses change their software or their feeds, stakeholders change witnesses, and witnesses adopt hardforks that change the thresholds. Those responses take hours to weeks.
 
 ## Attenuators
 

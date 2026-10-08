@@ -10,9 +10,9 @@ Pixagram is built and run by several parties with separate jobs. Three legal ent
 |---|---|---|---|
 | **Pixagram SA** (commercial register CHE-299.606.603) | Zug, Switzerland | Develops the protocol and the app and owns their intellectual property, which it licenses for use. It does not operate the front-end. | Publishes the code under [github.com/pixagram-blockchain](https://github.com/pixagram-blockchain) |
 | **Pixa Omnibus Foundation** | Cayman Islands | Stewards the protocol under licence and speaks for the ecosystem | Holds no keys; see the warning below |
-| **Pixa Rex S.A.** | Panama | Operates the app at pixagram.com and its services, initiated the token generation event (TGE), and holds the operator allocation | [`pixa.rex`](../11-reference/system-accounts.md#restricted-accounts-pixarex-and-pixateam) (3-of-3 multisig); working account `pixa` |
+| **Pixa Rex S.A.** | Panama | Operates the app at pixagram.com and its services, initiated the token generation event (TGE), and holds the operator allocation | [`pixa.rex`](../21-reference/system-accounts.md#restricted-accounts-pixarex-and-pixateam) (3-of-3 multisig); working account `pixa` |
 
-**The Foundation is not the treasury account.** The *Pixa Omnibus Foundation* is a legal entity. [`pixa.omnibus`](../11-reference/system-accounts.md#the-treasury-pixaomnibus) is the keyless account that holds the Decentralized Pixa Fund. The Foundation cannot sign for that account or spend from it; only proposal votes move its funds.
+**The Foundation is not the treasury account.** The *Pixa Omnibus Foundation* is a legal entity. [`pixa.omnibus`](../21-reference/system-accounts.md#the-treasury-pixaomnibus) is the keyless account that holds the Decentralized Pixa Fund. The Foundation cannot sign for that account or spend from it; only proposal votes move its funds.
 
 Pixa Rex S.A. replaced Pixa Operations S.A. as operator in August 2026. The chain's source code still carries the old name in a comment. <!-- retired-ok -->
 

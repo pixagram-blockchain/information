@@ -17,7 +17,7 @@ Walker, Holling, Carpenter and Kinzig (2004) gave resilience four aspects. Appli
 | **Precariousness** | How close it already is to a threshold | Far on paper, but the distance is measured at a placeholder price, and 99.04% of all PXS sits in the treasury, outside the measure |
 | **Panarchy** | How the systems above and below shape it | Above: the markets PIXA may trade on, The Economist's index, exchange rates, regulators. Below: the witnesses' operators, the app, the Hive codebase. |
 
-The thresholds are on [Chain Parameters](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed); the numbers behind the first three rows are on [Haircut, Corridor and Settlement](../05-pixa-supra/haircut-corridor-and-settlement.md#where-the-network-stands).
+The thresholds are on [Chain Parameters](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed); the numbers behind the first three rows are on [Haircut, Corridor and Settlement](../05-pixa-supra/haircut-corridor-and-settlement.md#where-the-network-stands).
 
 ## One regime or two
 

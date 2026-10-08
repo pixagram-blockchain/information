@@ -13,7 +13,7 @@ Open an issue in this repository. Name the page and the sentence, and say what t
 1. **Fork the repository**, or create a branch if you have write access.
 2. **Edit the Markdown files.** Follow the [Style Guide](style-guide.md). Above all:
    - every page opens with a title and a status line;
-   - every protocol number matches [Chain Parameters](../11-reference/chain-parameters.md) and links there, or is a live value with its API call and date;
+   - every protocol number matches [Chain Parameters](../21-reference/chain-parameters.md) and links there, or is a live value with its API call and date;
    - anything that describes PXS first says that PXS promises no price;
    - concept pages end with the inherited → changed table and their sources.
 3. **Add a page** with a lowercase file name joined by hyphens, in the folder where it belongs. List it in that folder's `README.md` and in the contents of the repository's [README](../README.md#contents). A page that is not written yet stays in those lists as plain text.
@@ -35,7 +35,7 @@ Open an issue in this repository. Name the page and the sentence, and say what t
 ## How changes are reviewed
 
 - **The checks run on every pull request** and on every push to `main` ([`check.yml`](../.github/workflows/check.yml)).
-- **Owners review their paths.** [`CODEOWNERS`](../.github/CODEOWNERS) asks the owner to review every change, and the chain maintainer to review changes to `09-developers`, `10-node-operators` and `11-reference` as well. Where two owners are listed, the approval of either satisfies the rule.
+- **Owners review their paths.** [`CODEOWNERS`](../.github/CODEOWNERS) asks the owner to review every change, and the chain maintainer to review changes to `09-developers`, `10-node-operators`, `11-protocol-reference`, `12-api-reference`, `18-infrastructure`, `19-economics-lab` and `21-reference` as well. Where two owners are listed, the approval of either satisfies the rule.
 - **Approval becomes binding** when `main` is protected with "Require a pull request before merging" and "Require review from Code Owners". That is a setting of the repository, not of these files.
 
 ## What never goes into a page, an issue or a pull request

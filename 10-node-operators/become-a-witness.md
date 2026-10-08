@@ -1,6 +1,6 @@
 # Become a Witness
 
-> **Status: Live.** 9 witnesses on 2026-10-05; up to 21 elected, 1 required. For the `witness` repository at commit `5193896`, `pixadock/pixagram:1.29.0`, `pixadock/bigmac-feed:v1.0.3` and the agnostic feed at commit `96b9d4a`. Commands were run on 2026-10-05, except those that need a registered witness.
+> **Status: Live.** 8 witnesses on 2026-10-08; up to 21 elected, 1 required. For the `witness` repository at commit `e3b8841`, `pixadock/pixagram:1.30.0`, `pixadock/bigmac-feed:v1.0.3` and the agnostic feed at commit `96b9d4a`. Commands were run on 2026-10-05, except those that need a registered witness.
 
 A witness runs a node that produces blocks in turn, publishes a price feed every hour and asks stakeholders for their votes. What witnesses decide, how they are elected and how they are paid is on [Witnesses and DPoS](../07-governance/witnesses-and-dpos.md). This page is the procedure: keys, node, registration, price feed and upkeep. pixa.org's [node operator guide](https://pixa.org/witness.html) walks through the same setup, together with an API node, from renting the server onward; this page pins the versions and gives the expected output of each step.
 
@@ -34,7 +34,7 @@ A witness runs a node that produces blocks in turn, publishes a price feed every
 Generate it offline, with the wallet inside the node image. Nothing is sent anywhere.
 
 ```bash
-docker run --rm -it --entrypoint /home/hived/bin/cli_wallet pixadock/pixagram:1.29.0 -o
+docker run --rm -it --entrypoint /home/hived/bin/cli_wallet pixadock/pixagram:1.30.0 -o
 ```
 
 At the `new >>>` prompt, type:
@@ -63,7 +63,7 @@ cd witness
 grep 'image: pixadock/pixagram' docker-compose.yml
 ```
 
-Expected output: the line `image: pixadock/pixagram:1.29.0`, indented. The repository pins every image version; this page describes its commit `5193896`.
+Expected output: the line `image: pixadock/pixagram:1.30.0`, indented. The repository pins every image version; this page describes its commit `e3b8841`.
 
 **Fill in `pixagram/config.ini`.** Near the end, two lines ship commented out, because hived stops with `unable to parse private key` when `private-key =` is present but empty. Open the file with `nano pixagram/config.ini`, remove the `#` from both lines and fill them in:
 
@@ -217,11 +217,11 @@ on chain: your-account signs with PIX… url https://pixagram.com/…
 | `pxs_interest_rate` | 0. The chain rejects any other value. |
 | `fee` | `0.000 PIXA` |
 
-Your votes for the fee and the block size count through the median of the scheduled witnesses ([account fee](../11-reference/chain-parameters.md#accounts-and-keys), [block size](../11-reference/chain-parameters.md#transaction-and-block-size)).
+Your votes for the fee and the block size count through the median of the scheduled witnesses ([account fee](../21-reference/chain-parameters.md#accounts-and-keys), [block size](../21-reference/chain-parameters.md#transaction-and-block-size)).
 
 ## 5. Publish the price feed
 
-**PXS promises no price.** Its feed is each witness's statement of how many PIXA one Big Mac costs. The chain takes the median of the witnesses' feeds once an hour, conversions use the median of the last 84 samples, and a feed older than 7 days stops counting ([the rules](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)). Until PIXA trades on a market, every feed uses the agreed placeholder price of 0.12 USD for PIXA.
+**PXS promises no price.** Its feed is each witness's statement of how many PIXA one Big Mac costs. The chain takes the median of the witnesses' feeds once an hour, conversions use the median of the last 84 samples, and a feed older than 7 days stops counting ([the rules](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)). Until PIXA trades on a market, every feed uses the agreed placeholder price of 0.12 USD for PIXA.
 
 ### Today: `bigmac-feed` v1.0.3
 
@@ -335,7 +335,7 @@ docker compose logs -f bigmac-feed
 
 ## Keep it healthy
 
-- **When your witness is scheduled,** `condenser_api.get_witness_schedule` lists it in `current_shuffled_witnesses`, and the node logs `Generated block #<n> with timestamp <time> at time <time>` at each of its turns. If it logs `Won't produce block because I don't have the private key for PIX…` instead, the key in `config.ini` does not match the one you registered: fix one of them and run `docker compose restart pixagram`.
+- **When your witness is scheduled,** which needs votes from 1% of all Pixa Power ([below](#before-you-announce)), `condenser_api.get_witness_schedule` lists it in `current_shuffled_witnesses`, and the node logs `Generated block #<n> with timestamp <time> at time <time>` at each of its turns. If it logs `Won't produce block because I don't have the private key for PIX…` instead, the key in `config.ini` does not match the one you registered: fix one of them and run `docker compose restart pixagram`.
 - **Look daily** at the [witness status page](https://pixagram.com/witness-status/): your missed blocks, your feed's age, your version against the majority.
 - **Let a machine watch.** The status project's check exits 0 when everything is healthy, 1 on a warning, 2 on a critical finding and 3 if it cannot fetch. It judges the whole network, so a warning may concern another witness. Run it on a machine that holds no keys, pinned to a version you have read, with Node.js 20 or newer. A cron line can alert you:
 
@@ -365,11 +365,11 @@ docker compose logs -f bigmac-feed
 - [ ] Your witness URL says who runs the node, where, and how to reach you.
 - [ ] Something other than you checks the node every ten minutes.
 
-Then ask for votes: tell stakeholders why you run a witness and what you run besides it. They vote as shown in [Witnesses and DPoS](../07-governance/witnesses-and-dpos.md#how-to-vote).
+Then ask for votes: tell stakeholders why you run a witness and what you run besides it. They vote as shown in [Witnesses and DPoS](../07-governance/witnesses-and-dpos.md#how-to-vote). Since hardfork 30 your witness is scheduled only once accounts holding at least 1% of all Pixa Power have voted for it, so registering alone produces no blocks ([Witnesses and DPoS](../07-governance/witnesses-and-dpos.md#how-witnesses-are-elected)).
 
 ## Sources
 
-- **Repository** [`pixagram-blockchain/witness`](https://github.com/pixagram-blockchain/witness/tree/51938966c3714908a10f158be197064c2d16d94b) at commit `5193896`: [`README.md`](https://github.com/pixagram-blockchain/witness/blob/51938966c3714908a10f158be197064c2d16d94b/README.md) (keys, clock incident, verification), [`docker-compose.yml`](https://github.com/pixagram-blockchain/witness/blob/51938966c3714908a10f158be197064c2d16d94b/docker-compose.yml), [`pixagram/config.ini`](https://github.com/pixagram-blockchain/witness/blob/51938966c3714908a10f158be197064c2d16d94b/pixagram/config.ini).
+- **Repository** [`pixagram-blockchain/witness`](https://github.com/pixagram-blockchain/witness/tree/e3b88414f563e02beff7587a3722d076214652c3) at commit `e3b8841`: [`README.md`](https://github.com/pixagram-blockchain/witness/blob/e3b88414f563e02beff7587a3722d076214652c3/README.md) (keys, clock incident, verification), [`docker-compose.yml`](https://github.com/pixagram-blockchain/witness/blob/e3b88414f563e02beff7587a3722d076214652c3/docker-compose.yml), [`pixagram/config.ini`](https://github.com/pixagram-blockchain/witness/blob/e3b88414f563e02beff7587a3722d076214652c3/pixagram/config.ini).
 - **Feeds:** [`bigmac-feed`](https://github.com/pixagram-blockchain/bigmac-feed/tree/c88c43c8b3b8e08ff472fe523b33277b9940ffb2) v1.0.3 at commit `c88c43c` ([`main.go`](https://github.com/pixagram-blockchain/bigmac-feed/blob/c88c43c8b3b8e08ff472fe523b33277b9940ffb2/main.go)); [`bigmac-feed-agnostic`](https://github.com/pixagram-blockchain/bigmac-feed-agnostic/tree/96b9d4a1f1a203d1fedbf603e7769f005c77cfba) at commit `96b9d4a` ([README](https://github.com/pixagram-blockchain/bigmac-feed-agnostic/blob/96b9d4a1f1a203d1fedbf603e7769f005c77cfba/README.md)). Both feed images' log lines were captured on 2026-10-05 without a node; the agnostic feed's dry runs reached `api.pixagram.com` read-only.
 - **Registration:** the `witness_update` above, signed by dpixa, matched the public node's serialization (`condenser_api.get_transaction_hex`) on 2026-10-05. Validation of the properties: [`hive_operations.cpp:312-336`](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/protocol/hive_operations.cpp#L312-L336) at commit `48f75a2`.
 - **Log lines:** [`witness_plugin.cpp:342`](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/plugins/witness/witness_plugin.cpp#L342), [427](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/plugins/witness/witness_plugin.cpp#L427) and [625](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/plugins/witness/witness_plugin.cpp#L625).

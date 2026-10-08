@@ -1,6 +1,6 @@
 # Chain Parameters
 
-> **Status: Live.** This page describes hived 1.29.0 (hardfork 29, active since block 402,205 on 2026-09-18). Last checked against the code and the live chain on 2026-10-05, at block 893,370.
+> **Status: Live.** This page describes hived 1.30.0 (hardfork 30, active since block 949,330 on 2026-10-07 12:00 UTC). Last checked against the code and the live chain on 2026-10-08, at block 977,074.
 
 This page is the reference for every protocol number in these pages. Other pages may quote a number when it helps the reader, but they link here, and this page wins if the two disagree. When the chain changes, it is corrected here first.
 
@@ -14,11 +14,11 @@ Each row gives the value in upstream Hive, the value on the Pixa chain, the kind
 | State | Computed by the chain as it runs. | Continuously. Read it live with the calls in [Reading live values](#reading-live-values). |
 | Software | A setting of a node, a service or an app. Consensus does not enforce it. | When that software's operator changes it. |
 
-The Pixa code is cited at commit [`48f75a2`][pixa-commit] of `pixagram-blockchain/pixagram`. Paths are relative to `libraries/`, and `config.hpp` means `protocol/include/hive/protocol/config.hpp`. Hive values come from hived 1.28.7, the release Pixa is built on ([upstream `config.hpp`][hive-config]), or from the live Hive chain where marked. The live Pixa nodes report revision `c9f032d`, which differs from `48f75a2` only in comments and tests.
+The Pixa code is cited at commit [`48f75a2`][pixa-commit] of `pixagram-blockchain/pixagram`, the 1.29.0 release, for every rule hardfork 30 left unchanged, and at tag [`v1.30.0`][pixa-130] for the rules it changed. Paths are relative to `libraries/`, and `config.hpp` means `protocol/include/hive/protocol/config.hpp`. Hive values come from hived 1.28.7, the release Pixa is built on ([upstream `config.hpp`][hive-config]), or from the live Hive chain where marked. The live Pixa nodes report revision `d986a23`, the last commit of the hardfork-30 branch before the release was tagged.
 
 ## Network identity
 
-| Parameter | Hive 1.28.7 | Pixa 1.29.0 | Kind | Source |
+| Parameter | Hive 1.28.7 | Pixa 1.30.0 | Kind | Source |
 |---|---|---|---|---|
 | Chain ID | `beeab0de…` | **`70697861…`** ¹ | Consensus | [config.hpp:145][cfg-145] |
 | Public-key prefix | `STM` | **`PIX`** | Consensus | [config.hpp:215][cfg-215] |
@@ -28,19 +28,19 @@ The Pixa code is cited at commit [`48f75a2`][pixa-commit] of `pixagram-blockchai
 | Asset ids (NAI) and decimals | `@@000000021` (3) · `@@000000013` (3) · `@@000000037` (6) | same | Consensus | [asset_symbol.hpp:20-28][sym-20] |
 | Legacy symbol bytes | `STEEM` · `SBD` | **`PIXA` · `PXS`** ⁴ | Consensus | [asset_symbol.hpp:41-56][sym-41] |
 | Genesis | 2016-03-24 16:00 UTC | **2026-09-04 12:00 UTC** ⁵ | Genesis | [config.hpp:155][cfg-155] |
-| Release | 1.28.7 | **1.29.0** | Software | [config.hpp:143][cfg-143] |
-| Hardforks | 28 | **29** ⁶ | Consensus | `get_hardfork_properties` |
+| Release | 1.28.7 | **1.30.0** | Software | [config.hpp:143][cfg-143] |
+| Hardforks | 28 | **30** ⁶ | Consensus | `get_hardfork_properties` |
 
 1. The ASCII bytes of `pixagram`, zero-padded to 32 bytes.
 2. Pixa Supra. PXS promises no price; its rules are in [Pixa Supra (PXS) and the price feed](#pixa-supra-pxs-and-the-price-feed).
 3. Called Pixa Power (PXP) in prose.
 4. These are the symbol bytes in the legacy, pre-NAI wire format. Clients that hard-code Steem's bytes produce invalid signatures.
 5. A new chain: no balances were carried over from Steem or Hive. What genesis created is in [Genesis](#genesis).
-6. Hardforks 1–28 all applied at block 1; hardfork 29 applied at block 402,205.
+6. Hardforks 1–28 all applied at block 1; hardfork 29 at block 402,205 (2026-09-18 12:00 UTC); hardfork 30 at block 949,330 (2026-10-07 12:00 UTC). What each changed is on [Protocol Upgrades](../07-governance/protocol-upgrades.md).
 
 ## Genesis
 
-| Parameter | Hive 1.28.7 | Pixa 1.29.0 | Kind | Source |
+| Parameter | Hive 1.28.7 | Pixa 1.30.0 | Kind | Source |
 |---|---|---|---|---|
 | Liquid tokens at genesis | — | **0 PIXA** | Genesis | [database_init.cpp:386-421][init-386] |
 | Stake at genesis | — | **100,000,000 VESTS**, backed by 100,000,000 PIXA | Genesis | [database_init.cpp:386-421][init-386] |
@@ -53,20 +53,23 @@ The Pixa code is cited at commit [`48f75a2`][pixa-commit] of `pixagram-blockchai
 
 ## Blocks and witnesses
 
-| Parameter | Hive 1.28.7 | Pixa 1.29.0 | Kind | Source |
+| Parameter | Hive 1.28.7 | Pixa 1.30.0 | Kind | Source |
 |---|---|---|---|---|
 | Block interval | 3 s | 3 s | Consensus | [config.hpp:59][cfg-59] |
 | Witness slots per round | 21 (20 elected + 1 timeshare) | same | Consensus | [config.hpp:65][cfg-65], [230-232][cfg-230] |
-| Witnesses scheduled | 21 | 9 on 2026-10-05 | State | `get_witness_schedule` |
+| Witnesses scheduled | 21 | 8 on 2026-10-08 | State | `get_witness_schedule` |
 | Witnesses to run the chain | — | up to 21 elected, 1 required | Consensus | [config.hpp:65][cfg-65] |
+| Approval a witness needs to be scheduled | none | **1% of all VESTS**, since HF30 ¹ | Consensus | [witness_schedule.cpp:155-159][ws130-155] |
 | Irreversibility | a supermajority of scheduled witnesses | same | Consensus | [config.hpp:407][cfg-407] |
 | Hardfork activation | a supermajority of scheduled witnesses | same | Consensus | `get_witness_schedule` |
 | Witness votes per account | 30 | 30 | Consensus | [config.hpp:256][cfg-256] |
 | Proxy chain depth | 4 | 4 | Consensus | [config.hpp:238][cfg-238] |
 
+1. A witness enters the schedule once accounts holding at least 1% of all outstanding VESTS approve it ([Witnesses and DPoS](../07-governance/witnesses-and-dpos.md#how-witnesses-are-elected)).
+
 ## Transaction and block size
 
-| Parameter | Hive 1.28.7 | Pixa 1.29.0 | Kind | Source |
+| Parameter | Hive 1.28.7 | Pixa 1.30.0 | Kind | Source |
 |---|---|---|---|---|
 | Maximum block size, allowed range | 64 KiB – 2 MiB | **128 KiB – 2 MiB** | Consensus | [config.hpp:391-392][cfg-391] |
 | Maximum block size, live median | 65,536 bytes | **2,097,152 bytes** | Witness median | `get_chain_properties` |
@@ -76,16 +79,20 @@ The Pixa code is cited at commit [`48f75a2`][pixa-commit] of `pixagram-blockchai
 | Post body | no own limit ³ | no own limit ³ | Consensus | [hive_operations.cpp:123-138][ops-123] |
 | Request size at `api.pixagram.com` | — | about 1 MiB ⁴ | Software | measured 2026-10-05 |
 | Transaction expiry | up to 24 h ahead | up to 24 h ahead ⁵ | Consensus | [config.hpp:235-236][cfg-235], [database.cpp:2552-2557][db-2552] |
+| Signatures per transaction | bounded by size only, about 1,000 | **1,000**, since 1.30.0 ⁶ | Software | [config.hpp:282][cfg130-282], [database.cpp:585-595][db130-585] |
+| `custom` / `custom_json` cost | flat | **grows with the payload**, since HF30 ⁷ | Consensus | [config.hpp:269][cfg130-269], [resource_count.cpp:434-449][rc130-434] |
 
 1. The live maximum block size minus 256 bytes, checked when a node accepts a transaction.
 2. Despite its name, this constant only sets the smallest block size witnesses may vote for ([config.hpp:391][cfg-391], [hive_operations.cpp:312-325][ops-312]). It does not cap transactions.
 3. The body must be non-empty UTF-8; otherwise only the transaction limit applies. Artwork posts published from 2026-09-04 to 2026-10-04 had a median body of about 26 kB, and the largest so far is 497,479 bytes (block 65,406).
 4. Larger requests are refused with HTTP 413.
 5. Since hardfork 28, a transaction may name an expiry up to 24 hours ahead. A node drops a transaction that is still unconfirmed 1 hour after it first saw it.
+6. Checked when a node receives a transaction, before any signature is verified; not a block-validity rule ([Transaction Lifecycle](../11-protocol-reference/transaction-lifecycle.md#3-signing)).
+7. The execution-time part of the Resource Credit cost is multiplied by 1 + payload bytes ÷ 8,192, so a 64 KiB payload costs nine times a small one in that part ([Resource Credits](../04-tokens-and-economy/resource-credits.md)).
 
 ## Accounts and keys
 
-| Parameter | Hive 1.28.7 | Pixa 1.29.0 | Kind | Source |
+| Parameter | Hive 1.28.7 | Pixa 1.30.0 | Kind | Source |
 |---|---|---|---|---|
 | Account name length | 3–16 | 3–16 | Consensus | [config.hpp:374-375][cfg-374] |
 | Account creation fee, floor | 0.001 HIVE | 0.001 PIXA | Consensus | [config.hpp:167][cfg-167] |
@@ -94,17 +101,17 @@ The Pixa code is cited at commit [`48f75a2`][pixa-commit] of `pixagram-blockchai
 | Owner-key recovery window | 30 days | 30 days | Consensus | [config.hpp:170][cfg-170] |
 | Recovery request lifetime | 1 day | 1 day | Consensus | [config.hpp:171][cfg-171] |
 | Owner-key changes | 2 per 60 min | 2 per 60 min | Consensus | [config.hpp:172][cfg-172], [owner_update_limit_mgr.cpp:15-25][own-15] |
-| Owner-key history recorded from | block 3,186,477 | block 3,186,477, **about 2026-12-24** ³ | Consensus | [config.hpp:173][cfg-173] |
+| Owner-key history recorded from | block 3,186,477 | **block 949,330, hardfork 30** ³ | Consensus | [database.cpp:1733-1737][db130-1733], [config.hpp:173][cfg-173] |
 | Keys and accounts per authority | 40 | 40 | Consensus | [config.hpp:401][cfg-401] |
 | Memo size | under 2,048 bytes | under 2,048 bytes | Consensus | [config.hpp:237][cfg-237] |
 
 1. The fee is burned: it is paid to `null` ([hive_evaluator_account.cpp:193][acc-193]).
 2. Tickets are claimed with Resource Credits instead of a fee.
-3. Account recovery needs this history ([database.cpp:1694-1699][db-1694], [hive_evaluator_account.cpp:578][acc-578]). On Pixa, no recovery request can succeed until about 2026-12-24.
+3. Account recovery needs this history ([hive_evaluator_account.cpp:578][acc-578]). Before hardfork 30 the chain recorded none, because the inherited start block, 3,186,477, lay in the future; since 2026-10-07 12:00 UTC every owner-key change is recorded, so a recovery can undo an owner change made after that moment, and none made before it ([Keys and Recovery](../08-guides/keys-and-recovery.md)).
 
 ## Posts and comments
 
-| Parameter | Hive 1.28.7 | Pixa 1.29.0 | Kind | Source |
+| Parameter | Hive 1.28.7 | Pixa 1.30.0 | Kind | Source |
 |---|---|---|---|---|
 | Payout window | 7 days | 7 days | Consensus | [config.hpp:160][cfg-160] |
 | Title | under 256 bytes | same | Consensus | [config.hpp:454][cfg-454] |
@@ -121,12 +128,12 @@ The Pixa code is cited at commit [`48f75a2`][pixa-commit] of `pixagram-blockchai
 
 ## Voting and curation
 
-| Parameter | Hive 1.28.7 | Pixa 1.29.0 | Kind | Source |
+| Parameter | Hive 1.28.7 | Pixa 1.30.0 | Kind | Source |
 |---|---|---|---|---|
 | Voting mana recharge | 5 days | 5 days | Consensus | [config.hpp:246][cfg-246] |
 | Cost of a full-strength vote | 2% of full mana | 2% of full mana ¹ | Consensus | [database_hardfork.cpp:311][hf-311], [hive_evaluator_social.cpp:663-690][soc-663] |
 | Downvote mana | 25% of voting mana | same | Consensus | [config.hpp:251][cfg-251] |
-| Vote dust deduction | 50,000,000 rshares | same ² | Consensus | [config.hpp:250][cfg-250] |
+| Vote dust deduction | 50,000,000 rshares | **50,000 rshares**, since HF30 ² | Consensus | [config.hpp:260][cfg130-260], [hive_evaluator_social.cpp:710][soc130-710] |
 | Curation share of post rewards | 50% | **40%** | Consensus | [database_hardfork.cpp:451][hf-451] |
 | Author reward curve | linear | **convergent linear** | Consensus | [database_hardfork.cpp:494-496][hf-494] |
 | Curation reward curve | linear | **convergent square root** ³ | Consensus | [database_hardfork.cpp:494-496][hf-494] |
@@ -137,13 +144,13 @@ The Pixa code is cited at commit [`48f75a2`][pixa-commit] of `pixagram-blockchai
 | Reward-fund reset | — | **at most 2.75 × 10¹³** ⁴ | Consensus | [config.hpp:273-294][cfg-294] |
 
 1. Since hardfork 28, the cost is a share of the full mana bar, whatever is left: 50 full-strength votes empty a full bar, and a vote's strength does not shrink as mana runs down.
-2. Every vote loses this amount ([hive_evaluator_social.cpp:710-711][soc-710]). On Pixa 1 VESTS ≈ 1 PIXA, against about 1,608 VESTS per HP on Hive, so a full-strength vote needs **more than 2,500 Pixa Power to count at all**. On Hive the same threshold is about 1.6 HP.
+2. Every vote loses this amount. On Pixa 1 VESTS ≈ 1 PIXA, against about 1,608 VESTS per HP on Hive, so Hive's 50,000,000 meant a full-strength vote needed more than 2,500 Pixa Power to count at all; hardfork 30 divided it by 1,000, and a full-strength vote now counts from **more than 2.5 Pixa Power**. On Hive the threshold is about 1.6 HP. Before hardfork 30 the deduction was Hive's ([hive_evaluator_social.cpp:710-711][soc-710]).
 3. Earlier votes earn more than later votes of equal weight.
 4. Hardfork 29 lowered the reward fund's `recent_claims` to at most this value ([database_hardfork.cpp:525-561][hf-525]). The value inherited from Hive had made early payouts too small to pay.
 
 ## Pixa Power (staking)
 
-| Parameter | Hive 1.28.7 | Pixa 1.29.0 | Kind | Source |
+| Parameter | Hive 1.28.7 | Pixa 1.30.0 | Kind | Source |
 |---|---|---|---|---|
 | VESTS per liquid token | about 1,608, falling | **1, flat** ¹ | Genesis / State | [config.hpp:53][cfg-53] |
 | Reward for holding stake | 15% of issuance | **0** | Consensus | [database_hardfork.cpp:430-432][hf-430] |
@@ -164,32 +171,34 @@ rate(h) = max( 9.78% − 0.01 percentage points × floor(h / 250,000) , 0.95% )
 
 The constants are Hive's ([config.hpp:260-262][cfg-260], [database.cpp:1732-1737][db-1732]). Pixa counts *h* from its own genesis, so it restarted Hive's schedule at the top.
 
-| Parameter | Hive 1.28.7 | Pixa 1.29.0 | Kind | Source |
+| Parameter | Hive 1.28.7 | Pixa 1.30.0 | Kind | Source |
 |---|---|---|---|---|
 | Rate today | 5.36% | **9.75%** | State | formula, at the live block |
 | Floor of 0.95% reached | block 220,750,000 | same, **about 2047** | Consensus | formula |
 | Base | supply + non-treasury debt token at the median ¹ | same | Consensus | [database.cpp:1740-1752][db-1740] |
 | Split: content / stake / fund / witnesses | 65 / 15 / 10 / 10% | **70 / 0 / 15 / 15%** | Consensus | [config.hpp:267-268][cfg-267], [database_hardfork.cpp:430-432][hf-430] |
-| Witness share per block | nominal ² | **larger while fewer than 21 run** ² | Consensus | [database.cpp:1762-1779][db-1762] |
-| Fund share per block | converted to HBD, rounded down ³ | **converted to PXS**, rounded down ³ | Consensus | [database.cpp:1783-1787][db-1783] |
+| Witness share per block | nominal ² | nominal, since HF30 ² | Consensus | [database.cpp:1803-1828][db130-1803] |
+| Fund share per block | converted to HBD, rounded down ³ | **converted to PXS, exact over consecutive blocks**, since HF30 ³ | Consensus | [database.cpp:1832-1839][db130-1832], [dhf_funding.hpp][dhf130] |
+| Author's PXS, rounding remainder | burned | **paid as PIXA**, since HF30 ⁴ | Consensus | [database.cpp:998-1019][db130-998] |
 
 1. On Pixa: the PIXA supply plus the PXS outside the treasury, valued at the median feed.
-2. Each block pays its producer a share of the nominal witness amount. With a full schedule this averages to the nominal share; while fewer witnesses run, each active witness receives more, so on 2026-10-05 a block paid about 2.33 times the nominal share.
-3. Rounded down to 0.001 of the token in every block. The rule is Hive's; on Pixa the share per block is small enough for the rounding to matter.
+2. Hive weights each block's witness pay so that 21 blocks' worth is spread over the scheduled witnesses; with fewer than 21, each block paid more, and on 2026-10-05 a block paid about 2.33 times the nominal share (0.329 PIXA). Since hardfork 30, while fewer than 21 witnesses are scheduled every block pays exactly the nominal share; a full schedule keeps Hive's weighting.
+3. Hive converts each block's share to the debt token and rounds down to 0.001. At Pixa's scale one block's share is a few thousandths of a PXS, so the rounding cut the fund to about 74% of its share. Since hardfork 30 block *n* pays `floor((n+1)x) − floor(nx)` of the exact share *x*, which telescopes to the exact amount over consecutive blocks.
+4. When an author's liquid half is converted to PXS, the PIXA that does not fit into a whole 0.001 PXS was burned; since hardfork 30 it is paid to the author as PIXA ([Reward Examples](../19-economics-lab/reward-examples.md)).
 
-**What this means today.** In block 892,950 the nominal issuance was 0.934 PIXA:
+**What this means today.** On 2026-10-08 a block's nominal issuance was about 0.936 PIXA (block 979,298):
 
-- **Content:** 0.653 PIXA to the reward fund.
-- **DPF:** its 0.140 PIXA came to 0.0027 PXS at 51.833 PIXA per PXS. It was rounded down to 0.002 PXS, about 74% of its share.
-- **Witnesses:** about 0.329 PIXA, paid as Pixa Power, while 9 witnesses run.
+- **Content:** about 0.655 PIXA to the reward fund.
+- **DPF:** about 0.140 PIXA, which is 0.0027 PXS at the median; paid as 0.002 or 0.003 PXS a block so that the blocks together receive the exact share.
+- **Witnesses:** about 0.141 PIXA, paid as Pixa Power to the block's producer, who also takes the split's rounding remainder (`producer_reward` 0.140999 VESTS a block after hardfork 30, against 0.328999 before).
 
-Together the chain issues about **1.16 times the nominal amount**, or about 11.3% a year in PIXA-equivalent terms while 9 witnesses run. The witness part falls to its nominal share as the count approaches 21. The DPF's rounding loss remains, and its size depends on the feed price.
+The chain issues the nominal amount, about **9.75% a year** at today's block height. Before hardfork 30 it issued about 1.16 times that, about 11.3%, because of the witness weighting and despite the DPF's rounding loss ([Supply, Inflation and Yield](../04-tokens-and-economy/supply-inflation-and-yield.md)).
 
 ## Pixa Supra (PXS) and the price feed
 
 PXS promises no price. It has no peg, cannot be redeemed for money and pays no interest, and no one stands behind its value. The rows below are the rules the chain applies to it.
 
-| Parameter | Hive 1.28.7 | Pixa 1.29.0 | Kind | Source |
+| Parameter | Hive 1.28.7 | Pixa 1.30.0 | Kind | Source |
 |---|---|---|---|---|
 | What a feed states | HIVE per HBD (US dollar) | **PIXA per PXS (one Big Mac)** ¹ | Software | [bigmac-feed-agnostic][feed] |
 | Feed sample | hourly, middle feed | same | Consensus | [config.hpp:192][cfg-192] |
@@ -207,29 +216,30 @@ PXS promises no price. It has no peg, cannot be redeemed for money and pays no i
 
 1. With the agnostic feed, each witness enters the price of a Big Mac where it operates. On 2026-10-05 every witness published 51.833, the value `bigmac-feed` v1.0.3 computes from the US price ([Become a Witness](../10-node-operators/become-a-witness.md#5-publish-the-price-feed)). The feed software is not part of consensus.
 2. The chain takes no sample in an hour when too few witnesses have a current feed; the median in force then stays as it was. `get_config` still prints `HIVE_MIN_FEEDS: 7`; the runtime check differs.
-3. On 2026-10-05. See the placeholder note below.
+3. On 2026-10-08. See the placeholder note below.
 4. Witnesses cannot publish any other value ([hive_operations.hpp:432][opsh-432]).
 5. The debt ratio is the value of the PXS outside the treasury as a share of that PXS plus all PIXA. While it is under 20%, part of each author reward is paid in PXS. At or above 20%, that part is paid in PIXA ([database.cpp:2943-2964][db-2943]).
 6. Above 30%, one PXS converts to at most **3P ÷ 7S PIXA**, where P is the PIXA supply and S the PXS outside the treasury ([database.cpp:2500-2528][db-2500]).
 7. Refused if PXS would pass 20% ([hive_evaluator_transfer.cpp:579-580][tr-579]).
 
-**The live median is a placeholder, not a market reading.** As of 2026-10-05, every witness publishes 6.22 USD (a US Big Mac) ÷ 0.12 USD, and 0.12 USD is an agreed placeholder price for PIXA. PIXA does not trade on any market yet. The feed in use, `bigmac-feed` v1.0.3, always divides by the placeholder; its successor, the agnostic feed, reads market prices and uses the placeholder only when told to with `--token-price`. Once a market exists, a witness's feed reads it only after the witness runs the agnostic feed without that setting ([Become a Witness](../10-node-operators/become-a-witness.md#5-publish-the-price-feed)).
+**The live median is a placeholder, not a market reading.** As of 2026-10-08, every witness publishes 6.22 USD (a US Big Mac) ÷ 0.12 USD, and 0.12 USD is an agreed placeholder price for PIXA. PIXA does not trade on any market yet. The feed in use, `bigmac-feed` v1.0.3, always divides by the placeholder; its successor, the agnostic feed, reads market prices and uses the placeholder only when told to with `--token-price`. Once a market exists, a witness's feed reads it only after the witness runs the agnostic feed without that setting ([Become a Witness](../10-node-operators/become-a-witness.md#5-publish-the-price-feed)).
 
 **The same thresholds as collateral ratios.** Let R be the value of all PIXA divided by the value of the PXS outside the treasury, both at the median feed. The debt ratio d and R are linked by R = 1/d − 1. This gives:
 
 - PXS printing stops at R ≤ **4×**.
 - The haircut starts at R < **2.33×**. Below that, a PXS settles for the factor **min(1, 3R ÷ 7)** of its feed value.
-- On 2026-10-05, R was about 845×.
+- On 2026-10-08, R was about 1,145×: 100,780,034 PIXA against 1,699 PXS outside the treasury, at 51.833.
 - The protocol has no upper threshold.
 
 The PXS design notes describe a corridor of "roughly 3× to 10×"; the numbers on this page are the ones the chain enforces ([the two compared](../05-pixa-supra/haircut-corridor-and-settlement.md#corridor-and-thresholds-design-and-chain)).
 
 ## Decentralized Pixa Fund (DPF)
 
-| Parameter | Hive 1.28.7 | Pixa 1.29.0 | Kind | Source |
+| Parameter | Hive 1.28.7 | Pixa 1.30.0 | Kind | Source |
 |---|---|---|---|---|
 | Treasury account | `hive.fund` | **`pixa.omnibus`** ¹ | Consensus | [config.hpp:482-483][cfg-482] |
 | Daily budget | 1% of treasury, paid hourly | same | Consensus | [dhf_processor.cpp:153-158][dhf-153] |
+| Hourly proposal pay | rounded down to 0.001 each hour | **exact over the proposal's life**, since HF30 ⁴ | Consensus | [dhf_processor.cpp:188-208][dhf130-188] |
 | Liquid tokens in the treasury | converted to HBD | converted to PXS ² | Consensus | [hive_evaluator_transfer.cpp:266-285][tr-266] |
 | Proposal fee | 10 HBD + 1 per day beyond 60 | 10 PXS + 1 per day beyond 60 | Consensus | [config.hpp:490-496][cfg-490] |
 | Proposal subject | 80 bytes | 80 bytes | Consensus | [config.hpp:491][cfg-491] |
@@ -239,10 +249,11 @@ The PXS design notes describe a corridor of "roughly 3× to 10×"; the numbers o
 1. On both chains `steem.dao` also counts as treasury. On Pixa, `pixa.omnibus` has no keys.
 2. PIXA transferred to the treasury is converted at once, at the median. Any PIXA balance it holds converts at 0.05% per day ([config.hpp:497][cfg-497], [dhf_processor.cpp:342][dhf-342]).
 3. A proposal id is chain data, not a constant.
+4. Each hour pays the difference between two running totals measured from the proposal's start, so the part below 0.001 PXS carries over instead of being discarded; before hardfork 30 a proposal paying less than 0.024 PXS a day received nothing.
 
 ## Resource Credits
 
-| Parameter | Hive 1.28.7 | Pixa 1.29.0 | Kind | Source |
+| Parameter | Hive 1.28.7 | Pixa 1.30.0 | Kind | Source |
 |---|---|---|---|---|
 | Recharge | 5 days | 5 days | Consensus | [config.hpp:509][cfg-509] |
 | Cost of an operation | set by network load | same | State | `rc_api.get_resource_pool`, `rc_api.get_rc_stats` |
@@ -274,7 +285,7 @@ rpc database_api.list_proposals '{"start":[""],"limit":50,"order":"by_creator","
 | "1,000+ transactions per second" | That is capacity, not a measurement. A 2 MiB block every 3 seconds can carry far more small operations, and no load test of Pixa has been published. |
 | "21 witnesses" | Up to 21 are elected and 1 is required. Read the live count from `get_witness_schedule`. |
 | "Deflationary" | PIXA is issued in every block ([Issuance](#issuance)). The burns today are the account creation fee, the PIXA used up by PIXA → PXS conversions (5% fee included), and anything sent to `null`. |
-| "17.5% of inflation to the DPF" | 15% nominal, reduced by rounding ([Issuance](#issuance)). |
+| "17.5% of inflation to the DPF" | 15% nominal; since hardfork 30 paid exactly, before it reduced by rounding ([Issuance](#issuance)). |
 | "PXS is pegged" | Nothing defends a PXS price. Witnesses report a Big Mac reference, and conversions settle at the median within the [haircut](#pixa-supra-pxs-and-the-price-feed). |
 | "Zero fees" | Most operations carry no fee and consume Resource Credits instead. Three cost a fee: opening an account (or a ticket claimed with Resource Credits), creating a DPF proposal, and converting PIXA to PXS. |
 
@@ -381,3 +392,17 @@ rpc database_api.list_proposals '{"start":[""],"limit":50,"order":"by_creator","
 [hf-311]: https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/database_hardfork.cpp#L311
 [cfg-324]: https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/protocol/include/hive/protocol/config.hpp#L324
 [init-390]: https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/database_init.cpp#L390-L392
+[pixa-130]: https://github.com/pixagram-blockchain/pixagram/tree/746118eb3b87dcca768b72fa262ad2aa63e1f177
+[cfg130-260]: https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/protocol/include/hive/protocol/config.hpp#L260
+[cfg130-269]: https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/protocol/include/hive/protocol/config.hpp#L269
+[cfg130-282]: https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/protocol/include/hive/protocol/config.hpp#L282
+[soc130-710]: https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/chain/hive_evaluator_social.cpp#L710
+[db130-585]: https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/chain/database.cpp#L585-L595
+[db130-998]: https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/chain/database.cpp#L998-L1019
+[db130-1733]: https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/chain/database.cpp#L1733-L1737
+[db130-1803]: https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/chain/database.cpp#L1803-L1828
+[db130-1832]: https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/chain/database.cpp#L1832-L1839
+[dhf130]: https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/chain/include/hive/chain/util/dhf_funding.hpp
+[dhf130-188]: https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/chain/util/dhf_processor.cpp#L188-L208
+[rc130-434]: https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/chain/rc/resource_count.cpp#L434-L449
+[ws130-155]: https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/chain/witness_schedule.cpp#L155-L159

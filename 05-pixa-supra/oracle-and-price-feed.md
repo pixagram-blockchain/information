@@ -2,7 +2,7 @@
 
 > **Status: Live.** PXS promises no price. Nine witnesses publish its feed, and every one of them publishes the same placeholder, 51.833 PIXA per PXS: PIXA does not trade on any market yet. Read at block 917,250 on 2026-10-06.
 
-PXS promises no price. What the chain has instead is a reference: the witnesses' statement of how many PIXA one Big Mac costs. The PXS design notes call this sensing part the Oracle ([Glossary](../11-reference/glossary.md#oracle)). This page explains what a feed states, how the chain reduces many feeds to one median, how fast that median can move, what it has read since genesis, and what it cannot do.
+PXS promises no price. What the chain has instead is a reference: the witnesses' statement of how many PIXA one Big Mac costs. The PXS design notes call this sensing part the Oracle ([Glossary](../21-reference/glossary.md#oracle)). This page explains what a feed states, how the chain reduces many feeds to one median, how fast that median can move, what it has read since genesis, and what it cannot do.
 
 ## What a feed states
 
@@ -18,7 +18,7 @@ In hived the field is Hive's `hbd_exchange_rate`. The public API shows it as `px
 
 ## From the witnesses' feeds to the median
 
-Once an hour, every 1,200 blocks, the chain does the following ([database.cpp:2418-2533][db-2418]). The numbers are on [Chain Parameters](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed).
+Once an hour, every 1,200 blocks, the chain does the following ([database.cpp:2418-2533][db-2418]). The numbers are on [Chain Parameters](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed).
 
 1. **Collect.** It reads the feed of each scheduled witness and skips any feed older than 7 days ([2425-2443][db-2425]).
 2. **Count.** It needs a quorum of the scheduled witnesses to have a current feed. With fewer, it takes no sample that hour, and the median in force stays as it was ([2445][db-2445]).

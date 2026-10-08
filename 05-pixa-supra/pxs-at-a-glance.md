@@ -15,7 +15,7 @@ What a PXS can do is convert. The protocol turns it into PIXA after 3.5 days, at
 
 ## What PXS is
 
-In one phrase, PXS is a *Big Mac referenced supracoin* ([Glossary](../11-reference/glossary.md#supracoin)):
+In one phrase, PXS is a *Big Mac referenced supracoin* ([Glossary](../21-reference/glossary.md#supracoin)):
 
 - **Big Mac referenced.** Each witness publishes how many PIXA one Big Mac costs, and the chain takes the median. That figure is the reference: the direction PXS is oriented toward, not a value it promises ([Oracle and Price Feed](oracle-and-price-feed.md)).
 - **Supracoin.** The PXS design notes' name for a unit that orients toward purchasing power without a peg, a claim at par or an issuer ([Supracoin vs Stablecoin](supracoin-vs-stablecoin.md)). <!-- retired-ok -->
@@ -45,7 +45,7 @@ flowchart TB
 | Pay a proposal fee | `create_proposal` | 10 PXS, plus 1 PXS for each day beyond 60; paid into the fund ([Decentralized Pixa Fund](../07-governance/decentralized-pixa-fund.md#proposing)). |
 | Trade it | `limit_order_create` | The chain has an order book for PIXA against PXS. On 2026-10-06 it held no orders and showed no trades. |
 
-The values, with their sources in the code, are on [Chain Parameters](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed).
+The values, with their sources in the code, are on [Chain Parameters](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed).
 
 ## PXS on 2026-10-06
 
@@ -105,7 +105,7 @@ Two facts shape these numbers:
 
 ## Sources
 
-- **Rules and code references:** [Chain Parameters](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed) and [Haircut, Corridor and Settlement](haircut-corridor-and-settlement.md#sources).
+- **Rules and code references:** [Chain Parameters](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed) and [Haircut, Corridor and Settlement](haircut-corridor-and-settlement.md#sources).
 - **Live values,** read in one batch request at block 917,250 on 2026-10-06 09:14 UTC, with the calls named above.
 - **PXS design notes** (Pixagram, June 2026), Part IV and its table of technical parameters.
 - [Hive whitepaper](https://hive.io/whitepaper.pdf), §II.1 "Assets" and §III.4 "Price Feed Consensus".

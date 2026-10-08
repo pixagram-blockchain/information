@@ -1,8 +1,8 @@
 # Voting and Curation
 
-> **Status: Live.** The figures were read at block 895,415 on 2026-10-05 and move with the reward fund.
+> **Status: Live.** Since hardfork 30 (2026-10-07) a full vote counts from 2.5 Pixa Power. The figures were read at block 977,074 on 2026-10-08 and move with the reward fund.
 
-A vote on Pixa does two things. It tells the chain where part of each day's rewards should go, and it earns the voter a share of the rewards of posts they find early. This page explains what a vote costs and what it is worth, and why votes from small accounts currently have no effect.
+A vote on Pixa does two things. It tells the chain where part of each day's rewards should go, and it earns the voter a share of the rewards of posts they find early. This page explains what a vote costs and what it is worth, and what hardfork 30 changed for small accounts.
 
 ## Voting mana
 
@@ -17,42 +17,45 @@ Every account has a bar of voting mana whose size equals its effective Pixa Powe
 The chain turns each vote into *rshares*, its weight in the reward calculation:
 
 ```
-rshares = mana spent − 50,000,000
+rshares = mana spent − 50,000          (since hardfork 30; 50,000,000 before)
 ```
 
 The result is never below zero. In the last 12 hours before payout it is scaled down further ([late votes](#late-votes)).
 
-### Why small votes count for nothing
+### The dust threshold, before and after hardfork 30
 
-The deduction of 50,000,000 is Hive's, unchanged. On Hive, one Hive Power is worth about 1,608 VESTS; on Pixa, one Pixa Power is worth about one VESTS. The same deduction is therefore about 1,600 times heavier here.
+Every vote loses a fixed number of rshares, so that the smallest votes count for nothing. Until 2026-10-07 the deduction was Hive's, 50,000,000. On Hive one Hive Power is worth about 1,608 VESTS; on Pixa one Pixa Power is worth about one VESTS, so the same deduction was about 1,600 times heavier here: a full-strength vote, which spends 2% of the voter's stake as raw VESTS, produced rshares only above **2,500 Pixa Power**, and in the chain's first month only 21 accounts could move a reward.
 
-A full-strength vote spends 2% of the voter's stake (as raw VESTS), so it produces rshares only when that 2% exceeds 50,000,000. That means more than **2,500 Pixa Power**. Below that, every vote is cancelled entirely.
+Hardfork 30 divided the deduction by 1,000. A full-strength vote now counts from **2.5 Pixa Power**, about Hive's threshold in PIXA terms, and 75 of the chain's 100 accounts clear it on 2026-10-08 (`condenser_api.get_accounts`). Resource Credits, not the threshold, limit vote spam.
 
-| Effective Pixa Power | rshares of a full vote | Effect |
+| Effective Pixa Power | rshares of a full vote, since HF30 | Before HF30 |
 |---|---|---|
-| 1,000 | 0 | none |
-| 2,500 | 0 | none |
-| 5,000 | 50,000,000 | half its natural weight |
-| 10,000 | 150,000,000 | three quarters of its natural weight |
-| 100,000 | 1,950,000,000 | close to its natural weight |
+| 2.5 | 0 | 0 |
+| 50 | 950,000 | 0 |
+| 100 | 1,950,000 | 0 |
+| 1,000 | 19,950,000 | 0 |
+| 2,500 | 49,950,000 | 0 |
+| 10,000 | 199,950,000 | 150,000,000 |
+| 100,000 | 1,999,950,000 | 1,950,000,000 |
 
-Delegated stake counts toward the bar, so a delegation can lift an account above the line. On 2026-10-05, 23 of the chain's 83 accounts cleared it, and 21 of those can vote (`condenser_api.get_accounts`). Changing the deduction would take a hardfork ([Chain Parameters](../11-reference/chain-parameters.md#voting-and-curation)).
+Delegated stake counts toward the bar. Changing the deduction again would take a hardfork ([Chain Parameters](../21-reference/chain-parameters.md#voting-and-curation)).
 
 ## What a vote is worth
 
-Assume one full-strength vote on a post with no other votes, cast in its first 24 hours, with the reward fund as it stood on 2026-10-05. The figures are rounded:
+Assume one full-strength vote on a post with no other votes, cast in its first 24 hours, with the reward fund as it stood on 2026-10-08. The figures are rounded; [Reward Examples](../19-economics-lab/reward-examples.md) shows the arithmetic:
 
 | Voter's Pixa Power | Post payout | Author's 60% | Curator's 40% (to the voter) |
 |---|---|---|---|
-| 2,500 | none | — | — |
-| 5,000 | 2.09 PIXA (0.040 PXS) | 0.012 PXS + 0.63 Pixa Power | 0.84 Pixa Power |
-| 10,000 | 6.28 PIXA (0.121 PXS) | 0.036 PXS + 1.88 Pixa Power | 2.51 Pixa Power |
-| 100,000 | 81.6 PIXA (1.57 PXS) | 0.47 PXS + 24.5 Pixa Power | 32.6 Pixa Power |
-| 1,000,000 | 833 PIXA (16.1 PXS) | 4.82 PXS + 250 Pixa Power | 333 Pixa Power |
+| 100 | none: 0.10 PIXA is under the 0.020 PXS minimum | — | — |
+| 1,000 | 1.04 PIXA (0.020 PXS) | 0.006 PXS + 0.31 Pixa Power | 0.41 Pixa Power |
+| 2,500 | 2.60 PIXA (0.050 PXS) | 0.015 PXS + 0.78 Pixa Power | 1.04 Pixa Power |
+| 10,000 | 10.4 PIXA (0.200 PXS) | 0.060 PXS + 3.12 Pixa Power | 4.16 Pixa Power |
+| 100,000 | 104 PIXA (2.01 PXS) | 0.60 PXS + 31.2 Pixa Power | 41.7 Pixa Power |
+| 1,000,000 | 1,040 PIXA (20.1 PXS) | 6.02 PXS + 312 Pixa Power | 416 Pixa Power |
 
-A single vote must come from about 3,740 Pixa Power to lift a post over the 0.020 PXS minimum payout. These figures change daily as the reward fund grows and older claims decay.
+A single vote must come from about 1,000 Pixa Power to lift a post over the 0.020 PXS minimum payout on its own; smaller votes add up, so several together can. These figures change daily as the reward fund grows and older claims decay.
 
-PXS promises no price. The PXS amounts above use the median feed of 2026-10-05, 51.833 PIXA per PXS, which is a placeholder ([why](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)).
+PXS promises no price. The PXS amounts above use the median feed of 2026-10-08, 51.833 PIXA per PXS, which is a placeholder ([why](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)). Since hardfork 30 the author also receives the few thousandths of a PIXA that did not fit into a whole 0.001 PXS.
 
 ## Curation rewards
 
@@ -93,11 +96,11 @@ Votes are accepted right up to payout. In the last 12 hours, though, each vote's
 | Vote cost | 2% of the full bar since Hive's HF28 | same |
 | Curation share | 50% | 40% |
 | Curation curve | linear since Hive's HF25 | square-root shaped (convergent) |
-| Smallest vote that counts | about 1.6 HP on Hive | more than 2,500 Pixa Power |
+| Smallest full vote that counts | about 1.6 HP on Hive | more than 2.5 Pixa Power since HF30; 2,500 before |
 | Late-vote damping | last 12 hours | same |
 
 ## Sources
 
-- **Vote**: [hive_evaluator_social.cpp:609-856](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/hive_evaluator_social.cpp#L609-L856), covering mana cost, dust deduction, late damping, curation weight and time windows.
+- **Vote**: [hive_evaluator_social.cpp:609-856](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/hive_evaluator_social.cpp#L609-L856), covering mana cost, dust deduction, late damping, curation weight and time windows; the hardfork-30 deduction, [hive_evaluator_social.cpp:710 at v1.30.0](https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/chain/hive_evaluator_social.cpp#L710) and [config.hpp:255-260](https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/protocol/include/hive/protocol/config.hpp#L255-L260).
 - **Curves**: [reward.cpp:60-71](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/util/reward.cpp#L60-L71).
-- **Live chain**: `condenser_api.get_reward_fund ["post"]`, `database_api.get_comment_pending_payouts` and `condenser_api.get_active_votes`, read on 2026-10-05. The worked examples assume the fund's state stays unchanged until payout.
+- **Live chain**: `condenser_api.get_reward_fund ["post"]` and `condenser_api.get_accounts` for all 100 accounts, read on 2026-10-08; `database_api.get_comment_pending_payouts` and `condenser_api.get_active_votes` on 2026-10-05. The worked examples assume the fund's state stays unchanged until payout.

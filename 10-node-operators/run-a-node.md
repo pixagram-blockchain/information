@@ -1,6 +1,6 @@
 # Run a Node
 
-> **Status: Live.** For hived 1.29.0 (`pixadock/pixagram:1.29.0`) and the `witness` repository at commit `5193896`. The commands were run on 2026-10-05; syncing over P2P could not be run from the test machine, and the log lines it prints are quoted from the hived source.
+> **Status: Live.** For hived 1.30.0 (`pixadock/pixagram:1.30.0`) and the `witness` repository at commit `e3b8841`. The commands were run on 2026-10-05; syncing over P2P could not be run from the test machine, and the log lines it prints are quoted from the hived source.
 
 A node is a copy of hived that downloads every block, checks it against the rules and keeps the chain's state. Run one to have your own endpoint, to answer your own queries, or as the base of a witness or an API node. This page sets up a node that follows the chain, explains its plugins and data, and covers replays, upgrades and errors.
 
@@ -71,7 +71,7 @@ cd pixa-node
 grep 'image: pixadock/pixagram' docker-compose.yml
 ```
 
-Expected output: the line `image: pixadock/pixagram:1.29.0`, indented.
+Expected output: the line `image: pixadock/pixagram:1.30.0`, indented.
 
 Start only the node, not the price feed:
 
@@ -187,7 +187,7 @@ HIVED_EXTRA_ARGS="--force-replay --exit-before-sync" docker compose run --rm --n
 docker compose up -d pixagram
 ```
 
-The one-off container rebuilds the state and exits; the last line starts the node normally. For hardfork 29 the replay took about 20 seconds.
+The one-off container rebuilds the state and exits; the last line starts the node normally. For hardfork 29 the replay took about 20 seconds; the repository's README gives the same steps for the move to 1.30.0 at hardfork 30 (2026-10-07), which every node had to make.
 
 **If `git pull` stops with `Aborting`,** you have changed a file that the update also changes, usually `config.ini`, and nothing was updated. Do not continue with the old tag: take the change as described in [Become a Witness](become-a-witness.md#2-set-up-the-node), then run the commands again.
 
@@ -207,7 +207,7 @@ The one-off container rebuilds the state and exits; the last line starts the nod
 
 ## Sources
 
-- **Repository** [`pixagram-blockchain/witness`](https://github.com/pixagram-blockchain/witness/tree/51938966c3714908a10f158be197064c2d16d94b) at commit `5193896`: [`README.md`](https://github.com/pixagram-blockchain/witness/blob/51938966c3714908a10f158be197064c2d16d94b/README.md) (sizing, clock, ports, replay, upgrade), [`docker-compose.yml`](https://github.com/pixagram-blockchain/witness/blob/51938966c3714908a10f158be197064c2d16d94b/docker-compose.yml) and [`pixagram/config.ini`](https://github.com/pixagram-blockchain/witness/blob/51938966c3714908a10f158be197064c2d16d94b/pixagram/config.ini).
-- **API node plugins:** [`pixagram-node/pixagram/config.ini`](https://github.com/pixagram-blockchain/pixagram-node/blob/7e57cca075d51a3ac1cf3065d367581a3efe56c6/pixagram/config.ini) and its [README](https://github.com/pixagram-blockchain/pixagram-node/blob/7e57cca075d51a3ac1cf3065d367581a3efe56c6/README.md) at commit `7e57cca`.
+- **Repository** [`pixagram-blockchain/witness`](https://github.com/pixagram-blockchain/witness/tree/e3b88414f563e02beff7587a3722d076214652c3) at commit `e3b8841`: [`README.md`](https://github.com/pixagram-blockchain/witness/blob/e3b88414f563e02beff7587a3722d076214652c3/README.md) (sizing, clock, ports, replay, upgrade), [`docker-compose.yml`](https://github.com/pixagram-blockchain/witness/blob/e3b88414f563e02beff7587a3722d076214652c3/docker-compose.yml) and [`pixagram/config.ini`](https://github.com/pixagram-blockchain/witness/blob/e3b88414f563e02beff7587a3722d076214652c3/pixagram/config.ini).
+- **API node plugins:** [`pixagram-node/pixagram/config.ini`](https://github.com/pixagram-blockchain/pixagram-node/blob/4a271e879818b194ffbef57b8efc5744151017c4/pixagram/config.ini) and its [README](https://github.com/pixagram-blockchain/pixagram-node/blob/4a271e879818b194ffbef57b8efc5744151017c4/README.md) at commit `4a271e8`.
 - **Log lines,** at commit [`48f75a2`](https://github.com/pixagram-blockchain/pixagram/tree/48f75a28840c24e5a5b42ccb4f94dc8668ecb443): *Syncing* and *entering live mode* in [`chain_plugin.cpp:686-687`](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/plugins/chain/chain_plugin.cpp#L686-L687) and [1991-1997](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/plugins/chain/chain_plugin.cpp#L1991-L1997); *Got … transactions* in [`p2p_plugin.cpp:169`](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/plugins/p2p/p2p_plugin.cpp#L169); the replay options in [`chain_plugin.cpp:1518-1525`](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/plugins/chain/chain_plugin.cpp#L1518-L1525); the state-file errors in [`database_exceptions.hpp:90-91`](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/include/hive/chain/database_exceptions.hpp#L90-L91) and [`chainbase.hpp:1416`](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chainbase/include/chainbase/chainbase.hpp#L1416).
 - **Tests on 2026-10-05:** the image's platforms (`docker buildx imagetools inspect`); the stack above started with the override, answering on `127.0.0.1:7777`; `wallet_bridge_api` added to a started node without a replay.

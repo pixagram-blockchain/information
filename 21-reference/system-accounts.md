@@ -12,7 +12,7 @@ A few accounts were created at genesis (block 0, and block 1 for `steem.dao`) an
 | `pixa.team` | Team and contributor allocation | 25,000,000 VESTS | 8,490,000 VESTS | 3-of-3 multisig | [Restricted](#restricted-accounts-pixarex-and-pixateam), same rules |
 | `pixa.omnibus` | Treasury of the Decentralized Pixa Fund | 245,098.039 PXS | 249,310.119 PXS | none | [Keyless](#the-treasury-pixaomnibus); pays only proposals that stakeholders approve |
 | `steem.dao` | Old treasury name inherited from Hive | created empty at block 1 | empty | none | Still counts as a treasury; anything sent to it is moved to `pixa.omnibus` |
-| `initminer` | First block producer | nothing | 43,141.908819 VESTS | single key | Ordinary account, still a witness |
+| `initminer` | First block producer | nothing | 43,141.908819 VESTS | single key | Ordinary account, registered as a witness; not among the scheduled witnesses on 2026-10-08 |
 | `null` | Burn address | — | — | none | Everything sent here is destroyed in the same block |
 | `temp` | Open placeholder | — | — | threshold 0 | **Anyone can spend from it.** Never send it anything. |
 | `miners` | Placeholder from Steem's mining era | — | — | none | Unused |
@@ -103,7 +103,7 @@ These are commitments stated by the operator. The protocol does not enforce them
 
 ## initminer
 
-`initminer` produced the chain's first blocks and was the only witness at genesis. It started with no balance and has earned Pixa Power by producing blocks. Today it is an ordinary account that runs as one of the elected witnesses.
+`initminer` produced the chain's first blocks and was the only witness at genesis. It started with no balance and earned Pixa Power by producing blocks, 45,515.494253 VESTS by 2026-10-08. Today it is an ordinary account; it remains registered as a witness but was not among the 8 scheduled on 2026-10-08 (`condenser_api.get_witness_schedule`).
 
 ## Placeholders inherited from Hive
 

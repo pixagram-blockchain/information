@@ -1,8 +1,8 @@
 # Keys and Recovery
 
-> **Status: Live.** Account recovery on the chain becomes possible from about 2026-12-24, and the app has no screen to run one. Described from the app's code of 2026-10-04. Last checked 2026-10-06.
+> **Status: Live.** Account recovery on the chain works since hardfork 30 (2026-10-07) for owner-key changes made after it, and the app has no screen to run one. Described from the app's code of 2026-10-04. Last checked 2026-10-08.
 
-Your account is controlled by keys that only you hold. No one at Pixagram can reset them. This guide shows where your keys come from, which one does what, how the app keeps them, and what to do when one is lost or seen by someone else. The terms are defined under [Keys](../11-reference/glossary.md#keys) in the Glossary.
+Your account is controlled by keys that only you hold. No one at Pixagram can reset them. This guide shows where your keys come from, which one does what, how the app keeps them, and what to do when one is lost or seen by someone else. The terms are defined under [Keys](../21-reference/glossary.md#keys) in the Glossary.
 
 ## Where your keys come from
 
@@ -75,7 +75,7 @@ Change them if your PDF or a private key may have been seen by someone else, or 
 **You cannot undo this.** The old phrase, the old master key and the old keys stop working, and only the new PDF opens the account.
 
 - **Other accounts lose access.** The change leaves only your new keys in control. Any app or account you had authorised to act for you must be authorised again.
-- **The chain allows two owner-key changes per hour** ([Chain Parameters](../11-reference/chain-parameters.md#accounts-and-keys)).
+- **The chain allows two owner-key changes per hour** ([Chain Parameters](../21-reference/chain-parameters.md#accounts-and-keys)).
 - **If the app does not log you out,** the change did not go through. Try again.
 
 ## If your keys are stolen
@@ -83,11 +83,11 @@ Change them if your PDF or a private key may have been seen by someone else, or 
 | What was taken | What the thief can do | What to do |
 |---|---|---|
 | **Posting key** | Post, vote and follow as you, and edit or delete your posts | [Change your keys](#change-your-keys) |
-| **Active key** | Move your tokens, and replace your active and posting keys | Change your keys at once. Tokens in savings take 3 days to leave, which leaves you time to cancel a withdrawal with your new keys ([Savings](../11-reference/glossary.md#savings)). |
+| **Active key** | Move your tokens, and replace your active and posting keys | Change your keys at once. Tokens in savings take 3 days to leave, which leaves you time to cancel a withdrawal with your new keys ([Savings](../21-reference/glossary.md#savings)). |
 | **Owner key**, not yet used | Everything, including changing your keys | Change your keys first, before the thief does |
-| **Owner key**, already changed by the thief | Everything; you are locked out | Account recovery is not available in the app, and the chain cannot reverse a stolen owner key before about 2026-12-24. Keeping the owner key offline is what prevents this. |
+| **Owner key**, already changed by the thief | Everything; you are locked out | The chain can reverse an owner-key change made after 2026-10-07 12:00 UTC, through your recovery partner, but the app has no screen for it: you need a Hive-compatible tool and the partner's help. Keeping the owner key offline is what prevents this. |
 
-Before about 2026-12-24, the chain cannot reverse a stolen owner key, because it starts keeping the history of owner keys only then ([why](../11-reference/chain-parameters.md#accounts-and-keys)).
+The chain keeps the history of owner keys since hardfork 30, 2026-10-07 12:00 UTC. A recovery needs an owner key the account used within the last 30 days and the recovery partner's request, and it can undo only owner-key changes made after that moment: an account whose owner key was taken before it has nothing on record to recover from ([why](../21-reference/chain-parameters.md#accounts-and-keys)).
 
 ## Sources
 
@@ -97,7 +97,7 @@ Before about 2026-12-24, the chain cannot reverse a stolen owner key, because it
 - **How keys are kept:** [`session-manager.js`][session]; the vault password's rules, [`pixaproxyapi.js:501-517`][api-501] and [`LoginDialog.js:77-95`][login-77]; wrong entries, [`pixaproxyapi.js:10519-10591`][api-10519]; the timeouts, [`LoginDialog.js:531-548`][login-531].
 - **Recovery mode in the sign-up:** [`CreateAccountDialog.js:3040-3085`][cad-3040] and [`CreateAccountDialog.js:2399-2433`][cad-2399].
 - **English text:** [`en.js:1826-1912`][en-1826].
-- **Chain:** the recovery window, the limit on owner-key changes and the date owner-key history starts, [Chain Parameters](../11-reference/chain-parameters.md#accounts-and-keys).
+- **Chain:** the recovery window, the limit on owner-key changes and the date owner-key history starts, [Chain Parameters](../21-reference/chain-parameters.md#accounts-and-keys).
 
 [bw-291]: https://github.com/pixagram-blockchain/pixagram-ui-dev/blob/ca1d15762b52ec08f33c69ca9afa34bb78c0df52/src/js/utils/BackUpWallet2.js#L291-L348
 [bw-111]: https://github.com/pixagram-blockchain/pixagram-ui-dev/blob/ca1d15762b52ec08f33c69ca9afa34bb78c0df52/src/js/utils/BackUpWallet2.js#L111-L154

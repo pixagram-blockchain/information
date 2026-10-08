@@ -65,7 +65,7 @@ All 141 artworks published from 2026-09-04 to 2026-10-04 took this form exactly:
 | Limit | Value | Set by |
 |---|---|---|
 | Post body | No limit of its own | Chain |
-| Whole transaction | About 2 MiB at the current block size | Witnesses' median vote ([Chain Parameters](../11-reference/chain-parameters.md#transaction-and-block-size)) |
+| Whole transaction | About 2 MiB at the current block size | Witnesses' median vote ([Chain Parameters](../21-reference/chain-parameters.md#transaction-and-block-size)) |
 | Request to `api.pixagram.com` | About 1 MiB | The node's server |
 | Artwork size in the app | No byte limit. Converted pictures follow the size presets above; pixel art that passes through, and quantized pictures, can be larger. | App |
 

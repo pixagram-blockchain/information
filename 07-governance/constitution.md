@@ -63,5 +63,5 @@ Until these are answered, the principles describe what the project intends. They
 ## Sources
 
 - Dan Larimer, "[Why every Blockchain needs a Constitution](https://steemit.com/blockchain/@dan/why-every-blockchain-needs-a-constitution)", Steemit, 2016-07-01.
-- "How Pixagram Completes the Vision for Blockchain World Domination", LinkedIn, 2025-12-20: the five principles. Some figures in that article predate the chain and differ from it; [Chain Parameters](../11-reference/chain-parameters.md) has the values the chain enforces.
+- "How Pixagram Completes the Vision for Blockchain World Domination", LinkedIn, 2025-12-20: the five principles. Some figures in that article predate the chain and differ from it; [Chain Parameters](../21-reference/chain-parameters.md) has the values the chain enforces.
 - CryptoSlate, "[Block Producers change EOS constitution following voting gridlock](https://cryptoslate.com/block-producers-change-eos-constitution-following-voting-gridlock/)", 2019-04-15.

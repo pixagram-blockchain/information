@@ -1,6 +1,6 @@
 # Run an API Node
 
-> **Status: Live.** For the `pixagram-node` repository at commit `7e57cca`: hived and HAF 1.29.0, Hivemind `mainnet`. The six public nodes behaved as this stack does when checked on 2026-10-05. The full stack could not be run on the test machine; its configuration was checked with `docker compose config`.
+> **Status: Live.** For the `pixagram-node` repository at commit `4a271e8`: hived and HAF 1.30.0, Hivemind `mainnet`. The six public nodes behaved as this stack does when checked on 2026-10-05. The full stack could not be run on the test machine; its configuration was checked with `docker compose config`.
 
 An API node serves the chain to apps: balances, history, feeds, communities. The Pixagram app works only through API nodes, so each new one adds capacity and a place to fail over to, and a node near its users makes the app faster for them. This page sets one up, explains what each part does, and covers its ports, upgrades and the gateway's behaviour. An API node produces no blocks; for that, see [Become a Witness](become-a-witness.md).
 
@@ -13,8 +13,8 @@ Internet → Caddy (TLS) → Jussi (routing, renames) → hived  (chain calls)
 
 | Service | Image | Job |
 |---|---|---|
-| `pixagram` | `pixadock/pixagram:1.29.0` | hived with the chain API plugins and account history |
-| `pixagram_haf` | `pixadock/pixagram-haf:1.29.0` | A second hived that writes every block into PostgreSQL |
+| `pixagram` | `pixadock/pixagram:1.30.0` | hived with the chain API plugins and account history |
+| `pixagram_haf` | `pixadock/pixagram-haf:1.30.0` | A second hived that writes every block into PostgreSQL |
 | `hivemind_setup` | `pixadock/hivemind:mainnet` | Creates Hivemind's schema and roles, once |
 | `hivemind_sync` | `pixadock/hivemind:mainnet` | Indexes blocks from HAF |
 | `hivemind` | `pixadock/hivemind:mainnet` | Serves `bridge.*`, `follow_api.*`, `tags_api.*` |
@@ -151,7 +151,7 @@ docker compose restart jussi              # if bridge.* calls return 502
 
 ## Upgrade
 
-A new hived version needs a replay of the consensus node, and HAF and Hivemind rebuilt from scratch, because HAF cannot replay into a database that already holds blocks. The whole chain resyncs in minutes.
+A new hived version needs a replay of the consensus node, and HAF and Hivemind rebuilt from scratch, because HAF cannot replay into a database that already holds blocks. The whole chain resyncs in minutes. The repository's README gives these steps for the move to 1.30.0 at hardfork 30 (2026-10-07); a node left on 1.29.0 applies the old rules from block 949,330 and drifts from the network.
 
 ```bash
 git pull
@@ -182,6 +182,6 @@ Once both checks pass, ask the maintainers to add your node to the app's node li
 
 ## Sources
 
-- **Repository** [`pixagram-blockchain/pixagram-node`](https://github.com/pixagram-blockchain/pixagram-node/tree/7e57cca075d51a3ac1cf3065d367581a3efe56c6) at commit `7e57cca`: [`README.md`](https://github.com/pixagram-blockchain/pixagram-node/blob/7e57cca075d51a3ac1cf3065d367581a3efe56c6/README.md) (sizing, PostgreSQL, setup, verification, restarts, upgrade), [`docker-compose.yml`](https://github.com/pixagram-blockchain/pixagram-node/blob/7e57cca075d51a3ac1cf3065d367581a3efe56c6/docker-compose.yml) (services and published ports), [`ssl-proxy/Caddyfile`](https://github.com/pixagram-blockchain/pixagram-node/blob/7e57cca075d51a3ac1cf3065d367581a3efe56c6/ssl-proxy/Caddyfile) and [`jussi/nginx.conf`](https://github.com/pixagram-blockchain/pixagram-node/blob/7e57cca075d51a3ac1cf3065d367581a3efe56c6/jussi/nginx.conf).
+- **Repository** [`pixagram-blockchain/pixagram-node`](https://github.com/pixagram-blockchain/pixagram-node/tree/4a271e879818b194ffbef57b8efc5744151017c4) at commit `4a271e8`: [`README.md`](https://github.com/pixagram-blockchain/pixagram-node/blob/4a271e879818b194ffbef57b8efc5744151017c4/README.md) (sizing, PostgreSQL, setup, verification, restarts, upgrade), [`docker-compose.yml`](https://github.com/pixagram-blockchain/pixagram-node/blob/4a271e879818b194ffbef57b8efc5744151017c4/docker-compose.yml) (services and published ports), [`ssl-proxy/Caddyfile`](https://github.com/pixagram-blockchain/pixagram-node/blob/4a271e879818b194ffbef57b8efc5744151017c4/ssl-proxy/Caddyfile) and [`jussi/nginx.conf`](https://github.com/pixagram-blockchain/pixagram-node/blob/4a271e879818b194ffbef57b8efc5744151017c4/jussi/nginx.conf).
 - **Override syntax:** Docker's [Merge Compose files](https://docs.docker.com/reference/compose-file/merge/) (`!override` requires Compose 2.24.4); the override above checked with `docker compose config` on 2026-10-05.
 - **Public nodes:** the gateway's renames, request limit, compression and method list, compared on all six on 2026-10-05; locations from the app's node list.

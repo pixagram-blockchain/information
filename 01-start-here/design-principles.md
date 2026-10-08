@@ -20,7 +20,7 @@ Pixagram keeps all three and sharpens the first two.
 
 **Idea.** New tokens go to the people who do the work: artists who publish, curators who find good work early, witnesses who run the network, and proposals the community funds.
 
-**In the protocol.** New PIXA is issued every block and split between the reward fund, the witnesses and the [Decentralized Pixa Fund](../07-governance/decentralized-pixa-fund.md). Pixa removed both of Hive's rewards for passive holding: interest on the debt-style token, and the share of issuance paid to stake. The only reward stake earns is curation, which requires voting ([Issuance](../11-reference/chain-parameters.md#issuance)).
+**In the protocol.** New PIXA is issued every block and split between the reward fund, the witnesses and the [Decentralized Pixa Fund](../07-governance/decentralized-pixa-fund.md). Pixa removed both of Hive's rewards for passive holding: interest on the debt-style token, and the share of issuance paid to stake. The only reward stake earns is curation, which requires voting ([Issuance](../21-reference/chain-parameters.md#issuance)).
 
 **Still incomplete.** A vote moves rewards only once an account holds more than 2,500 Pixa Power. Small accounts can publish and earn, but not yet curate ([Voting and Curation](../02-social-layer/voting-and-curation.md)).
 
@@ -38,13 +38,13 @@ Pixagram keeps all three and sharpens the first two.
 
 **In the protocol.** Most operations draw on [Resource Credits](../04-tokens-and-economy/resource-credits.md), which recharge from stake.
 
-**Still incomplete.** Three operations keep a fee, each to deter abuse: opening an account, creating a proposal, and converting PIXA into PXS ([list](../11-reference/chain-parameters.md#figures-you-may-meet-elsewhere)).
+**Still incomplete.** Three operations keep a fee, each to deter abuse: opening an account, creating a proposal, and converting PIXA into PXS ([list](../21-reference/chain-parameters.md#figures-you-may-meet-elsewhere)).
 
 ### 4. Promise less, and say what is true
 
 **Idea.** A system that promises a fixed value has to defend it, and defences fail. Pixa's second token, PXS, promises no price. Under stress it settles for less rather than defending a number ([PXS at a Glance](../05-pixa-supra/pxs-at-a-glance.md)).
 
-**Applied to documentation.** The same rule applies to the project's own documents: they state what the chain enforces, and they flag where older plans or designs differ ([Style Guide](../13-about/style-guide.md)).
+**Applied to documentation.** The same rule applies to the project's own documents: they state what the chain enforces, and they flag where older plans or designs differ ([Style Guide](../22-about/style-guide.md)).
 
 ### 5. Separate the powers
 
@@ -52,7 +52,7 @@ Pixagram keeps all three and sharpens the first two.
 
 **In the protocol:**
 
-- **The genesis allocations cannot vote.** They can only hand out stake ([restricted accounts](../11-reference/system-accounts.md#restricted-accounts-pixarex-and-pixateam)).
+- **The genesis allocations cannot vote.** They can only hand out stake ([restricted accounts](../21-reference/system-accounts.md#restricted-accounts-pixarex-and-pixateam)).
 - **The community fund has no keys.** It pays only proposals that stakeholders approve.
 - **Protocol changes need the witnesses.** A change activates only when enough elected witnesses run it.
 - **Off chain, the work is split.** Development, stewardship and operation sit with three separate legal entities ([Who Does What](who-does-what.md)).
@@ -73,7 +73,7 @@ Pixagram keeps all three and sharpens the first two.
 
 **Idea.** Hive's code has run in public since 2016.
 
-**In practice.** Pixa changes a short, documented list of rules and keeps everything else, so tools written for Hive work once they are set to Pixa's chain ID, key prefix and token symbols ([Chain Parameters](../11-reference/chain-parameters.md#network-identity)). Hardfork 29 fixed the inherited reward denominator that a new chain could not use.
+**In practice.** Pixa changes a short, documented list of rules and keeps everything else, so tools written for Hive work once they are set to Pixa's chain ID, key prefix and token symbols ([Chain Parameters](../21-reference/chain-parameters.md#network-identity)). Hardfork 29 fixed the inherited reward denominator that a new chain could not use.
 
 ## Inherited → changed
 
@@ -88,4 +88,4 @@ Pixagram keeps all three and sharpens the first two.
 
 - [Steem whitepaper](https://steem.com/steem-whitepaper.pdf): introduction (the three principles), "Micropayments Don't Work", "Distributing Currency".
 - [Hive whitepaper](https://hive.io/whitepaper.pdf), §II.4–II.5.
-- Chain rules: [Chain Parameters](../11-reference/chain-parameters.md); live stake figures: [Decentralization and Safeguards](../07-governance/decentralization-and-safeguards.md).
+- Chain rules: [Chain Parameters](../21-reference/chain-parameters.md); live stake figures: [Decentralization and Safeguards](../07-governance/decentralization-and-safeguards.md).

@@ -1,6 +1,6 @@
 # NFTs and Marketplace
 
-> **Status: Planned (2027).** Buying and selling artworks on chain is on the roadmap for 2027. Nothing on this page runs yet, except what is marked as live. Last updated 2026-10-05.
+> **Status: Planned (2027).** Buying and selling artworks on chain is on the roadmap for 2027. Nothing on this page runs yet, except what is marked as live. Last updated 2026-10-08.
 
 Pixagram already records each artwork on chain, with its author and its licence. What it does not have is a way to own, transfer or sell an artwork as a distinct asset. This page says what exists today, what is planned, and which design questions are still open.
 
@@ -8,13 +8,27 @@ Pixagram already records each artwork on chain, with its author and its licence.
 
 | Element | State |
 |---|---|
-| The artwork's bytes, author and time, recorded on chain | **Live** ([Permanence and Provenance](permanence-and-provenance.md)) |
+| The artwork's bytes, author and time, recorded on chain | **Live** ([Permanence and Provenance](../03-art-on-chain/permanence-and-provenance.md)) |
 | A licence record with rights and a royalty percentage | **Live** as metadata; not enforced |
 | Escrow transfers with a third-party agent, inherited from Steem | **Live** on chain; not offered in the app |
 | An ownership token for an artwork, transfers of ownership, sales | **Not built** |
 | The app's NFT tab on a post | A preview, marked "on its way" |
 
 Owning the account that posted an artwork is not the same as owning the artwork as an asset. Today the post belongs to its author's account and cannot be passed to anyone else.
+
+## What a post is and is not
+
+The word "NFT" appears in the app and in the project's writing, so it is worth stating what the chain holds. A published artwork is a **post**: a `comment` operation signed by its author, carrying the image in its body and the author's metadata, including a licence record if the author chose one ([Operations Reference](../11-protocol-reference/operations-reference.md#content-and-voting), [Artwork Encoding Spec](../09-developers/artwork-encoding-spec.md)).
+
+| A post is | A post is not |
+|---|---|
+| A permanent, dated, signed record that this account published these bytes | A token: there is no ownership record, no owner field, nothing that can be transferred |
+| Editable by its author, who can mark it deleted in the app; the first version stays in its block | Transferable: the account can change hands, the post cannot leave the account |
+| The bearer of a licence record, which states the author's terms in public | A sale, a contract or an enforcement of those terms; the chain reads none of them |
+| Rewardable for 7 days through votes | Unique by any rule: the same image can be posted again by anyone, and nothing marks the copy ([PAPH](../15-search-and-indexing/paph.md)) |
+| Readable by every program from the blocks | An asset in the sense of Hive-Engine or Ethereum tokens; the chain has no token standard |
+
+The data model says the same from the other side: the chain knows posts; "artwork", "NFT", "licence" and "deleted" are readings of the metadata that the app and this documentation define ([Data Model](../11-protocol-reference/data-model.md#application-only-what-the-pixagram-app-defines)). The app's NFT tab is a preview of what the 2027 marketplace may show, not a view of anything on chain.
 
 ## What is planned
 
@@ -40,7 +54,7 @@ These need public answers before the marketplace ships, and this page will recor
 2. **How does a sale settle?** In PIXA, in PXS, or both? With an escrow step?
 3. **How do royalties work?** Does the royalty in each artwork's licence record become an enforced payment to the creator on resale, and at what rate?
 4. **What does an owner receive?** The licence rights recorded with the work, or rights defined at sale?
-5. **How are copies handled?** Without an originality check, someone could sell another person's work ([Permanence and Provenance](permanence-and-provenance.md#provenance)).
+5. **How are copies handled?** Without an originality check, someone could sell another person's work ([Permanence and Provenance](../03-art-on-chain/permanence-and-provenance.md#provenance)).
 6. **What does it cost to use?** Do the new operations draw on Resource Credits, like posting, or carry fees?
 
 ## Where the idea comes from

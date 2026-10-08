@@ -1,6 +1,6 @@
 # Chain Architecture
 
-> **Status: Live.** Describes hived 1.29.0 and the public API stack of the `pixagram-node` repository at commit `7e57cca`. Checked against the six public nodes on 2026-10-05.
+> **Status: Live.** Describes hived 1.30.0 and the public API stack of the `pixagram-node` repository at commit `4a271e8`. Checked against the six public nodes on 2026-10-05 and 2026-10-08.
 
 This page shows the parts of the Pixa network a developer talks to, what each part does, and where each kind of data lives. Read it before the [Developer Quickstart](developer-quickstart.md) if you are new to Hive-family chains, or before running a node ([Run a Node](../10-node-operators/run-a-node.md)).
 
@@ -35,13 +35,13 @@ flowchart LR
 | **Price feed** | A program each witness runs to publish the PIXA price of one Big Mac every hour ([Become a Witness](../10-node-operators/become-a-witness.md#5-publish-the-price-feed)). | Its output is input to consensus; the program is not |
 | **Clients** | The Pixagram app and any other program. They sign transactions locally and send them over HTTPS. | No |
 
-Six public API nodes run this stack on 2026-10-05: `api.pixagram.com`, `pixarex.net`, `merlion.surf`, `blockforge.lol`, `boitata.quest` and `pixa-dubai.xyz`. They serve the same chain and answer identically.
+Six public API nodes run this stack: `api.pixagram.com`, `pixarex.net`, `merlion.surf`, `blockforge.lol`, `boitata.quest` and `pixa-dubai.xyz`. They serve the same chain and answered identically on 2026-10-05 ([Architecture](../18-infrastructure/architecture.md) says who runs each).
 
 ## The chain: blocks, transactions, operations
 
 | Term | Meaning |
 |---|---|
-| **Block** | A batch of transactions signed by one witness. One every 3 seconds ([Chain Parameters](../11-reference/chain-parameters.md#blocks-and-witnesses)). |
+| **Block** | A batch of transactions signed by one witness. One every 3 seconds ([Chain Parameters](../21-reference/chain-parameters.md#blocks-and-witnesses)). |
 | **Transaction** | One or more operations, signed together. It names a recent block (`ref_block_num`, `ref_block_prefix`) and an expiry, so it cannot be replayed on another fork or later. |
 | **Operation** | One action: `comment` publishes a post or an artwork, `vote` votes, `transfer` moves tokens, `custom_json` carries app data such as follows and community actions. |
 | **Virtual operation** | A record the chain writes itself when a rule applies, such as `author_reward` at payout or `producer_reward` for a block. Nobody signs it. |
@@ -94,16 +94,16 @@ Anything marked *No* can be rebuilt or replaced without the chain changing. An a
 
 | | Steem / Hive | Pixa |
 |---|---|---|
-| Node software | hived (Hive), steemd (Steem) | hived 1.29.0, a fork of Hive's 1.28.7 |
+| Node software | hived (Hive), steemd (Steem) | hived 1.30.0, a fork of Hive's 1.28.7 |
 | Social indexer | Hivemind; on Hive, built on HAF | the same, built on HAF |
 | Gateway called Jussi | a Python service that routes calls | an OpenResty (nginx and Lua) configuration that routes calls and renames fields |
 | Field names in API responses | `hbd_balance`, `reward_hive` … on Hive | `pxs_balance`, `reward_pixa` … through the gateway; Hive's names from hived directly |
 
 ## Sources
 
-- Gateway: [`jussi/nginx.conf`](https://github.com/pixagram-blockchain/pixagram-node/blob/7e57cca075d51a3ac1cf3065d367581a3efe56c6/jussi/nginx.conf) (routing at lines 18-51, renames at 63-117), [`docker-compose.yml`](https://github.com/pixagram-blockchain/pixagram-node/blob/7e57cca075d51a3ac1cf3065d367581a3efe56c6/docker-compose.yml) and [`ssl-proxy/Caddyfile`](https://github.com/pixagram-blockchain/pixagram-node/blob/7e57cca075d51a3ac1cf3065d367581a3efe56c6/ssl-proxy/Caddyfile), at commit `7e57cca`.
-- Witness node: [`witness`](https://github.com/pixagram-blockchain/witness/tree/51938966c3714908a10f158be197064c2d16d94b) at commit `5193896`.
-- Node software: [`pixagram-blockchain/pixagram`](https://github.com/pixagram-blockchain/pixagram/tree/48f75a28840c24e5a5b42ccb4f94dc8668ecb443) at commit `48f75a2`.
+- Gateway: [`jussi/nginx.conf`](https://github.com/pixagram-blockchain/pixagram-node/blob/4a271e879818b194ffbef57b8efc5744151017c4/jussi/nginx.conf) (routing at lines 18-51, renames at 63-117), [`docker-compose.yml`](https://github.com/pixagram-blockchain/pixagram-node/blob/4a271e879818b194ffbef57b8efc5744151017c4/docker-compose.yml) and [`ssl-proxy/Caddyfile`](https://github.com/pixagram-blockchain/pixagram-node/blob/4a271e879818b194ffbef57b8efc5744151017c4/ssl-proxy/Caddyfile), at commit `4a271e8`, which moved the images to 1.30.0 and changed nothing else.
+- Witness node: [`witness`](https://github.com/pixagram-blockchain/witness/tree/e3b88414f563e02beff7587a3722d076214652c3) at commit `e3b8841`.
+- Node software: [`pixagram-blockchain/pixagram`](https://github.com/pixagram-blockchain/pixagram/tree/746118eb3b87dcca768b72fa262ad2aa63e1f177) at tag `v1.30.0`.
 - Public nodes: the app's node list in [`constants.js`](https://github.com/pixagram-blockchain/pixagram-ui-dev/blob/ca1d15762b52ec08f33c69ca9afa34bb78c0df52/src/js/utils/constants.js#L94); each answered `condenser_api.get_dynamic_global_properties` and `bridge.get_ranked_posts` on 2026-10-05.
 - [Hive whitepaper](https://hive.io/whitepaper.pdf) (2020), §III.5 "Node Types" and §IV.1 "Integration"; [Steem whitepaper](https://steem.com/steem-whitepaper.pdf), "Consensus in Steem".
 - Comment archive: [`rocksdb_comment_archive.cpp`](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/external_storage/rocksdb_comment_archive.cpp), called at payout from [`database_comment.cpp:118`](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/database_comment.cpp#L118).

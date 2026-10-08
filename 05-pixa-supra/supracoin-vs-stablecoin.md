@@ -68,14 +68,14 @@ Applied to the running chain:
 |---|---|
 | Peg | None. No code targets a PXS price. The feed is an input to conversions, not a target. |
 | Reserve | None. The treasury's 249,266.219 PXS are PXS, spent on proposals, not assets held behind PXS. |
-| Defence | None. The chain never buys or sells PXS. When PXS grows large, it stops printing at a debt ratio of 20%, then cuts what each PXS delivers above 30% ([thresholds](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)). It adjusts; it does not defend. |
+| Defence | None. The chain never buys or sells PXS. When PXS grows large, it stops printing at a debt ratio of 20%, then cuts what each PXS delivers above 30% ([thresholds](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)). It adjusts; it does not defend. |
 | Issuer | None in the protocol. PXS is created by fixed rules: author rewards, the fund's share of issuance and conversions. The 245,098.039 PXS seeded at genesis were set by the chain's code. No account can change these rules alone: a change needs a hardfork that the witnesses adopt, and on 2026-10-05 six accounts, five of them with stake, had elected all nine witnesses ([Decentralization and Safeguards](../07-governance/decentralization-and-safeguards.md)). |
 
 The protocol has no issuer; who elects the witnesses decides how far that holds in practice.
 
 ## What the word does not change
 
-- **Safety.** Calling PXS a supracoin makes it no safer. What PXS is follows from its mechanism, not from its name ([Style Guide](../13-about/style-guide.md#writing-about-pxs), statement 4).
+- **Safety.** Calling PXS a supracoin makes it no safer. What PXS is follows from its mechanism, not from its name ([Style Guide](../22-about/style-guide.md#writing-about-pxs), statement 4).
 - **Where the risk goes.** Risk is moved, not removed. It sits with PXS holders, who carry the feed's errors, the haircut and the need to find a buyer for the PIXA they receive; with PIXA holders, who carry the dilution; and with the honesty of the witnesses.
 - **The reference.** A Big Mac is a direction, never a destination. Under stress, a PXS settles for less than the reference names.
 - **Legal status.** This page compares mechanisms. It states no legal classification of PXS or of any other token.

@@ -19,7 +19,7 @@ Two ratios follow from them:
 - **Collateral ratio** *R* = *P* ÷ (*S* × *m*): the value of all PIXA divided by the value of the PXS outside the treasury, both at the median feed. About **804** on 2026-10-06.
 - **Debt ratio** *d* = 1 ÷ (1 + *R*): the PXS outside the treasury as a share of the combined value. **0.124%** on 2026-10-06.
 
-The treasury's PXS counts in neither ratio. The chain leaves it out of the debt ratio ([database.cpp:2918-2941][db-calc]) and out of the haircut ([2502-2505][db-2502]). The thresholds themselves are on [Chain Parameters](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed).
+The treasury's PXS counts in neither ratio. The chain leaves it out of the debt ratio ([database.cpp:2918-2941][db-calc]) and out of the haircut ([2502-2505][db-2502]). The thresholds themselves are on [Chain Parameters](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed).
 
 ## Converting PXS into PIXA
 

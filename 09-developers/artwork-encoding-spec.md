@@ -24,7 +24,7 @@ An artwork is a top-level post: one `comment` operation, signed with the author'
 
 **Payout options.** The app sends no `comment_options`, so every artwork has the chain's defaults: rewards allowed, curation allowed, `percent_pxs` 10000 (Hive's `percent_hbd`), maximum payout 1,000,000.000 PXS and no beneficiaries ([Posting and Rewards](../02-social-layer/posting-and-rewards.md#options-the-chain-offers)).
 
-**Timing.** An account can publish one top-level post every 5 minutes ([Chain Parameters](../11-reference/chain-parameters.md#posts-and-comments)).
+**Timing.** An account can publish one top-level post every 5 minutes ([Chain Parameters](../21-reference/chain-parameters.md#posts-and-comments)).
 
 ## The body
 
@@ -36,7 +36,7 @@ WebP file  = "RIFF" size "WEBP" "VP8L" …   (the lossless format)
 
 - **One image, nothing else.** The body *must* be the data URI alone: no text before or after it, no `<`, no line break.
 - **Lossless WebP.** The app *should* write lossless WebP (the `VP8L` chunk), and every artwork in the survey is one. It encodes with libwebp's `lossless` and `exact` options, so every pixel, including fully transparent ones, keeps its exact colour.
-- **Size.** The image is stored at its own size; there is no scaling factor in the format. Artworks on chain on 2026-10-05 measured from 91 to 2,160 pixels wide and 91 to 1,184 high. The body must fit in the transaction: about 2 MiB on chain, and about 1 MiB through the public API ([limits](../11-reference/chain-parameters.md#transaction-and-block-size)).
+- **Size.** The image is stored at its own size; there is no scaling factor in the format. Artworks on chain on 2026-10-05 measured from 91 to 2,160 pixels wide and 91 to 1,184 high. The body must fit in the transaction: about 2 MiB on chain, and about 1 MiB through the public API ([limits](../21-reference/chain-parameters.md#transaction-and-block-size)).
 - **Cost.** Every byte costs the author [Resource Credits](../04-tokens-and-economy/resource-credits.md); a smaller file is cheaper.
 
 The start of a real artwork's body, which decodes to `RIFF`, the file size, `WEBP` and `VP8L`:

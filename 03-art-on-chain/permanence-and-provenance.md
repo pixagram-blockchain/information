@@ -8,7 +8,7 @@ Two promises are often made for art on a blockchain: that it lasts, and that it 
 
 **How long an artwork lasts.** An artwork sits in a block, and blocks are copied by every node that keeps the chain's full history. The artwork lasts as long as someone keeps that history. No company has to stay in business and no image host has to keep a file. The record of the first Steem blocks of 2016 is still served today by nodes of the chains descended from it ([From STEEM to HIVE to PIXA](../01-start-here/from-steem-to-hive-to-pixa.md)). Permanence on a chain is a matter of continued operation, not a guarantee. It is still a far stronger basis than a link.
 
-**What irreversible means.** Within a few seconds a block becomes irreversible: enough witnesses have confirmed it that it will never be replaced ([Chain Parameters](../11-reference/chain-parameters.md#blocks-and-witnesses)). From then on, its contents never change.
+**What irreversible means.** Within a few seconds a block becomes irreversible: enough witnesses have confirmed it that it will never be replaced ([Chain Parameters](../21-reference/chain-parameters.md#blocks-and-witnesses)). From then on, its contents never change.
 
 **Edits and deletions leave past blocks unchanged.**
 
@@ -86,7 +86,7 @@ The record also holds:
 - **A royalty percentage**, 5% by default.
 - **Governing-law fields:** a jurisdiction, a court and arbitration terms.
 
-**Who enforces the licence.** The licence is a statement of the author's terms, recorded publicly with the work. The chain does not enforce it. In particular, no royalty is collected anywhere today, because there is no marketplace yet ([NFTs and Marketplace](nfts-and-marketplace.md)). Enforcing it is a matter for the law of the jurisdiction the author names. The governing-law fields are empty by default, and most artworks published so far leave them empty.
+**Who enforces the licence.** The licence is a statement of the author's terms, recorded publicly with the work. The chain does not enforce it. In particular, no royalty is collected anywhere today, because there is no marketplace yet ([NFTs and Marketplace](../17-marketplace/nfts-and-marketplace.md)). Enforcing it is a matter for the law of the jurisdiction the author names. The governing-law fields are empty by default, and most artworks published so far leave them empty.
 
 ## Inherited → changed
 

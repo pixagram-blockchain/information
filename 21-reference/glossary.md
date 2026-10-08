@@ -2,7 +2,7 @@
 
 > **Status: Live.** It covers the terms used across these pages. Where an entry quotes a number, [Chain Parameters](chain-parameters.md) is the reference.
 
-Each term has one entry. Older names, and names inherited from Steem and Hive, point to the term these pages use. The [Style Guide](../13-about/style-guide.md) explains why each name was chosen.
+Each term has one entry. Older names, and names inherited from Steem and Hive, point to the term these pages use. The [Style Guide](../22-about/style-guide.md) explains why each name was chosen.
 
 ## Other names you may meet
 
@@ -30,7 +30,7 @@ Each term has one entry. Older names, and names inherited from Steem and Hive, p
 An identity on the chain: a name of 3 to 16 characters controlled by four [keys](#keys). An account is opened either by paying the account creation fee or with a ticket claimed through [Resource Credits](#resource-credits-rc) ([limits](chain-parameters.md#accounts-and-keys)).
 
 ### Account recovery
-A way to take back an account whose [owner key](#keys) was stolen. The account's [recovery partner](#recovery-partner) starts the request. You then complete it with a new owner key and an owner key the account used within the last 30 days. On Pixa this cannot succeed until the chain starts recording owner-key history, about 2026-12-24 ([details](chain-parameters.md#accounts-and-keys)).
+A way to take back an account whose [owner key](#keys) was stolen. The account's [recovery partner](#recovery-partner) starts the request. You then complete it with a new owner key and an owner key the account used within the last 30 days. The chain records owner-key history since hardfork 30 (2026-10-07), so only an owner-key change made after that can be undone ([details](chain-parameters.md#accounts-and-keys)).
 
 ### Author reward
 The part of a post's payout that goes to its author: the 60% left after the [curation](#curation) share, less any [beneficiaries](#beneficiary). It is paid partly in [PXS](#pixa-supra-pxs) and partly in [Pixa Power](#pixa-power-pxp), or entirely in Pixa Power if the author chooses.
@@ -99,7 +99,7 @@ A vote that lowers a post's payout. Downvotes spend a separate pool of mana wort
 Delegated Proof of Stake: a consensus method in which stakeholders elect the block producers. On Pixa these producers are the [witnesses](#witness).
 
 ### Dust deduction
-A fixed 50,000,000 rshares that every vote loses, inherited from Hive. On Pixa a VESTS is worth about one PIXA, so a full-strength vote needs more than 2,500 Pixa Power to count at all ([details](chain-parameters.md#voting-and-curation)).
+A fixed number of rshares that every vote loses: 50,000 since hardfork 30, so that a full-strength vote counts from 2.5 Pixa Power. Until 2026-10-07 it was Hive's 50,000,000, which on Pixa, where a VESTS is worth about one PIXA, silenced every vote below 2,500 Pixa Power ([details](chain-parameters.md#voting-and-curation)).
 
 ### Genesis
 The start of the chain: block 0, 2026-09-04 12:00:00 UTC. Pixa began with a new genesis, so no balances were copied from Steem or Hive. See [Genesis allocation](system-accounts.md#genesis-allocation).
@@ -111,7 +111,7 @@ Hive Application Framework: an indexer that copies the chain into PostgreSQL so 
 A factor, at most 1, applied when PXS converts to PIXA. It is 1 while the [collateral ratio](#collateral-ratio) is at least 7 : 3. Below that it falls in proportion, to 3R ÷ 7. Under stress, a PXS settles for less instead of the system defending a number ([formula](chain-parameters.md#pixa-supra-pxs-and-the-price-feed), [how it works](../05-pixa-supra/haircut-corridor-and-settlement.md#the-haircut)).
 
 ### Hardfork
-A protocol upgrade. It activates once enough of the scheduled witnesses run the new version and vote for it. Hardfork 29, applied on 2026-09-18, is the first made for Pixa ([quorum](chain-parameters.md#blocks-and-witnesses)).
+A protocol upgrade. It activates once enough of the scheduled witnesses run the new version and vote for it. Hardforks 29 (2026-09-18) and 30 (2026-10-07) are the two made for Pixa so far ([Protocol Upgrades](../07-governance/protocol-upgrades.md)).
 
 ### Hivemind
 The social indexer behind feeds, follows and communities. The `bridge.*`, `follow_api.*` and `tags_api.*` API methods are answered by Hivemind.

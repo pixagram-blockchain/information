@@ -18,11 +18,11 @@ Block 0, on 2026-09-04 at 12:00 UTC, wrote three balances:
 - **The fund's seed** is 25,000,000 PIXA ÷ 102, the genesis feed of 102 PIXA per PXS.
 - **No operation records them.** The balances were written straight into the initial state. Tools that rebuild balances by adding up operations must add these three by hand.
 
-Every figure, with its source, is in [Chain Parameters](../11-reference/chain-parameters.md#genesis).
+Every figure, with its source, is in [Chain Parameters](../21-reference/chain-parameters.md#genesis).
 
 ## The rules on the allocation accounts
 
-The protocol restricts `pixa.rex` and `pixa.team` to two kinds of operation: transferring VESTS, and updating their own account, meaning its keys and metadata ([System Accounts](../11-reference/system-accounts.md#restricted-accounts-pixarex-and-pixateam)). This has four consequences:
+The protocol restricts `pixa.rex` and `pixa.team` to two kinds of operation: transferring VESTS, and updating their own account, meaning its keys and metadata ([System Accounts](../21-reference/system-accounts.md#restricted-accounts-pixarex-and-pixateam)). This has four consequences:
 
 - **The allocations cannot vote.** Neither account can vote for witnesses or on proposals, or set a proxy.
 - **Stake leaves only as stake.** A recipient gets Pixa Power. Turning it into liquid PIXA takes a 13-week power-down ([Pixa Power](pixa-power.md#power-down)).
@@ -101,4 +101,4 @@ In `get_accounts`, `vesting_withdraw_rate` is the weekly instalment, `to_withdra
   - the restriction: [database.cpp:2762-2810](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/database.cpp#L2762-L2810)
   - VESTS transfers and their 30-day wait: [hive_evaluator_transfer.cpp:287-341](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/hive_evaluator_transfer.cpp#L287-L341)
 - **Live chain**: the account histories of `pixa.rex` and `pixa.team`, and `condenser_api.get_accounts` for all 83 accounts at block 895,415.
-- **Commitments**: stated by the operator; see [System Accounts](../11-reference/system-accounts.md#what-each-allocation-is-for).
+- **Commitments**: stated by the operator; see [System Accounts](../21-reference/system-accounts.md#what-each-allocation-is-for).

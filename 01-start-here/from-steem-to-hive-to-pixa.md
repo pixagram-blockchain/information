@@ -66,6 +66,8 @@ Hive is still active in 2026: it produces blocks and trades on major exchanges. 
 | 2026-09-04 12:00 | Genesis. The chain starts from block 0 with no balances copied from Steem or Hive. Hive's hardforks 1–28 are applied together at block 1. |
 | 2026-09-16 | The witnesses upgrade to 1.29.0 and vote for hardfork 29. |
 | 2026-09-18 12:00 | Hardfork 29 activates at block 402,205. It resets the reward fund's denominator and scales the hardfork quorum to the number of witnesses. |
+| 2026-10-06 | The witnesses upgrade to 1.30.0 and vote for hardfork 30. |
+| 2026-10-07 12:00 | Hardfork 30 activates at block 949,330: small votes count, witness pay and the fund's share are paid exactly, custom operations are priced by size, owner-key history is recorded ([Protocol Upgrades](../07-governance/protocol-upgrades.md#hardfork-30)). |
 
 **Pixa is a fork of the code, not of the chain.** Hive and Blurt each began from Steem's account balances. Pixa began from Hive's software and a new genesis:
 
@@ -74,18 +76,18 @@ Hive is still active in 2026: it produces blocks and trades on major exchanges. 
 - 100 million PIXA created as stake in two allocation accounts
 - a seeded community fund
 
-The details are on [System Accounts](../11-reference/system-accounts.md#genesis-allocation).
+The details are on [System Accounts](../21-reference/system-accounts.md#genesis-allocation).
 
-Dan Larimer's 2016 post "[Steemit's Evil Plan for Cryptocurrency World Domination](https://steemit.com/steem/@dan/steemit-s-evil-plan-for-cryptocurrency-world-domination)" set out three phases: a stable currency, a marketplace, then sidechains and smart contracts. Pixagram's 2025 essay argues that it completes that plan. [The Plan Revisited](../12-history-and-perspectives/the-plan-revisited.md) sets the plan beside the record and checks the essay; this page keeps to the record.
+Dan Larimer's 2016 post "[Steemit's Evil Plan for Cryptocurrency World Domination](https://steemit.com/steem/@dan/steemit-s-evil-plan-for-cryptocurrency-world-domination)" set out three phases: a stable currency, a marketplace, then sidechains and smart contracts. Pixagram's 2025 essay argues that it completes that plan. [The Plan Revisited](../20-history-and-design/the-plan-revisited.md) sets the plan beside the record and checks the essay; this page keeps to the record.
 
 ## What Pixa kept, changed and dropped
 
 | | Steem (2016) | Hive (2020) | Pixa (2026) |
 |---|---|---|---|
 | Origin | New chain | Hard fork of Steem, balances mirrored | New chain from Hive's code |
-| Consensus | DPoS, 21 witness slots | same | same; 9 witnesses on 2026-10-05 |
+| Consensus | DPoS, 21 witness slots | same | same; 8 witnesses on 2026-10-08 |
 | Block time | 3 s | 3 s | 3 s |
-| Fees | Bandwidth, then Resource Credits (2018) | Resource Credits | Resource Credits; a few operations carry fees ([list](../11-reference/chain-parameters.md#figures-you-may-meet-elsewhere)) |
+| Fees | Bandwidth, then Resource Credits (2018) | Resource Credits | Resource Credits; a few operations carry fees ([list](../21-reference/chain-parameters.md#figures-you-may-meet-elsewhere)) |
 | Second token | SBD, aimed at US$1 | HBD, aimed at US$1 | PXS: no peg; its feed references one Big Mac |
 | Interest | SBD interest set by witnesses | HBD interest on savings | none |
 | Reward for holding stake | yes | yes (15% of issuance) | none |
@@ -94,7 +96,7 @@ Dan Larimer's 2016 post "[Steemit's Evil Plan for Cryptocurrency World Dominatio
 | Reward curves | n² at launch, linear from 2017, convergent from 2019 | convergent until 2021, then linear | the convergent curves of 2019 |
 | Marketplace | Proposed in 2016; never built into the protocol | Second-layer apps | Planned for 2027 |
 
-Every Pixa value in this table, with its source, is on [Chain Parameters](../11-reference/chain-parameters.md).
+Every Pixa value in this table, with its source, is on [Chain Parameters](../21-reference/chain-parameters.md).
 
 ## Sources
 
@@ -111,4 +113,4 @@ Every Pixa value in this table, with its source, is on [Chain Parameters](../11-
   - Activation dates: the `hardfork_operation` virtual operation in each activation block, read with `account_history_api.enum_virtual_ops` on a Hive API node. (`get_hardfork_properties` returns each release's planned time, not its activation.)
 - **Blurt:** [README](https://gitlab.com/blurt/blurt), which gives the snapshot block, 43,526,969, and [FAQ](https://blurtwallet.com/faq.html).
 - **Golos:** [launch report](https://forklog.com/sostoyalsya-zapusk-russkoyazychnoj-sotsialno-medijnoj-platformy-golos/) and [explorer](https://explorer.golos.id/).
-- **Pixa:** genesis time and hardforks in [Chain Parameters](../11-reference/chain-parameters.md#network-identity); `condenser_api.get_ops_in_block` for blocks 1 and 402,205.
+- **Pixa:** genesis time and hardforks in [Chain Parameters](../21-reference/chain-parameters.md#network-identity); `condenser_api.get_ops_in_block` for blocks 1 and 402,205.

@@ -71,7 +71,7 @@ A proposal asks the fund for a daily amount of PXS between two dates. In the app
 
 The **Disruptions** tab lists the official portals: Proposals, Discussion, Governance, Marketing, Legal, Risks, Security, Bug Reports and Development. Each opens its community page, where proposals and problems are discussed in public.
 
-**Never report a security problem in a portal.** Report it privately ([Contributing](../13-about/contributing.md#report-a-security-problem)).
+**Never report a security problem in a portal.** Report it privately ([Contributing](../22-about/contributing.md#report-a-security-problem)).
 
 ## The other sections
 
@@ -86,7 +86,7 @@ The **Disruptions** tab lists the official portals: Proposals, Discussion, Gover
 - **Proposals:** voting, [`GDVMProposals.js:1029-1042`][prop-1029]; the fee, [`SettingsPanel.js:29-36`][fee]; the proposal fields, [`SettingsPanel.js:425-483`][fields]; publishing and creating the proposal, [`LexicalTextEditorDialog.js:1617-1752`][lex]; the operation, [`pixaproxyapi.js:7035-7056`][api-7035].
 - **Disruptions:** [`GDDisruptions.js:154-272`][dis].
 - **English text:** [`en.js:1151-1168`][en-1151], [`en.js:150-164`][en-1104], [`en.js:1002-1016`][en-1002] and [`en.js:1331-1347`][en-1331].
-- **Chain:** the rules for votes, proxies and expiry, [Witnesses and DPoS](../07-governance/witnesses-and-dpos.md#sources); proposals and the fee, [Chain Parameters](../11-reference/chain-parameters.md#decentralized-pixa-fund-dpf).
+- **Chain:** the rules for votes, proxies and expiry, [Witnesses and DPoS](../07-governance/witnesses-and-dpos.md#sources); proposals and the fee, [Chain Parameters](../21-reference/chain-parameters.md#decentralized-pixa-fund-dpf).
 
 [gd]: https://github.com/pixagram-blockchain/pixagram-ui-dev/blob/ca1d15762b52ec08f33c69ca9afa34bb78c0df52/src/js/components/GovernanceDialog.js#L45-L88
 [gdvm]: https://github.com/pixagram-blockchain/pixagram-ui-dev/blob/ca1d15762b52ec08f33c69ca9afa34bb78c0df52/src/js/components/GDViabilityManagement.js#L18-L31

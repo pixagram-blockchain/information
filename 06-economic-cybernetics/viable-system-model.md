@@ -56,7 +56,7 @@ Control has two instruments on chain, where the design names one:
 - **A gate.** At a debt ratio of 20%, PXS printing stops: author rewards stop creating PXS and new conversions into PXS are refused. The fund's share of issuance and proposal pay continue.
 - **A rate.** Above 30%, the haircut lowers what each PXS converts into.
 
-Both thresholds are on [Chain Parameters](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed).
+Both thresholds are on [Chain Parameters](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed).
 
 The audit channel, 3\*, is public. The chain recomputes the debt ratio in every block, after updating the median ([database.cpp:2349-2361][db-2349]), and anyone can read the inputs with `condenser_api.get_dynamic_global_properties`, `condenser_api.get_feed_history` and, for the treasury's balance, `condenser_api.get_accounts`.
 

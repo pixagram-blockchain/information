@@ -25,7 +25,7 @@ Two layers decide what you see on Pixagram, and they follow different rules. The
 | **NSFW display** | By default, flagged posts are hidden from feeds and profiles. If you choose to show them, they are blurred until you also turn blurring off. While filtering is on, the on-device model also checks each artwork as it is shown, and blurs any it rates at least 40% likely to be NSFW, flagged or not. | App setting, per device |
 | **Toxicity hint** | An on-device model shows a gentle warning while you type a comment, title or description that may come across as toxic. It never blocks. | App, on your device |
 | **Community mutes and pins** | Moderators can mute or pin posts in their community ([Communities](communities.md#moderation)) | Indexer (Hivemind) and app |
-| **Downvotes** | Accounts with more than 2,500 effective Pixa Power can lower a post's payout ([Voting and Curation](voting-and-curation.md#why-small-votes-count-for-nothing)) | Chain, rewards only |
+| **Downvotes** | Any account whose vote counts, which since hardfork 30 means more than 2.5 effective Pixa Power, can lower a post's payout ([Voting and Curation](voting-and-curation.md#from-vote-to-rshares)) | Chain, rewards only |
 | **Deleted posts** | Posts the author deleted in the app are hidden from every list | App |
 
 **Not available yet:**

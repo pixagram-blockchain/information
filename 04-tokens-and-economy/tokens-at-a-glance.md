@@ -12,7 +12,7 @@ The Pixa chain has one token, PIXA, in two forms, liquid and staked, and a secon
 | **Pixa Power (PXP)** | PIXA staked, held on chain as VESTS | Voting weight; Resource Credits; governance votes after 30 days; curation rewards | Powering up PIXA; author and curation rewards; delegation (borrowed, not owned) |
 | **PXS** (Pixa Supra) | A second unit that promises no price, with 3 decimals | Part of author rewards; the currency the DPF pays in; the proposal fee; transfers; converting to PIXA | Author rewards; converting PIXA; transfers |
 
-**What PXS is not.** PXS promises no price. It has no peg, cannot be redeemed for money and pays no interest, and no one stands behind its value. In one phrase, it is a Big Mac referenced supracoin. It converts into PIXA at the median of the witnesses' feeds, which reference one Big Mac, less a haircut if the network is stretched ([rules](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)). Its design, and how it runs today, start at [PXS at a Glance](../05-pixa-supra/pxs-at-a-glance.md).
+**What PXS is not.** PXS promises no price. It has no peg, cannot be redeemed for money and pays no interest, and no one stands behind its value. In one phrase, it is a Big Mac referenced supracoin. It converts into PIXA at the median of the witnesses' feeds, which reference one Big Mac, less a haircut if the network is stretched ([rules](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)). Its design, and how it runs today, start at [PXS at a Glance](../05-pixa-supra/pxs-at-a-glance.md).
 
 **Nothing pays you for holding.** Holding PIXA, Pixa Power or PXS earns no interest and no share of issuance. Stake earns only by curating ([Supply, Inflation and Yield](supply-inflation-and-yield.md)).
 
@@ -36,13 +36,13 @@ flowchart LR
 | PIXA → PXS | `collateralized_convert` | PXS at once; settles after 3.5 days | 5% fee; twice the value locked as collateral; refused if PXS would grow past its limit |
 | PIXA or PXS | savings | Withdrawals take 3 days | none; no interest |
 
-All of these values, with their sources, are on [Chain Parameters](../11-reference/chain-parameters.md).
+All of these values, with their sources, are on [Chain Parameters](../21-reference/chain-parameters.md).
 
 ## Names and symbols
 
 - **PIXA** is the symbol on chain. PXA is the ticker the price-feed software expects for PIXA market pairs. PIXA does not trade on any market yet.
 - **Pixa Power** appears on chain and in the API as **VESTS**, with 6 decimals. On Pixa, 1 VESTS has stayed worth about 1 PIXA since genesis.
-- **PXS** is the counterpart of Hive's HBD and Steem's SBD; the [Glossary](../11-reference/glossary.md#other-names-you-may-meet) maps the older names.
+- **PXS** is the counterpart of Hive's HBD and Steem's SBD; the [Glossary](../21-reference/glossary.md#other-names-you-may-meet) maps the older names.
 
 ## Supply on 2026-10-05
 
@@ -67,6 +67,6 @@ Read the current figures with `condenser_api.get_dynamic_global_properties` (fie
 
 ## Sources
 
-- [Chain Parameters](../11-reference/chain-parameters.md), every value and its code reference.
+- [Chain Parameters](../21-reference/chain-parameters.md), every value and its code reference.
 - [Hive whitepaper](https://hive.io/whitepaper.pdf), §II.1–II.3.
 - Live chain: `condenser_api.get_dynamic_global_properties` at block 893,370.

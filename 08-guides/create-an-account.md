@@ -48,7 +48,7 @@ A number can receive only a few codes, with a wait between them; the app tells y
 - **Your browser may offer to save a password.** What it would save is your master key, outside the app's protection. Decline on any device that other people use.
 - **Settings** set the language, the display currency and the API node. Open them from the ⋮ menu in the toolbar, or at [pixagram.com/created/+settings](https://pixagram.com/created/+settings).
 - **Publish:** [Publish Your First Artwork](publish-your-first-artwork.md).
-- **Your votes on posts move no rewards yet.** A vote counts only once the account holds more than 2,500 Pixa Power ([why](../02-social-layer/voting-and-curation.md#why-small-votes-count-for-nothing)).
+- **Your votes count, a little.** Since hardfork 30 a full vote from more than 2.5 Pixa Power adds to a post's rewards, so the stake lent to a new account is enough. On its own it is far below what lifts a post over the minimum payout; votes add up ([why](../02-social-layer/voting-and-curation.md#from-vote-to-rshares)).
 
 ## Log in
 
@@ -81,7 +81,7 @@ Someone who already has an account can open one for you. In the menu, under Apps
 - **Log-in:** [`LoginDialog.js`][login]; the 48-hour default, [`LoginDialog.js:1353`][login-2213].
 - **Creating an account for someone else:** [`AddAccountDialog.js`][add].
 - **English text:** [`en.js:438-563`][en-438] (sign-up) and [`en.js:1378-1449`][en-1378] (log-in).
-- **Chain:** the account-name rule, [`authority.cpp:58-121`][name]; the account creation fee and tickets, [Chain Parameters](../11-reference/chain-parameters.md#accounts-and-keys); who pays for new accounts, [Who Does What](../01-start-here/who-does-what.md#who-pays-for-what-today).
+- **Chain:** the account-name rule, [`authority.cpp:58-121`][name]; the account creation fee and tickets, [Chain Parameters](../21-reference/chain-parameters.md#accounts-and-keys); who pays for new accounts, [Who Does What](../01-start-here/who-does-what.md#who-pays-for-what-today).
 
 [cad]: https://github.com/pixagram-blockchain/pixagram-ui-dev/blob/ca1d15762b52ec08f33c69ca9afa34bb78c0df52/src/js/components/CreateAccountDialog.js
 [bw-184]: https://github.com/pixagram-blockchain/pixagram-ui-dev/blob/ca1d15762b52ec08f33c69ca9afa34bb78c0df52/src/js/utils/BackUpWallet2.js#L184-L196

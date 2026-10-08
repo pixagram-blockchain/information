@@ -22,7 +22,7 @@ The design states one law for the whole: "Pixa never defends; Pixa adjusts." On 
 
 - **The chain never trades.** No code buys or sells PXS or PIXA, and the protocol has no account that trades.
 - **When PXS grows large against PIXA, the chain adjusts in two steps.** At a debt ratio of 20% it stops paying authors in PXS and refuses new PIXA → PXS conversions. Above 30% it lowers what each PXS converts into: the haircut ([Haircut, Corridor and Settlement](haircut-corridor-and-settlement.md)). The fund's share of issuance still arrives as PXS, and approved proposals are still paid from the fund, so the PXS outside the treasury can keep growing.
-- **Both steps are automatic,** and they apply to every holder at once. The thresholds are on [Chain Parameters](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed).
+- **Both steps are automatic,** and they apply to every holder at once. The thresholds are on [Chain Parameters](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed).
 
 ## Oracle: the sensor
 

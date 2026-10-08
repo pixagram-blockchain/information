@@ -1,6 +1,6 @@
 # Resource Credits
 
-> **Status: Live.** Costs were measured on 2026-10-05, between blocks 895,213 and 895,300. They change every block with network use.
+> **Status: Live.** Costs were measured on 2026-10-05, between blocks 895,213 and 895,300, before hardfork 30 changed the pricing of custom operations. They change every block with network use.
 
 Pixa does not charge a fee for posting, voting or sending tokens. Instead, every account has a stock of Resource Credits (RC) that operations use up and that recharge over time, in proportion to the account's stake. This page explains why, how credits are counted and priced, and what they buy today.
 
@@ -30,6 +30,8 @@ The chain prices five resources. Every transaction uses the first three:
 | New accounts | Account tickets, charged only when a ticket is claimed with credits |
 
 Each resource has a pool that refills every block, and its price rises as the pool runs low. Prices are recalculated every block from the last 24 hours of use, so a single large post can move them by a third on a chain as quiet as Pixa is today. On 2026-10-05, the history resource dominated: about **128 credits per byte**.
+
+**Custom operations since hardfork 30.** A `custom_json` or `custom` operation used to be charged a flat execution cost whatever its payload, so a 64 KiB payload, eight times Hive's limit, cost no more to execute than a follow. Since 2026-10-07 the execution part is multiplied by 1 + payload bytes ÷ 8,192: a 64 KiB payload pays nine times the execution cost of a small one, on top of the history cost its bytes always carried ([Operations Reference](../11-protocol-reference/operations-reference.md#custom-data)). The table below predates the change; it affects only large custom payloads.
 
 ## What credits buy today
 
@@ -71,7 +73,7 @@ Three operations still carry a fee on top of credits, each to deter abuse:
 - creating a DPF proposal
 - converting PIXA into PXS
 
-The fees are listed in [Chain Parameters](../11-reference/chain-parameters.md#figures-you-may-meet-elsewhere).
+The fees are listed in [Chain Parameters](../21-reference/chain-parameters.md#figures-you-may-meet-elsewhere).
 
 ## Inherited → changed
 
@@ -90,7 +92,7 @@ Credits per staked token differ only because a VESTS is worth far more here. Wha
 - [Hive whitepaper](https://hive.io/whitepaper.pdf), §II.2.
 - **Code**
   - Cost model: [rc_utility.cpp:243-316](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/rc/rc_utility.cpp#L243-L316).
-  - Usage counting: [resource_count.cpp:582-633](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/rc/resource_count.cpp#L582-L633).
+  - Usage counting: [resource_count.cpp:582-633](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/rc/resource_count.cpp#L582-L633); the hardfork-30 pricing of custom payloads, [resource_count.cpp:434-449 at v1.30.0](https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/chain/rc/resource_count.cpp#L434-L449) and [config.hpp:262-269](https://github.com/pixagram-blockchain/pixagram/blob/746118eb3b87dcca768b72fa262ad2aa63e1f177/libraries/protocol/include/hive/protocol/config.hpp#L262-L269).
   - Credit delegation: [hive_custom_operations.hpp:8-30](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/protocol/include/hive/protocol/hive_custom_operations.hpp#L8-L30) and [rc_utility.cpp:27-112](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/rc/rc_utility.cpp#L27-L112).
 - **Live chain**
   - Pools and parameters: `rc_api.get_resource_pool`, `rc_api.get_resource_params` and `rc_api.get_rc_stats`.

@@ -87,6 +87,6 @@ No account had made this request on 2026-10-05.
   - Delegation: [hive_evaluator_transfer.cpp:750-980](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/hive_evaluator_transfer.cpp#L750-L980).
   - Governance weight: [account_object.hpp:302-317](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/include/hive/chain/detail/state/account_object.hpp#L302-L317).
   - Delayed voting: [delayed_voting.cpp:7-122](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/util/delayed_voting.cpp#L7-L122), applied to power-ups at [hive_evaluator_transfer.cpp:374-379](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/hive_evaluator_transfer.cpp#L374-L379).
-- **Constants**: [Chain Parameters](../11-reference/chain-parameters.md#pixa-power-staking).
+- **Constants**: [Chain Parameters](../21-reference/chain-parameters.md#pixa-power-staking).
 - [Hive whitepaper](https://hive.io/whitepaper.pdf), §II.1 and §II.3.
 - **Live chain**: accounts and delegations from `condenser_api.get_accounts`, read at block 895,415.

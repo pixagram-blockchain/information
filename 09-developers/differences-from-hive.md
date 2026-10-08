@@ -1,8 +1,8 @@
 # Differences from Hive
 
-> **Status: Live.** Compared with hived 1.28.7, the release Pixa forks. Checked against the Pixa code at commit `48f75a2`, the gateway at commit `7e57cca` and the six public nodes on 2026-10-05.
+> **Status: Live.** Compared with hived 1.28.7, the release Pixa forks. Checked against the Pixa code at tag `v1.30.0`, the gateway at commit `4a271e8` and the public nodes on 2026-10-05 and 2026-10-08.
 
-Pixa runs Hive's code and speaks Hive's JSON-RPC, so Hive's documentation applies here with PIXA for HIVE and PXS for HBD. This page lists everything else that changes how you write code: the chain's identity, what the public API does to requests and responses, what Hivemind reports, and the protocol rules that differ. Every protocol value is on [Chain Parameters](../11-reference/chain-parameters.md); this page says what the values mean for a program.
+Pixa runs Hive's code and speaks Hive's JSON-RPC, so Hive's documentation applies here with PIXA for HIVE and PXS for HBD. This page lists everything else that changes how you write code: the chain's identity, what the public API does to requests and responses, what Hivemind reports, and the protocol rules that differ. Every protocol value is on [Chain Parameters](../21-reference/chain-parameters.md); this page says what the values mean for a program.
 
 ## Summary
 
@@ -11,8 +11,8 @@ Pixa runs Hive's code and speaks Hive's JSON-RPC, so Hive's documentation applie
 | Identity | Chain ID, key prefix `PIX`, symbols PIXA and PXS | [Identity and assets](#identity-and-assets) |
 | Public API | A gateway renames 28 field names in responses and 19 in requests, and routes social calls to Hivemind | [The public API](#the-public-api) |
 | Your own node | Hive's field names; Pixa's are ignored without an error | [Talking to hived directly](#talking-to-hived-directly) |
-| Hivemind | Vote rshares a million times the chain's; community names start with `portal-` | [Hivemind](#hivemind) |
-| Protocol | No interest, no stake reward, restricted genesis accounts, small votes that count for nothing | [Protocol rules that change code](#protocol-rules-that-change-code) |
+| Hivemind | Vote rshares a million times the chain's for votes before block 905,693; reputation not computed; 20 results per `bridge` call; community names start with `portal-` | [Hivemind](#hivemind) |
+| Protocol | No interest, no stake reward, restricted genesis accounts, a vote dust threshold a thousand times smaller than Hive's since hardfork 30 | [Protocol rules that change code](#protocol-rules-that-change-code) |
 | Libraries | Hive libraries sign amounts with Hive's symbol bytes | [Libraries](#libraries) |
 
 ## Identity and assets
@@ -28,7 +28,7 @@ Pixa runs Hive's code and speaks Hive's JSON-RPC, so Hive's documentation applie
 | VESTS per liquid token | about 1,608, falling | about 1, flat |
 
 - **Write amounts with Pixa's symbols:** `"1.000 PIXA"`, `"0.020 PXS"`, `"1000.000000 VESTS"`. A library that serializes Hive's symbol bytes produces signatures the chain rejects. hived checks a signature against both the legacy and the HF26 serialization of a transaction, so a client that signs the HF26 form, which identifies assets by NAI, avoids symbol bytes altogether.
-- **Never hard-code Hive's VESTS ratio.** On Pixa one VESTS is worth about one PIXA, against about 1,608 VESTS per HIVE on Hive, and the ratio stays flat because no issuance goes to stakers. Compute it from `total_vesting_fund_pixa ÷ total_vesting_shares` ([Pixa Power](../11-reference/chain-parameters.md#pixa-power-staking)).
+- **Never hard-code Hive's VESTS ratio.** On Pixa one VESTS is worth about one PIXA, against about 1,608 VESTS per HIVE on Hive, and the ratio stays flat because no issuance goes to stakers. Compute it from `total_vesting_fund_pixa ÷ total_vesting_shares` ([Pixa Power](../21-reference/chain-parameters.md#pixa-power-staking)).
 
 ## The public API
 
@@ -39,10 +39,10 @@ All six public nodes run the same gateway: Caddy, then an OpenResty configuratio
 | Calls | Answered by |
 |---|---|
 | `bridge.*`, `follow_api.*`, `tags_api.*` | Hivemind |
-| 23 `condenser_api` calls: `get_followers`, `get_following`, `get_follow_count`, `get_content`, `get_content_replies`, `get_discussions_by_trending`, `…_by_hot`, `…_by_created`, `…_by_promoted`, `…_by_blog`, `…_by_feed`, `…_by_comments`, `…_by_author_before_date`, `get_replies_by_last_update`, `get_blog`, `get_blog_entries`, `get_active_votes`, `get_reblogged_by`, `get_account_votes`, `get_trending_tags`, `get_post_discussions_by_payout`, `get_comment_discussions_by_payout`, `get_account_reputations` | Hivemind |
+| 23 `condenser_api` calls: `get_followers`, `get_following`, `get_follow_count`, `get_content`, `get_content_replies`, `get_discussions_by_trending`, `…_by_hot`, `…_by_created`, `…_by_promoted`, `…_by_blog`, `…_by_feed`, `…_by_comments`, `…_by_author_before_date`, `get_replies_by_last_update`, `get_blog`, `get_blog_entries`, `get_active_votes`, `get_reblogged_by`, `get_account_votes`, `get_trending_tags`, `get_post_discussions_by_payout`, `get_comment_discussions_by_payout`, `get_account_reputations` | Hivemind; of these, `get_discussions_by_promoted` and `get_account_votes` fail, because Hivemind has no promoted sort and no longer supports account votes ([JSON-RPC Surface](../12-api-reference/json-rpc.md#what-is-not-served)) |
 | Everything else: 139 methods in `account_by_key_api`, `account_history_api`, `block_api`, `condenser_api`, `database_api`, `jsonrpc`, `market_history_api`, `network_broadcast_api`, `rc_api` and `reputation_api` | hived |
 
-Not served by any of the six: websockets, `wallet_bridge_api` (needed by the [CLI wallet](../10-node-operators/cli-wallet.md)) and `transaction_status_api`. To learn whether a transaction is in a block, call `condenser_api.get_transaction` with its id.
+Not served by any of the six: websockets, `wallet_bridge_api` (needed by the [CLI wallet](../10-node-operators/cli-wallet.md)) and `transaction_status_api`. To learn whether a transaction is in a block, call `database_api.is_known_transaction`, then `condenser_api.get_transaction` with its id once the block is irreversible; before that, `get_transaction` answers `Unknown Transaction` ([Transaction Lifecycle](../11-protocol-reference/transaction-lifecycle.md#8-irreversible)). The whole surface is on [JSON-RPC Surface](../12-api-reference/json-rpc.md).
 
 ### Field renames
 
@@ -75,7 +75,8 @@ The gateway renames Hive's field names in every response, and the names marked *
 |---|---|
 | Batch requests | Allowed when every call goes to hived. The gateway routes a batch by its *first* call: a batch starting with a chain call fails its social calls with `Could not find API bridge`, and a batch starting with a social call fails with `id required`, because Hivemind takes one call per request. |
 | The `id` in replies | hived returns it as sent; Hivemind returns it as a string (`"7"` for `7`). |
-| Request size | Up to about 1 MiB; larger requests get HTTP 413. |
+| Request size | Up to about 1 MiB; larger requests get HTTP 413. Requests above about 10 KiB are passed to hived without routing or renaming, so a large `bridge` call fails and a large broadcast keeps its bytes. |
+| Results per `bridge` call | `limit` 1 to 20; Hivemind rejects 21 ([Feed and Discovery](../14-product/feed-and-discovery.md#paging)). |
 | Browser access | `Access-Control-Allow-Origin: *` on every node. |
 | Compression | zstd or gzip, as the client accepts. |
 | Busy node | A call can fail with `Unable to acquire database lock`; retry it. |
@@ -84,7 +85,7 @@ The gateway renames Hive's field names in every response, and the names marked *
 
 The gateway applies its renames to the whole body of a request or response, not only to field names. On 2026-10-05, a transaction whose post text contained `pxs_balance` reached hived from all six public nodes as `hbd_balance`.
 
-- **Writing.** If any text you sign, whether a title, body, `json_metadata`, memo or `custom_json` payload, contains one of the 19 Pixa names marked *both* above, hived receives different bytes from the ones you signed. The transaction fails with `missing required posting authority` (or *active* authority). Until the gateway is fixed, keep these names out of signed text, or broadcast through a node without the gateway.
+- **Writing.** If any text you sign, whether a title, body, `json_metadata`, memo or `custom_json` payload, contains one of the 19 Pixa names marked *both* above, and the request is under about 10 KiB, hived receives different bytes from the ones you signed. The transaction fails with `missing required posting authority` (or *active* authority). Larger requests pass the gateway untouched, which is why artworks are unaffected. Until the gateway is fixed, keep these names out of signed text, or broadcast through a node without the gateway.
 - **Reading.** Text in responses that contains a Hive name from the table, or an amount followed by `TESTS`, `TBD` or `HBD`, is shown renamed. A program that re-serializes a transaction from a response to check its signature can fail for the same reason.
 
 ### Talking to hived directly
@@ -95,7 +96,9 @@ dpixa writes Pixa's names in five operations: `claim_reward_balance`, `comment_o
 
 ## Hivemind
 
-- **rshares are scaled.** Hivemind reports `rshares` and `net_rshares` one million times the values the chain uses. One vote on 2026-10-05: 16,180,769,231,000,000 in `bridge.get_ranked_posts` and `condenser_api.get_active_votes`, 16,180,769,231 in the chain's `effective_comment_vote` operation. Do reward arithmetic with hived's values.
+- **rshares are scaled for old votes.** Hivemind multiplies the chain's `rshares` by one million for votes in blocks before 905,693, an inherited rule from Steem's early chain, and keeps the chain's value for later votes. One vote on 2026-10-05: 16,180,769,231,000,000 in `bridge.get_ranked_posts` and `condenser_api.get_active_votes`, 16,180,769,231 in the chain's `effective_comment_vote` operation. The chain crossed block 905,693 on 2026-10-05 23:36 UTC, so until the posts voted before then pay out, Hivemind's Trending and Hot weigh those votes a million times the newer ones ([Feed and Discovery](../14-product/feed-and-discovery.md#how-hot-and-trending-are-ranked)). Do reward arithmetic with hived's values.
+- **Reputation is not computed.** Hivemind's reputation tracker does not run on the public nodes, so the `condenser_api.get_account_reputations` that the gateway routes to Hivemind returns 0 for every account, and `bridge.get_profile` and the post lists return 25, the bottom of Hivemind's display scale, for everyone. hived's `reputation_api.get_account_reputations` has the real figures.
+- **Twenty results per call.** `bridge.get_ranked_posts` and the other list calls accept `limit` up to 20, not Hive's 100.
 - **Community names** are `portal-` followed by digits, where Hive uses `hive-` ([Communities](../02-social-layer/communities.md)).
 - **Social methods are Hive's.** Feeds, posts, communities and notifications use the same calls and shapes, with the renamed fields above.
 
@@ -104,15 +107,17 @@ dpixa writes Pixa's names in five operations: `claim_reward_balance`, `comment_o
 | Rule | On Pixa | What it means for code |
 |---|---|---|
 | Interest on PXS | Always 0; witnesses cannot publish another value | Do not offer interest on savings. `pxs_interest_rate` is 0. |
-| Reward for holding stake | None ([Issuance](../11-reference/chain-parameters.md#issuance)) | VESTS do not grow in value. Rewards come from publishing, curating and producing blocks. |
-| Content constant and dust | A full-strength vote counts only above about 2,500 Pixa Power ([Voting and Curation](../11-reference/chain-parameters.md#voting-and-curation)) | Small accounts' votes produce 0 rshares. Show it, rather than a payout that will not come. |
+| Reward for holding stake | None ([Issuance](../21-reference/chain-parameters.md#issuance)) | VESTS do not grow in value. Rewards come from publishing, curating and producing blocks. |
+| Content constant and dust | A vote loses 50,000 rshares since hardfork 30 (50,000,000 before), so a full-strength vote counts from 2.5 Pixa Power ([Voting and Curation](../21-reference/chain-parameters.md#voting-and-curation)) | Compute rshares as `mana spent − 50,000`; a post still pays nothing under 0.020 PXS, about 1,000 Pixa Power of votes today. |
+| Custom operation cost | Resource Credits grow with the payload since hardfork 30 ([Chain Parameters](../21-reference/chain-parameters.md#transaction-and-block-size)) | Budget a 64 KiB `custom_json` at nine times a small one's execution cost. |
+| Signatures | At most 1,000 per transaction since 1.30.0 | No real transaction approaches it. |
 | Curation share | 40% of post rewards | Use 40%, not Hive's 50%, when estimating payouts. |
-| Genesis accounts | `pixa.rex` and `pixa.team` can only transfer VESTS ([System Accounts](../11-reference/system-accounts.md#restricted-accounts-pixarex-and-pixateam)) | A `transfer` can carry a VESTS amount, which Hive forbids. Parse VESTS in transfers. |
-| Treasury | `pixa.omnibus`, paid in PXS; the return proposal is id 2 ([DPF](../11-reference/chain-parameters.md#decentralized-pixa-fund-dpf)) | Do not assume `hive.fund` or proposal id 0. |
+| Genesis accounts | `pixa.rex` and `pixa.team` can only transfer VESTS ([System Accounts](../21-reference/system-accounts.md#restricted-accounts-pixarex-and-pixateam)) | A `transfer` can carry a VESTS amount, which Hive forbids. Parse VESTS in transfers. |
+| Treasury | `pixa.omnibus`, paid in PXS; the return proposal is id 2 ([DPF](../21-reference/chain-parameters.md#decentralized-pixa-fund-dpf)) | Do not assume `hive.fund` or proposal id 0. |
 | Hardfork quorum | Not Hive's fixed 17 of 21 ([Protocol Upgrades](../07-governance/protocol-upgrades.md#how-a-hardfork-activates)) | Read `hardfork_required_witnesses` from `get_witness_schedule`; do not hardcode 17. |
-| Size limits | Transactions up to the voted block size less 256 bytes, about 2 MiB; `custom_json` up to 64 KiB ([sizes](../11-reference/chain-parameters.md#transaction-and-block-size)) | An artwork fits in one `comment` operation. |
-| Account creation fee | 20.000 PIXA median on 2026-10-05 | Read it from `get_chain_properties`. |
-| Account recovery | Owner-key history is recorded from block 3,186,477, about 2026-12-24 ([accounts](../11-reference/chain-parameters.md#accounts-and-keys)) | A recovery request cannot succeed before then. |
+| Size limits | Transactions up to the voted block size less 256 bytes, about 2 MiB; `custom_json` up to 64 KiB ([sizes](../21-reference/chain-parameters.md#transaction-and-block-size)) | An artwork fits in one `comment` operation; the public gateway stops at about 1 MiB per request. |
+| Account creation fee | 20.000 PIXA median on 2026-10-08 | Read it from `get_chain_properties`. |
+| Account recovery | Owner-key history is recorded since hardfork 30, block 949,330 ([accounts](../21-reference/chain-parameters.md#accounts-and-keys)) | A recovery can undo only owner-key changes made after 2026-10-07 12:00 UTC. |
 
 ## Libraries
 
@@ -126,8 +131,8 @@ dpixa writes Pixa's names in five operations: `claim_reward_balance`, `comment_o
 
 ## Sources
 
-- **Gateway:** [`jussi/nginx.conf`](https://github.com/pixagram-blockchain/pixagram-node/blob/7e57cca075d51a3ac1cf3065d367581a3efe56c6/jussi/nginx.conf): routing at lines 18-51, request renames at 63-85, response renames at 87-117, amount rewriting at 119-154, whole-body application at 189-193 and 219-233. Compression: [`ssl-proxy/Caddyfile`](https://github.com/pixagram-blockchain/pixagram-node/blob/7e57cca075d51a3ac1cf3065d367581a3efe56c6/ssl-proxy/Caddyfile).
-- **Tests on 2026-10-05:** `jsonrpc.get_methods`, batch requests, request sizes, response headers and `condenser_api.get_transaction_hex` with a body containing `pxs_balance`, against all six public nodes; `percent_pxs` sent to a local hived 1.29.0; rshares compared between `bridge.get_ranked_posts` and the voter's `effective_comment_vote` in `condenser_api.get_account_history`.
-- **Code** at commit [`48f75a2`](https://github.com/pixagram-blockchain/pixagram/tree/48f75a28840c24e5a5b42ccb4f94dc8668ecb443): asset symbols in [`asset_symbol.hpp:41-56`](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/protocol/include/hive/protocol/asset_symbol.hpp#L41-L56); the witness property names the chain reads in [`hive_evaluator.cpp:160-188`](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/hive_evaluator.cpp#L160-L188); everything else through [Chain Parameters](../11-reference/chain-parameters.md).
+- **Gateway:** [`jussi/nginx.conf`](https://github.com/pixagram-blockchain/pixagram-node/blob/4a271e879818b194ffbef57b8efc5744151017c4/jussi/nginx.conf) at commit `4a271e8` (unchanged since `7e57cca`): routing at lines 18-51, request renames at 63-85, response renames at 87-117, amount rewriting at 119-154, whole-body application at 189-193 and 219-233. Compression: [`ssl-proxy/Caddyfile`](https://github.com/pixagram-blockchain/pixagram-node/blob/4a271e879818b194ffbef57b8efc5744151017c4/ssl-proxy/Caddyfile).
+- **Tests on 2026-10-05:** `jsonrpc.get_methods`, batch requests, request sizes, response headers and `condenser_api.get_transaction_hex` with a body containing `pxs_balance`, against all six public nodes; `percent_pxs` sent to a local hived 1.29.0; rshares compared between `bridge.get_ranked_posts` and the voter's `effective_comment_vote` in `condenser_api.get_account_history`. **On 2026-10-08:** `bridge.get_profile` against `reputation_api.get_account_reputations`; `bridge.get_ranked_posts` with `limit` 20 and 21; `get_transaction` on a reversible block; the rshares of votes before and after block 905,693.
+- **Code** at tag [`v1.30.0`](https://github.com/pixagram-blockchain/pixagram/tree/746118eb3b87dcca768b72fa262ad2aa63e1f177) for the hardfork-30 rules, through [Chain Parameters](../21-reference/chain-parameters.md); at commit [`48f75a2`](https://github.com/pixagram-blockchain/pixagram/tree/48f75a28840c24e5a5b42ccb4f94dc8668ecb443): asset symbols in [`asset_symbol.hpp:41-56`](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/protocol/include/hive/protocol/asset_symbol.hpp#L41-L56); the witness property names the chain reads in [`hive_evaluator.cpp:160-188`](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/hive_evaluator.cpp#L160-L188); everything else through [Chain Parameters](../21-reference/chain-parameters.md).
 - **dpixa** at commit [`fddb47d`](https://github.com/pixagram-blockchain/dpixa/tree/fddb47d677bf6b2364c1a7bcaba704208432071c): Pixa field names in [`src/chain/serializer.ts`](https://github.com/pixagram-blockchain/dpixa/blob/fddb47d677bf6b2364c1a7bcaba704208432071c/src/chain/serializer.ts#L228-L232).
 - **Hive:** [developers.hive.io](https://developers.hive.io/); Hive whitepaper (2020), §II.1 "Assets".

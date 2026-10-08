@@ -1,6 +1,6 @@
 # CLI Wallet
 
-> **Status: Live.** The `cli_wallet` inside `pixadock/pixagram:1.29.0` (revision `c9f032d`). Every command on this page was run on 2026-10-05; online use was tested against a local node, and no transaction was broadcast.
+> **Status: Live.** The `cli_wallet` inside `pixadock/pixagram:1.30.0` (revision `d986a23`). Every command on this page was run on 2026-10-05 with the 1.29.0 image and the start-up checked again with 1.30.0 on 2026-10-08; online use was tested against a local node, and no transaction was broadcast.
 
 `cli_wallet` is hived's command-line wallet. It ships in the node image, needs no installation, and defaults to Pixa's chain ID and `PIX` keys. It has two modes: **offline**, for generating keys and inspecting transactions, and **online**, connected to a node that serves its API, for signing and broadcasting. The public API nodes do not serve that API, so online use needs your own node.
 
@@ -22,7 +22,7 @@ Offline, a signing command stops with `Online mode is required in order to perfo
 ```bash
 mkdir -p wallet
 docker run --rm -it --user "$(id -u):$(id -g)" -v "$PWD/wallet:/wallet" -w /wallet \
-  --entrypoint /home/hived/bin/cli_wallet pixadock/pixagram:1.29.0 -o
+  --entrypoint /home/hived/bin/cli_wallet pixadock/pixagram:1.30.0 -o
 ```
 
 Expected output:
@@ -30,8 +30,8 @@ Expected output:
 ```text
 STARTING HIVE WALLET
 chain id: 706978616772616d000000000000000000000000000000000000000000000000
-blockchain version: 1.29.0
-git_revision: "c9f032d81286eee77bdcc09a1c544ffd42dc9ea6"
+blockchain version: 1.30.0
+git_revision: "d986a238a4fbece1ce1df07782ca868174ee9bf8"
 …
 Starting a new wallet
 Please use the set_password method to initialize a new wallet before continuing
@@ -138,5 +138,5 @@ The wallet speaks to hived directly, so it uses **Hive's names**: commands such 
 ## Sources
 
 - **Wallet source,** commit [`48f75a2`](https://github.com/pixagram-blockchain/pixagram/tree/48f75a28840c24e5a5b42ccb4f94dc8668ecb443): online-only signing in [`libraries/wallet/wallet.cpp:183-186`](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/wallet/wallet.cpp#L183-L186) and [530-533](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/wallet/wallet.cpp#L530-L533); the plugin's requirements in [`wallet_bridge_api_plugin.hpp:24-31`](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/plugins/apis/wallet_bridge_api/include/hive/plugins/wallet_bridge_api/wallet_bridge_api_plugin.hpp#L24-L31).
-- **Image:** `pixadock/pixagram:1.29.0`, revision `c9f032d`; its entrypoint starts hived with the websocket on `WS_PORT`, 8090 by default.
-- **Tests on 2026-10-05:** every command above, offline; `get_private_key_from_password` compared with dpixa's `PrivateKey.fromLogin`; `serialize_transaction` compared with `condenser_api.get_transaction_hex` on `api.pixagram.com`; the online wallet connected to a local 1.29.0 node with `wallet_bridge_api`; `wallet_bridge_api` and websocket upgrades tried on all six public nodes.
+- **Image:** `pixadock/pixagram:1.30.0`, revision `d986a23`, pushed 2026-10-07; its entrypoint starts hived with the websocket on `WS_PORT`, 8090 by default. The wallet code is unchanged from 1.29.0.
+- **Tests on 2026-10-05** with the 1.29.0 image, and the start-up and `about` with 1.30.0 on 2026-10-08: every command above, offline; `get_private_key_from_password` compared with dpixa's `PrivateKey.fromLogin`; `serialize_transaction` compared with `condenser_api.get_transaction_hex` on `api.pixagram.com`; the online wallet connected to a local 1.29.0 node with `wallet_bridge_api`; `wallet_bridge_api` and websocket upgrades tried on all six public nodes.

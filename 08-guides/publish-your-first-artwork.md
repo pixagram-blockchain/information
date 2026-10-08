@@ -6,7 +6,7 @@ This guide turns a picture into pixel art and publishes it from the app. The ima
 
 ## Before you start
 
-- **One artwork every 5 minutes.** The chain refuses a second post within 5 minutes of the first ([Chain Parameters](../11-reference/chain-parameters.md#posts-and-comments)).
+- **One artwork every 5 minutes.** The chain refuses a second post within 5 minutes of the first ([Chain Parameters](../21-reference/chain-parameters.md#posts-and-comments)).
 - **A picture to start from,** or a description of one: the app can also generate a picture.
 
 ## 1. Open the editor
@@ -45,7 +45,7 @@ The picture keeps its proportions: a wide picture becomes wider than tall, with 
 - **DOWNLOAD** saves a PNG copy, and **OPEN EDITOR** opens pixa.pics, a separate pixel editor.
 - A picture that already has fewer than 160 colours skips the conversion and keeps its full size. The app says "Your artwork is already optimized for pixel art".
 
-**Keep the artwork small.** The app sets no size limit, and larger sizes or more colours make larger posts. The next step shows the size under **Encoded Image**. The public node refuses requests over about 1 MiB; artworks so far have a median size of about 26 kB ([Chain Parameters](../11-reference/chain-parameters.md#transaction-and-block-size)).
+**Keep the artwork small.** The app sets no size limit, and larger sizes or more colours make larger posts. The next step shows the size under **Encoded Image**. The public node refuses requests over about 1 MiB; artworks so far have a median size of about 26 kB ([Chain Parameters](../21-reference/chain-parameters.md#transaction-and-block-size)).
 
 ## 4. Post: describe it
 
@@ -93,7 +93,7 @@ Two things are not chosen here:
 - **Licence:** [`pixa_license.js`][lic] and [`default_license.js:45-88`][dlic].
 - **Editing and deleting:** [`EditPostDialog.js:860-956`][edit]; how a deleted post is recognised, [`constants.js:665-700`][del].
 - **English text:** [`en.js:1514-1550`][en-1514] and [`en.js:750-762`][en-750].
-- **Chain:** the 5-minute interval, [`hive_evaluator_social.cpp:214`][interval]; sizes and limits, [Chain Parameters](../11-reference/chain-parameters.md#transaction-and-block-size); the post's format, [Artwork Encoding Spec](../09-developers/artwork-encoding-spec.md).
+- **Chain:** the 5-minute interval, [`hive_evaluator_social.cpp:214`][interval]; sizes and limits, [Chain Parameters](../21-reference/chain-parameters.md#transaction-and-block-size); the post's format, [Artwork Encoding Spec](../09-developers/artwork-encoding-spec.md).
 
 [fab]: https://github.com/pixagram-blockchain/pixagram-ui-dev/blob/ca1d15762b52ec08f33c69ca9afa34bb78c0df52/src/js/components/CreateFab.js#L21-L35
 [np-132]: https://github.com/pixagram-blockchain/pixagram-ui-dev/blob/ca1d15762b52ec08f33c69ca9afa34bb78c0df52/src/js/components/NewPost.js#L132-L214

@@ -1,6 +1,6 @@
 # Proof-of-Brain
 
-> **Status: Live.** Rewards have been paid since hardfork 29 (2026-09-18). Figures from the live chain were read at block 895,415 on 2026-10-05.
+> **Status: Live.** Rewards have been paid since hardfork 29 (2026-09-18); hardfork 30 (2026-10-07) let votes from small accounts count. Figures from the live chain were read at block 895,415 on 2026-10-05 and block 977,074 on 2026-10-08.
 
 A blockchain can check a signature or a hash, but it cannot judge a drawing. Proof-of-Brain solves this by handing the judgement to people. Each day a fixed amount of new PIXA is issued. Members holding stake vote on what they value, and the chain divides that amount in proportion to their votes. This page explains the idea, how the Pixa chain carries it out, and where it falls short today.
 
@@ -28,7 +28,7 @@ flowchart TD
     P -->|40%| K["Curators<br/>Pixa Power, by curation weight"]
 ```
 
-1. **Funding.** Each block adds 70% of new issuance to a single reward fund ([Issuance](../11-reference/chain-parameters.md#issuance)). On 2026-10-05 that came to about 18,800 PIXA a day (`condenser_api.get_dynamic_global_properties`).
+1. **Funding.** Each block adds 70% of new issuance to a single reward fund ([Issuance](../21-reference/chain-parameters.md#issuance)). On 2026-10-05 that came to about 18,800 PIXA a day (`condenser_api.get_dynamic_global_properties`).
 2. **Voting.** A full-strength vote spends 2% of the voter's full mana bar. The mana spent, minus a fixed dust deduction, becomes the vote's *rshares*: its weight in the reward calculation ([Voting and Curation](voting-and-curation.md)).
 3. **Cash-out.** Seven days after publication, the post's net rshares become its *claim*. The claim is added to a running total of recent claims, and the post receives that share of the fund:
 
@@ -51,15 +51,15 @@ The chain does not pay rshares directly. It first passes them through two curves
 - **Holding stake earns nothing.** Hive pays stakers 15% of issuance, and pays interest on HBD held in savings. Pixa pays neither ([Supply, Inflation and Yield](../04-tokens-and-economy/supply-inflation-and-yield.md)). Curation rewards pay for the work of voting.
 - **Curators receive 40%** of a post's rewards, where Hive pays 50%. More of each reward goes to the person who made the work.
 - **The 2019 curves are kept.** Hive switched both curves to linear in 2021. Pixa keeps the convergent curves Steem adopted in 2019, which favour early curation.
-- **The inherited denominator was reset.** At genesis, Pixa applied Hive's hardfork 21 value for the total of recent claims, a 2019 Steem figure about 18,000 times the scale that hardfork 29 later set. Every early payout fell below the 0.020 PXS minimum and was paid as nothing. Hardfork 29 lowered the total to this chain's scale ([Chain Parameters](../11-reference/chain-parameters.md#voting-and-curation)).
+- **The inherited denominator was reset.** At genesis, Pixa applied Hive's hardfork 21 value for the total of recent claims, a 2019 Steem figure about 18,000 times the scale that hardfork 29 later set. Every early payout fell below the 0.020 PXS minimum and was paid as nothing. Hardfork 29 lowered the total to this chain's scale ([Chain Parameters](../21-reference/chain-parameters.md#voting-and-curation)).
 
 ## Where it falls short today
 
-- **Small votes count for nothing.** Every vote loses a fixed dust deduction inherited from Hive, and on Pixa one VESTS stands for about 1,600 times more stake than on Hive. A vote, up or down, therefore moves rewards only once the voter has more than 2,500 effective Pixa Power. On 2026-10-05, 23 of the 83 accounts cleared that bar, and 21 of those can vote (`condenser_api.get_accounts`; [details](voting-and-curation.md#why-small-votes-count-for-nothing)).
+- **Small votes counted for nothing until hardfork 30.** Every vote loses a fixed dust deduction inherited from Hive, and on Pixa one VESTS stands for about 1,600 times more stake than on Hive, so until 2026-10-07 a vote moved rewards only from 2,500 effective Pixa Power, and 21 of the chain's 83 accounts could take part. Hardfork 30 divided the deduction by 1,000: a full vote now counts from 2.5 Pixa Power, and 75 of 100 accounts clear it on 2026-10-08 ([details](voting-and-curation.md#from-vote-to-rshares)). A post still pays nothing under 0.020 PXS, so the smallest accounts move rewards only together.
 - **Few voters, so few judges.** Because most stake sits in a handful of accounts, rewards reflect the judgement of very few people ([Decentralization and Safeguards](../07-governance/decentralization-and-safeguards.md)).
 - **Self-voting is allowed.** The chain does not stop anyone voting for their own posts. Downvotes and social pressure are the only checks.
 
-None of this is hidden. Each limit follows from rules listed on [Chain Parameters](../11-reference/chain-parameters.md), and changing any of them takes a hardfork.
+None of this is hidden. Each limit follows from rules listed on [Chain Parameters](../21-reference/chain-parameters.md), and changing any of them takes a hardfork.
 
 ## Inherited → changed
 
@@ -70,7 +70,7 @@ None of this is hidden. Each limit follows from rules listed on [Chain Parameter
 | Curves | linear since Hive's HF25 | convergent linear and convergent square root |
 | Reward for holding stake | 15% of issuance | none |
 | Recent-claims scale | sized for a busy chain | reset to this chain's scale by HF29 |
-| Smallest vote that counts | about 1.6 HP on Hive | more than 2,500 Pixa Power |
+| Smallest full vote that counts | about 1.6 HP on Hive | more than 2.5 Pixa Power since HF30; 2,500 before |
 
 ## Sources
 

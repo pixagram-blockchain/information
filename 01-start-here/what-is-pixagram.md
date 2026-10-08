@@ -57,7 +57,7 @@ You open an account in the app after verifying a phone number. Your keys are cre
 
 The operator pays the account creation fee and lends the new account a small amount of Pixa Power, so it has Resource Credits from the first day. A proposal to the [Decentralized Pixa Fund](../07-governance/decentralized-pixa-fund.md) currently funds this. The app then offers a PDF backup of your phrase and keys. Keep it offline. Step by step: [Create an Account](../08-guides/create-an-account.md).
 
-The loaned stake is enough to publish several artworks a day. It is not enough for your votes to count: a vote moves rewards only once your account holds more than 2,500 Pixa Power ([why](../02-social-layer/voting-and-curation.md#why-small-votes-count-for-nothing)).
+The loaned stake is enough to publish several artworks a day, and since hardfork 30 it is enough for your votes to count: a full vote moves rewards from 2.5 Pixa Power, though a new account's vote alone is far too small to lift a post over the minimum payout ([why](../02-social-layer/voting-and-curation.md#from-vote-to-rshares)).
 
 ## What makes it different
 
@@ -67,7 +67,7 @@ The loaned stake is enough to publish several artworks a day. It is not enough f
 
 ## What is not here yet
 
-- **Buying and selling artworks** on chain is planned for 2027 ([NFTs and Marketplace](../03-art-on-chain/nfts-and-marketplace.md)). The app's NFT tab is a preview.
+- **Buying and selling artworks** on chain is planned for 2027 ([NFTs and Marketplace](../17-marketplace/nfts-and-marketplace.md)). The app's NFT tab is a preview.
 - **Payout choices.** You cannot yet decline rewards or take them entirely as Pixa Power. Every post uses the default split. The chain supports both options; the app does not set them yet.
 - **Tipping** is not a separate feature; you can send a transfer from the other person's wallet page.
 - **Market price.** PIXA does not trade on any market yet. Fiat values shown in the app use a fixed placeholder price.
@@ -93,5 +93,5 @@ The loaned stake is enough to publish several artworks a day. It is not enough f
   - publishing: [`NewPost.js`](https://github.com/pixagram-blockchain/pixagram-ui-dev/blob/ca1d15762b52ec08f33c69ca9afa34bb78c0df52/src/js/components/NewPost.js)
   - wallet: [`PixaWalletDialog.js`](https://github.com/pixagram-blockchain/pixagram-ui-dev/blob/ca1d15762b52ec08f33c69ca9afa34bb78c0df52/src/js/components/PixaWalletDialog.js)
   - sign-up: [`CreateAccountDialog.js`](https://github.com/pixagram-blockchain/pixagram-ui-dev/blob/ca1d15762b52ec08f33c69ca9afa34bb78c0df52/src/js/components/CreateAccountDialog.js)
-- Chain values: [Chain Parameters](../11-reference/chain-parameters.md).
+- Chain values: [Chain Parameters](../21-reference/chain-parameters.md).
 - Proposal funding account creation: `database_api.list_proposals`, proposal 1, read on 2026-10-05.

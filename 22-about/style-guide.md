@@ -7,7 +7,7 @@ This guide is for anyone who writes these pages. It sets out three rules, then t
 ## The three rules
 
 1. **Say what the chain does.** When the design, older documents and the live network disagree, give the network's value and say that the others differ. Readers can check every claim against the code or the chain, and they will.
-2. **Every number has one reference.** [Chain Parameters](../11-reference/chain-parameters.md) holds every protocol value. Another page may quote a number when it helps the reader, but it links there, and Chain Parameters wins if they disagree. Live values appear with the API call that returns them and the date they were read.
+2. **Every number has one reference.** [Chain Parameters](../21-reference/chain-parameters.md) holds every protocol value. Another page may quote a number when it helps the reader, but it links there, and Chain Parameters wins if they disagree. Live values appear with the API call that returns them and the date they were read.
 3. **Promise less, loudly; reference more, quietly.** This matters most for [Pixa Supra (PXS)](#writing-about-pxs), but it applies to tokens, rewards and roadmaps too. State what is not guaranteed before you describe what the design aims for.
 
 ## Page template
@@ -45,22 +45,22 @@ Two to four sentences: what this page answers, and for whom.
 | **Proposed** | A design is under discussion and nothing is committed. |
 | **Historical** | The page describes the past, or is a signed opinion piece. |
 
-When the design and the network differ, the status line says both. For example: "**Live.** 9 witnesses today; up to 21 elected, 1 required."
+When the design and the network differ, the status line says both. For example: "**Live.** 8 witnesses today; up to 21 elected, 1 required."
 
 **Inherited → changed.** Every concept page ends with this table. It shows what Steem or Hive did and what Pixa does instead, which is how the Steem and Hive whitepapers enter these pages: summarised, cited and updated, never copied.
 
 ## Registers
 
-The pages are grouped in four parts, and each has its own voice.
+The repository's sections fall into four registers, and each has its own voice.
 
 | Part | Voice | Do | Don't |
 |---|---|---|---|
-| **Understand** (concepts) | Explanatory, precise; elevated vocabulary is welcome when it is exact | Define each term at first use and link it to the [Glossary](../11-reference/glossary.md) | Use marketing adjectives ("revolutionary", "world domination") or make claims nobody can check |
-| **Use** (guides) | Second person, imperative, one action per step | Warn at the step where it matters: "You cannot undo this." | Explain theory; link to the concept page instead |
-| **Build** (developers, node operators) | Exact and literal | Give copy-paste commands with pinned versions and the expected output | Write "should work" or leave versions unpinned |
-| **Reference** | Tables, no narrative | Source every value | Repeat values from other pages |
+| **Understand** (concepts, sections 01 to 07, and the product pages of section 14) | Explanatory, precise; elevated vocabulary is welcome when it is exact | Define each term at first use and link it to the [Glossary](../21-reference/glossary.md) | Use marketing adjectives ("revolutionary", "world domination") or make claims nobody can check |
+| **Use** (guides, section 08) | Second person, imperative, one action per step | Warn at the step where it matters: "You cannot undo this." | Explain theory; link to the concept page instead |
+| **Build** (developers, node operators, protocol, API, infrastructure: sections 09 to 13 and 18) | Exact and literal | Give copy-paste commands with pinned versions and the expected output | Write "should work" or leave versions unpinned |
+| **Reference** (sections 19 and 21) | Tables, no narrative | Source every value | Repeat values from other pages |
 
-Pages in **History & Perspectives** are dated, signed essays. They may keep their authors' voice. A fact from an essay enters a reference page only after someone checks it.
+Pages in **History and design** (section 20) are dated: the timeline from the chain's record, and signed essays that may keep their authors' voice. A fact from an essay enters a reference page only after someone checks it. Sections whose pages are all planned (15 to 17 except their one written page each) carry a README that says so and nothing more.
 
 Elevated but exact:
 
@@ -84,7 +84,7 @@ Not this:
 | Block producers | witnesses | |
 | Consensus and rewards | DPoS, Proof-of-Brain | Proof-of-Brain is hyphenated and capitalised. |
 | Fee model | Resource Credits (RC) | |
-| Upgrades | hardfork 29 in prose, HF29 in tables | |
+| Upgrades | hardfork 30 in prose, HF30 in tables | |
 | Organisations | Pixagram SA (Switzerland), Pixa Omnibus Foundation (Cayman Islands), Pixa Rex S.A. (Panama) | Don't confuse the Foundation with the `pixa.omnibus` account. |
 | The older chains | Steem and Hive for the chains; STEEM and HIVE for their tokens | |
 | Operations and API methods | `comment`, `transfer`, `condenser_api.get_accounts` | code format |
@@ -103,11 +103,11 @@ These appear in older posts, articles and documentation. Do not reuse them. When
 | Pixagram AG | Pixagram SA | The company presents itself publicly as Pixagram SA. |
 | PixaFlat, PixaSupra | Pixa Supra (PXS) | The unit has one name. |
 | "stable", "stablecoin", "Big Mac Index stablecoin", "pegged", "pegged to $1 of PIXA", "pegged to the Big Mac Index" | "Big Mac referenced supracoin", after saying that PXS promises no price; see [Writing about PXS](#writing-about-pxs) | PXS defends no price. |
-| "backed by a minimum 300% reserve" | "conversions are reduced by a haircut when the collateral ratio is low; no reserve is held" | No reserve exists. The real thresholds are in [Chain Parameters](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed). |
+| "backed by a minimum 300% reserve" | "conversions are reduced by a haircut when the collateral ratio is low; no reserve is held" | No reserve exists. The real thresholds are in [Chain Parameters](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed). |
 | Decentralized Proposal Fund | Decentralized Pixa Fund (DPF) | That is the name used on chain. |
-| "17.5% of inflation to the DPF" | link to [Issuance](../11-reference/chain-parameters.md#issuance) | The nominal share is 15%. |
+| "17.5% of inflation to the DPF" | link to [Issuance](../21-reference/chain-parameters.md#issuance) | The nominal share is 15%. |
 | "300,000 TPS", "10,000 TPS" | "capacity is bounded by block size; no benchmark has been published" | Nothing has measured these figures. |
-| "72 kB posts", "128 KiB transaction limit" | link to [Transaction and block size](../11-reference/chain-parameters.md#transaction-and-block-size) | Neither limit exists. |
+| "72 kB posts", "128 KiB transaction limit" | link to [Transaction and block size](../21-reference/chain-parameters.md#transaction-and-block-size) | Neither limit exists. |
 | "base64 PNG and WebP posts", "fully on-chain, no hashes" (about everything) | "Artworks are stored in the post itself as lossless WebP. Images inside blog posts are links to files hosted elsewhere; the editor uploads them to Arweave." | Blog images are links. |
 | "zero fees", "no fees" | "Most operations carry no fee. Opening an account, creating a proposal and converting PIXA to PXS each cost one." | Three operations do charge a fee. |
 | "deflationary" | issuance and burn figures | PIXA is issued in every block. |
@@ -133,7 +133,7 @@ PXS promises no price. Nothing defends it, and no one owes its holder anything. 
 | "redeem", "redemption", "1 PXS = X" | "converts to PIXA at the prevailing haircut, which may be below the oracle reading" |
 | "guaranteed", "pegged", "= 1 USD / EUR", "your value is safe" | Remove them. |
 
-The words that fit are oracle, atlas, supra, macro, haircut, projection and orientation. The [Glossary](../11-reference/glossary.md#design-vocabulary) defines each.
+The words that fit are oracle, atlas, supra, macro, haircut, projection and orientation. The [Glossary](../21-reference/glossary.md#design-vocabulary) defines each.
 
 **Six statements every PXS text must stay consistent with.** If a sentence contradicts one of them, change the sentence.
 
@@ -144,7 +144,7 @@ The words that fit are oracle, atlas, supra, macro, haircut, projection and orie
 5. Risk is moved, not removed. Say where it sits.
 6. The reference is a direction, never a destination.
 
-**Say where the design and the chain differ.** The PXS design notes describe a corridor of roughly 3× to 10× and 21 witnesses. The chain enforces different thresholds, and fewer witnesses run today (see [Chain Parameters](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)). Until PIXA trades on a market, the feed uses a placeholder price for PIXA, and any PXS page must say so. [PXS at a Glance](../05-pixa-supra/pxs-at-a-glance.md#where-the-design-and-the-chain-differ) lists the differences.
+**Say where the design and the chain differ.** The PXS design notes describe a corridor of roughly 3× to 10× and 21 witnesses. The chain enforces different thresholds, and fewer witnesses run today (see [Chain Parameters](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)). Until PIXA trades on a market, the feed uses a placeholder price for PIXA, and any PXS page must say so. [PXS at a Glance](../05-pixa-supra/pxs-at-a-glance.md#where-the-design-and-the-chain-differ) lists the differences.
 
 ## Tokens, rewards and money
 
@@ -159,14 +159,14 @@ The words that fit are oracle, atlas, supra, macro, haircut, projection and orie
 - **Dates and times.** Write dates in ISO form, with times in UTC: 2026-09-04 12:00 UTC.
 - **Byte units.** KiB and MiB are powers of 1,024; kB and MB are powers of 1,000. Use the one the source uses.
 - **Token amounts.** Give the token's own precision: 3 decimals for PIXA and PXS, 6 for VESTS.
-- **Live values.** Show the API call that returns them and the date you read them: "9 witnesses on 2026-10-05 (`get_witness_schedule`)".
-- **Approximations.** Approximate only with "about", and give the exact figure on [Chain Parameters](../11-reference/chain-parameters.md).
+- **Live values.** Show the API call that returns them and the date you read them: "8 witnesses on 2026-10-08 (`get_witness_schedule`)".
+- **Approximations.** Approximate only with "about", and give the exact figure on [Chain Parameters](../21-reference/chain-parameters.md).
 
 ## Sources and citations
 
 - **Code.** Cite a permalink at a fixed commit, with line numbers.
 - **Whitepapers.** Cite the Steem whitepaper and the Hive whitepaper (2020) by section. The steem.com site now serves a July 2025 edition of the Steem whitepaper. For what Steem said at its launch, cite the [March 2016 edition](https://web.archive.org/web/20160815131730/https://steem.io/SteemWhitePaper.pdf).
-- **Articles and essays.** Cite with author, date and link. Facts they contain must be checked before they appear outside History & Perspectives.
+- **Articles and essays.** Cite with author, date and link. Facts they contain must be checked before they appear outside History and design.
 - **Sources section.** Every concept page ends with one.
 
 ## Diagrams and images
@@ -185,15 +185,15 @@ The words that fit are oracle, atlas, supra, macro, haircut, projection and orie
 ## Files, folders and links
 
 - **File names** are lowercase words joined by hyphens, such as `pxs-at-a-glance.md`. A page's title is its first heading.
-- **Folders** follow the reading order, from `01-start-here` to `13-about`. Each folder's `README.md` lists its pages, and the repository's `README.md` lists them all.
-- **Links between pages** are relative and end in `.md`, for example `../11-reference/glossary.md#haircut`, so they work on GitHub and in any copy of the repository.
+- **Folders** follow the reading order, from `01-start-here` to `22-about`. Each folder's `README.md` lists its pages, and the repository's `README.md` lists them all.
+- **Links between pages** are relative and end in `.md`, for example `../21-reference/glossary.md#haircut`, so they work on GitHub and in any copy of the repository.
 - **Anchors** come from headings. Renaming a heading breaks the links to it, so search for them first.
 - **Planned pages** appear in plain text in the indexes until they are written. Never link to a page that does not exist.
 
 ## Before you submit
 
 - [ ] The page opens with a status line and a date.
-- [ ] Every protocol number matches [Chain Parameters](../11-reference/chain-parameters.md) and links there, or is a live value given with its API call and date.
+- [ ] Every protocol number matches [Chain Parameters](../21-reference/chain-parameters.md) and links there, or is a live value given with its API call and date.
 - [ ] No retired name or claim appears.
 - [ ] Anything about PXS leads with what it does not guarantee.
 - [ ] Concept pages end with the inherited → changed table and their sources.

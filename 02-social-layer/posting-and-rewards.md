@@ -1,6 +1,6 @@
 # Posting and Rewards
 
-> **Status: Live.** Checked against the chain at block 895,415 and the app at commit `ca1d157` on 2026-10-05.
+> **Status: Live.** Checked against the chain at block 895,415 and the app at commit `ca1d157` on 2026-10-05; the hardfork-30 changes to payouts were checked on 2026-10-08.
 
 This page follows a post from publication to payout. It covers what a post is on chain, how its rewards are split and in which tokens, which options exist, and what happens when you edit or delete it.
 
@@ -34,11 +34,11 @@ The pending amount the app shows during the week is an estimate. It moves as vot
 
 | Recipient | Share of the post's payout | Paid in |
 |---|---|---|
-| Author | 60%, minus beneficiaries | Half PXS, half Pixa Power by default. The PXS half is limited by the print rate. |
+| Author | 60%, minus beneficiaries | Half PXS, half Pixa Power by default. The PXS half is limited by the print rate, and since hardfork 30 the few thousandths of a PIXA that do not fit into a whole 0.001 PXS come as PIXA instead of being burned ([Reward Examples](../19-economics-lab/reward-examples.md)). |
 | Beneficiaries | Their named share of the author's 60% | The same split as the author, except the fund, `pixa.omnibus`, which is paid entirely in PXS |
 | Curators | 40% | Pixa Power only, divided by curation weight |
 
-- **The print rate.** PXS promises no price. The print rate sets how much of the PXS half is created as PXS. It is 100% while PXS outside the treasury stays under 20% of the combined value. If PXS ever passed that line, the PXS half would be paid in liquid PIXA instead ([Chain Parameters](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)). On 2026-10-05 that share was about 0.12% (`condenser_api.get_dynamic_global_properties`).
+- **The print rate.** PXS promises no price. The print rate sets how much of the PXS half is created as PXS. It is 100% while PXS outside the treasury stays under 20% of the combined value. If PXS ever passed that line, the PXS half would be paid in liquid PIXA instead ([Chain Parameters](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)). On 2026-10-05 that share was about 0.12% (`condenser_api.get_dynamic_global_properties`).
 - **Unclaimed curation stays in the fund.** If no one curates a post, or its author switched curation off, the curators' 40% stays in the reward fund. It is not passed to the author.
 
 **A real payout.** On 2026-10-05, a post paid out 22.272 PXS-equivalent, valued at the placeholder median feed of 51.833 PIXA per PXS:
@@ -70,7 +70,7 @@ An author can attach `comment_options` to a post. Each option can only make the 
 
 ## Limits
 
-The chain's limits are on [Chain Parameters](../11-reference/chain-parameters.md#posts-and-comments):
+The chain's limits are on [Chain Parameters](../21-reference/chain-parameters.md#posts-and-comments):
 
 - 5 minutes between top-level posts
 - a title under 256 bytes

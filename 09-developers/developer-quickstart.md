@@ -8,8 +8,8 @@ This page takes you from nothing to reading the chain, saving an artwork and sig
 
 - **Endpoints.** Six public API nodes serve the same chain: `https://api.pixagram.com`, `https://pixarex.net`, `https://merlion.surf`, `https://blockforge.lol`, `https://boitata.quest` and `https://pixa-dubai.xyz`. All accept browser requests from any origin.
 - **There is no testnet.** Every transaction you broadcast is real and stays in the chain forever ([Permanence and Provenance](../03-art-on-chain/permanence-and-provenance.md)). Test with a small account.
-- **Use the weakest key that works.** The posting key votes, posts and follows; the active key moves funds; the owner key is never needed by code ([Keys](../11-reference/glossary.md#keys)). Pass keys through environment variables. Never write one into a file or a repository. The examples use placeholders such as `5K...`.
-- **Requests are limited to about 1 MiB** by the public nodes ([Chain Parameters](../11-reference/chain-parameters.md#transaction-and-block-size)).
+- **Use the weakest key that works.** The posting key votes, posts and follows; the active key moves funds; the owner key is never needed by code ([Keys](../21-reference/glossary.md#keys)). Pass keys through environment variables. Never write one into a file or a repository. The examples use placeholders such as `5K...`.
+- **Requests are limited to about 1 MiB** by the public nodes ([Chain Parameters](../21-reference/chain-parameters.md#transaction-and-block-size)).
 
 ## 1. One request with curl
 
@@ -193,7 +193,7 @@ included in block <block number>
 
 - **What happens.** The library reads the head block, builds the transaction, signs it locally and sends it with `condenser_api.broadcast_transaction`. Your key never leaves your machine.
 - **What "accepted" means.** The broadcast call returns as soon as the node accepts the transaction, with only its `id`. It does not wait for a block, so the script asks `condenser_api.get_transaction` until a block holds it.
-- **What the vote does.** `weight` runs from −10000 (full downvote) to 10000 (full upvote). A full-strength vote spends 2% of your voting mana, and it moves rewards only if you hold more than about 2,500 Pixa Power ([why](../02-social-layer/voting-and-curation.md#why-small-votes-count-for-nothing)).
+- **What the vote does.** `weight` runs from −10000 (full downvote) to 10000 (full upvote). A full-strength vote spends 2% of your voting mana, and since hardfork 30 it moves rewards from 2.5 Pixa Power; before, it needed more than 2,500 ([why](../02-social-layer/voting-and-curation.md#from-vote-to-rshares)).
 
 ## 6. When a call fails
 

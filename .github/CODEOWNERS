@@ -1,0 +1,27 @@
+# Review gate for the Pixagram documentation.
+# GitHub asks these owners to review every pull request that touches their paths.
+# To make their approval mandatory, protect the main branch with
+# "Require a pull request before merging" + "Require review from Code Owners".
+# The last matching rule wins.
+
+*                                                    @vipertechofficial
+
+# Chain facts: also checked by the chain maintainer
+/09-developers/                                      @vipertechofficial @MatusKysel
+/10-node-operators/                                  @vipertechofficial @MatusKysel
+/11-protocol-reference/                              @vipertechofficial @MatusKysel
+/12-api-reference/                                   @vipertechofficial @MatusKysel
+/18-infrastructure/                                  @vipertechofficial @MatusKysel
+/19-economics-lab/                                   @vipertechofficial @MatusKysel
+/21-reference/                                       @vipertechofficial @MatusKysel
+
+# PXS, distribution, entities and legal text: owner approval only.
+# Add counsel here once they have a GitHub account.
+/05-pixa-supra/                                      @vipertechofficial
+/06-economic-cybernetics/                            @vipertechofficial
+/04-tokens-and-economy/genesis-and-distribution.md   @vipertechofficial
+/01-start-here/who-does-what.md                      @vipertechofficial
+/13-security/                                        @vipertechofficial
+/17-marketplace/                                     @vipertechofficial
+/22-about/                                           @vipertechofficial
+/.github/                                            @vipertechofficial

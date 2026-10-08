@@ -1,6 +1,6 @@
 # FAQ
 
-> **Status: Live.** Short answers, each linking to the page that explains it. Last checked 2026-10-05.
+> **Status: Live.** Short answers, each linking to the page that explains it. Last checked 2026-10-08.
 
 ## Using Pixagram
 
@@ -14,7 +14,7 @@ No. The app opens your account after you verify a phone number, and the operator
 No. Posting and voting spend [Resource Credits](../04-tokens-and-economy/resource-credits.md), not fees. New accounts receive enough to publish several artworks a day.
 
 **Why does my vote show no value?**
-A vote moves rewards only once the voter holds more than 2,500 Pixa Power. Below that, the chain's dust deduction cancels it ([why](../02-social-layer/voting-and-curation.md#why-small-votes-count-for-nothing)).
+Since hardfork 30 (2026-10-07) every full vote from more than 2.5 Pixa Power moves rewards; before, the chain's dust deduction cancelled every vote below 2,500 Pixa Power. A small account's vote still shows no value on its own, because a post pays nothing under 0.020 PXS, about 1 PIXA: it takes about 1,000 Pixa Power behind a post, in one vote or several, to reach that ([why](../02-social-layer/voting-and-curation.md#from-vote-to-rshares)).
 
 **When are rewards paid?**
 Seven days after a post is published. The rewards then wait in your wallet until you claim them ([Posting and Rewards](../02-social-layer/posting-and-rewards.md)).
@@ -37,7 +37,7 @@ No. Posts, votes, transfers and balances are public. Only memos encrypted with a
 Only if you choose it. If you accept the AI conversion, your picture is sent to a Hugging Face Space run by the project. Otherwise conversion happens in your browser ([Pixel Art On Chain](../03-art-on-chain/pixel-art-on-chain.md)).
 
 **Can I sell my art?**
-Not yet. Buying and selling artworks on chain is planned for 2027 ([NFTs and Marketplace](../03-art-on-chain/nfts-and-marketplace.md)).
+Not yet. Buying and selling artworks on chain is planned for 2027 ([NFTs and Marketplace](../17-marketplace/nfts-and-marketplace.md)).
 
 ## Tokens
 
@@ -51,15 +51,15 @@ No. Nothing defends its price, no one redeems it for money, and it pays no inter
 No. Holding earns nothing by itself. Rewards pay for publishing, curating and producing blocks ([Supply, Inflation and Yield](../04-tokens-and-economy/supply-inflation-and-yield.md)).
 
 **Is PIXA deflationary?** <!-- retired-ok -->
-No. New PIXA is issued every block, at a yearly rate that started at about 9.8% and falls to 0.95% by about 2047 ([Issuance](../11-reference/chain-parameters.md#issuance)).
+No. New PIXA is issued every block, at a yearly rate that started at about 9.8% and falls to 0.95% by about 2047 ([Issuance](../21-reference/chain-parameters.md#issuance)).
 
 **What is PIXA worth?**
-PIXA does not trade on any market yet. Fiat values in the app use a fixed placeholder price, as do the witnesses' feeds ([placeholder](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)).
+PIXA does not trade on any market yet. Fiat values in the app use a fixed placeholder price, as do the witnesses' feeds ([placeholder](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)).
 
 ## Safety and control
 
 **What happens if I lose my keys?**
-Your recovery phrase recreates them, together with the password you set with it, if any, so keep the PDF backup offline ([Keys and Recovery](../08-guides/keys-and-recovery.md)). Account recovery, which reverses a theft of your owner key, becomes possible on the chain from about 2026-12-24 ([why](../11-reference/chain-parameters.md#accounts-and-keys)).
+Your recovery phrase recreates them, together with the password you set with it, if any, so keep the PDF backup offline ([Keys and Recovery](../08-guides/keys-and-recovery.md)). Account recovery, which reverses a theft of your owner key, has been possible on the chain since hardfork 30 on 2026-10-07 for owner-key changes made after that moment; the app has no screen for it yet ([why](../21-reference/chain-parameters.md#accounts-and-keys)).
 
 **Who controls the chain?**
 The witnesses whom stakeholders elect. Rule changes take effect only when enough witnesses run them ([Witnesses and DPoS](../07-governance/witnesses-and-dpos.md)).
@@ -74,4 +74,4 @@ The chain would keep running as long as witnesses produce blocks and nodes serve
 No. It runs on its own chain, built from Hive's code, and does not integrate with either.
 
 **Where do I report a security problem?**
-Privately, to the maintainers. Never in a public post or issue ([Style Guide](../13-about/style-guide.md#security-and-disclosure)).
+Privately, to the maintainers. Never in a public post or issue ([Style Guide](../22-about/style-guide.md#security-and-disclosure)).

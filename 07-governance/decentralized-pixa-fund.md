@@ -9,13 +9,13 @@ The Decentralized Pixa Fund (DPF) is the community's treasury. It is held by `pi
 | Source | Since genesis, to 2026-10-05 15:00 UTC |
 |---|---|
 | Seed at genesis | 245,098.039 PXS |
-| Share of issuance: 15% nominal, converted to PXS in every block | 1,778.751 PXS; 57.6 PXS a day now |
+| Share of issuance: 15% nominal, converted to PXS in every block | 1,778.751 PXS; 57.6 PXS a day then, about 78 since hardfork 30 |
 | Proposal fees, which are paid into the fund | 3,661.000 PXS from three proposals |
 | PIXA sent to the fund, converted to PXS at once | none so far |
 | Paid out to proposals | −1,232.827 PXS |
 | **Balance** | **249,304.963 PXS** |
 
-**What the fund actually receives from issuance.** The fund's share is converted to PXS at the median feed and rounded down to 0.001 PXS in every block. On 2026-10-05 it received 0.002 PXS a block, about 74% of its nominal share. If the median rose above about 140 PIXA per PXS at today's issuance, the share would round down to nothing ([Supply, Inflation and Yield](../04-tokens-and-economy/supply-inflation-and-yield.md#where-new-tokens-go)).
+**What the fund actually receives from issuance.** The fund's share is converted to PXS at the median feed. Until hardfork 30 each block's share was rounded down to 0.001 PXS: at 51.833 PIXA per PXS the fund received 0.002 of the 0.0027 PXS due, about 74% of its nominal share, and a median above about 140 PIXA per PXS would have rounded it to nothing. Since 2026-10-07 consecutive blocks pay the exact share between them, 0.002 or 0.003 PXS each, about 78 PXS a day ([Supply, Inflation and Yield](../04-tokens-and-economy/supply-inflation-and-yield.md#where-new-tokens-go)). Hourly proposal payments stopped losing their rounding the same way; before, a proposal paying less than 0.024 PXS a day received nothing.
 
 ## How it pays
 
@@ -33,7 +33,7 @@ flowchart LR
 3. **Payment runs down the ranking.** Each proposal receives its daily pay for the hour, starting with the most-voted, until the budget runs out.
 4. **The return proposal sets the threshold.** Proposal 2 pays its receiver, the fund itself, and asks for 1,000,000 PXS a day, so it takes whatever budget is left. Any proposal with fewer votes than it receives nothing. Its vote total is therefore the funding threshold. Its payments to the fund, 25,946.984 PXS so far, cancel out.
 
-The fund cannot be spent any other way. No person, company or foundation holds its keys ([System Accounts](../11-reference/system-accounts.md#the-treasury-pixaomnibus)).
+The fund cannot be spent any other way. No person, company or foundation holds its keys ([System Accounts](../21-reference/system-accounts.md#the-treasury-pixaomnibus)).
 
 ## Proposals on 2026-10-05
 
@@ -48,7 +48,7 @@ The fund cannot be spent any other way. No person, company or foundation holds i
 
 - **Proposal 1** had received 1,232.827 PXS by 15:00 UTC, paid as 4.583 PXS every hour. Its pay is about 4% of the daily budget. The rest of the budget returns to the fund.
 - **Proposal 0**, a one-day proposal in September 2026, has expired.
-- **The fund is shrinking slowly.** It receives 57.6 PXS a day and pays out 110, so it shrinks by about 52 PXS a day while proposal 1 runs.
+- **The fund is shrinking slowly.** Since hardfork 30 it receives about 78 PXS a day (57.6 before) and pays out 110, so it shrinks by about 32 PXS a day while proposal 1 runs.
 
 ## Proposing
 
@@ -80,7 +80,7 @@ The fund cannot be spent any other way. No person, company or foundation holds i
 |---|---|---|
 | Name | Steem Proposal System; Decentralized Hive Fund | Decentralized Pixa Fund |
 | Account | `steem.dao`, then `hive.fund` | `pixa.omnibus`, which has no keys |
-| Share of issuance | Hive: 10% | 15% nominal, reduced by rounding |
+| Share of issuance | Hive: 10% | 15%, paid exactly since HF30; reduced by rounding before |
 | Paid in | HBD | PXS |
 | Return proposal | id 0 | id 2 |
 | Seed at launch | Hive: Steem's treasury balance, plus the balances of 328 excluded accounts | 245,098.039 PXS |
@@ -94,7 +94,7 @@ The fund cannot be spent any other way. No person, company or foundation holds i
   - budget and payments: [dhf_processor.cpp:145-286](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/util/dhf_processor.cpp#L145-L286)
   - creating, changing and voting on proposals: [dhf_evaluator.cpp:32-211](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/dhf_evaluator.cpp#L32-L211)
   - the fund's share of issuance: [database.cpp:1781-1800](https://github.com/pixagram-blockchain/pixagram/blob/48f75a28840c24e5a5b42ccb4f94dc8668ecb443/libraries/chain/database.cpp#L1781-L1800)
-  - constants: [Chain Parameters](../11-reference/chain-parameters.md#decentralized-pixa-fund-dpf)
+  - constants: [Chain Parameters](../21-reference/chain-parameters.md#decentralized-pixa-fund-dpf)
 - **Live chain**, read on 2026-10-05:
   - `database_api.list_proposals` and `database_api.list_proposal_votes`
   - the history of `pixa.omnibus`: `dhf_funding`, `proposal_fee` and `proposal_pay` operations

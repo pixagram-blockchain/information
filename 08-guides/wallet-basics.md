@@ -18,7 +18,7 @@ On your profile, click the wallet icon: in the sidebar on a computer, or in the 
 
 The app writes PIXA as PXA and Pixa Power as PXP.
 
-**About the amounts in your currency.** PIXA does not trade on any market yet. The wallet values PIXA and Pixa Power at a fixed placeholder of 0.12 USD, and PXS through the witnesses' feed, which uses the same placeholder ([Chain Parameters](../11-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)). The rate to your currency comes from Frankfurter, and you choose the currency in Settings. These amounts are not prices anyone has paid.
+**About the amounts in your currency.** PIXA does not trade on any market yet. The wallet values PIXA and Pixa Power at a fixed placeholder of 0.12 USD, and PXS through the witnesses' feed, which uses the same placeholder ([Chain Parameters](../21-reference/chain-parameters.md#pixa-supra-pxs-and-the-price-feed)). The rate to your currency comes from Frankfurter, and you choose the currency in Settings. These amounts are not prices anyone has paid.
 
 ## Send tokens
 
@@ -88,7 +88,7 @@ On the History tab, click **Claim Reward**. It moves your pending author and cur
 - **Values in your currency:** the placeholder price, [`pixaproxyapi.js:3814-3845`][api-3814]; exchange rates, [`pixaproxyapi.js:4193-4214`][api-4193].
 - **Taxes:** [`PixaWalletTaxesDialog.js`][taxes].
 - **English text:** [`en.js:1655-2045`][en-1655].
-- **Chain:** power-down, delegation return and the 30-day wait, [Chain Parameters](../11-reference/chain-parameters.md#pixa-power-staking); conversions, [Haircut, Corridor and Settlement](../05-pixa-supra/haircut-corridor-and-settlement.md#sources).
+- **Chain:** power-down, delegation return and the 30-day wait, [Chain Parameters](../21-reference/chain-parameters.md#pixa-power-staking); conversions, [Haircut, Corridor and Settlement](../05-pixa-supra/haircut-corridor-and-settlement.md#sources).
 
 [wallet]: https://github.com/pixagram-blockchain/pixagram-ui-dev/blob/ca1d15762b52ec08f33c69ca9afa34bb78c0df52/src/js/components/PixaWalletDialog.js
 [profile]: https://github.com/pixagram-blockchain/pixagram-ui-dev/blob/ca1d15762b52ec08f33c69ca9afa34bb78c0df52/src/js/pages/Profile.js#L293-L313
